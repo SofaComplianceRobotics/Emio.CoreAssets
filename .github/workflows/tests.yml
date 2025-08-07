@@ -118,17 +118,23 @@ jobs:
       - name: Move python packages
         shell: bash
         run: |    
+            cd $SOFA_ROOT/plugins
+            # Copy packages
             if [[ "$RUNNER_OS" != "macOS" ]]; then
-                cd $SOFA_ROOT/plugins
-                # Copy packages
                 find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
                     cp -r --preserve=links ${line}/* ./SofaPython3/lib/python3/site-packages
                     rm -rf ${line}
                 done
-                cd  ${GITHUB_WORKSPACE}
+            else
+                find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
+                    cp -R ${line}/* ./SofaPython3/lib/python3/site-packages
+                    rm -rf ${line}
+                done
             fi
+            cd  ${GITHUB_WORKSPACE}
 
       - name: Additional Install 
+        shell: bash
         run: |
             if [[ "$RUNNER_OS" == "Linux" ]]; then
                 sudo apt install libopengl0 
@@ -158,8 +164,6 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
-            echo $PYTHONPATH
-            ls $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
           fi
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
