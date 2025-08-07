@@ -138,6 +138,9 @@ jobs:
         run: |
             if [[ "$RUNNER_OS" == "Linux" ]]; then
                 sudo apt install libopengl0 
+            elif [[ "$RUNNER_OS" == "macOS" ]]; then
+                brew install glew
+                brew install glfw
             fi
 
       - name: Install Python
