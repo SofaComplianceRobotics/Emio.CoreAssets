@@ -50,8 +50,8 @@ jobs:
           unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA_*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
           $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA_*/* $SOFA_ROOT
           cp "$SOFA_ROOT/share/sofa/icons"/* "$SOFA_ROOT/share/sofa/"
-          sed -i "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf
-          sed -i "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
+          sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf
+          sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
 
           # SoftRobots.Inverse
           echo "First, removing SoftRobots.Inverse from SOFA binaries (if any)"
