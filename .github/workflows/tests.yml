@@ -155,10 +155,10 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            set PATH=%PATH%;"$SOFA_ROOT/bin"
-            set PYTHONPATH=%PYTHONPATH%;"$SOFA_ROOT/lib/python3/site-packages"
-            set PYTHONPATH=%PYTHONPATH%;"$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
-            set PYTHONPATH=%PYTHONPATH%;"$GITHUB_WORKSPACE"
+            $env:PATH+=";$SOFA_ROOT\bin"
+            $env:PYTHONPATH="$SOFA_ROOT\lib\python3\site-packages"
+            $env:PYTHONPATH+=";$SOFA_ROOT\plugins\SofaPython3\lib\python3\site-packages"
+            $env:PYTHONPATH+=";$GITHUB_WORKSPACE"
           else
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
