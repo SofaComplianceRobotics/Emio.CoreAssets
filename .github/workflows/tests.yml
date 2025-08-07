@@ -159,10 +159,10 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            $env.PATH="$GITHUB_WORKSPACE\sofa-install\bin"
-            $env.PYTHONPATH="$GITHUB_WORKSPACE\sofa-install\lib\python3\site-packages"
-            $env.PYTHONPATH+=";$GITHUB_WORKSPACE\sofa-install\plugins\SofaPython3\lib\python3\site-packages"
-            $env.PYTHONPATH+=";$GITHUB_WORKSPACE"
+            $env:Path="$GITHUB_WORKSPACE\sofa-install\bin"
+            $env:PYTHONPATH="$GITHUB_WORKSPACE\sofa-install\lib\python3\site-packages"
+            $env:PYTHONPATH+=";$GITHUB_WORKSPACE\sofa-install\plugins\SofaPython3\lib\python3\site-packages"
+            $env:PYTHONPATH+=";$GITHUB_WORKSPACE"
           else
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
