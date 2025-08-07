@@ -141,6 +141,7 @@ jobs:
             elif [[ "$RUNNER_OS" == "macOS" ]]; then
                 brew install glew
                 brew install glfw
+                brew install tinyxml2
             fi
 
       - name: Install Python
