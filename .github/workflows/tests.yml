@@ -158,17 +158,10 @@ jobs:
       - name: Run tests
         shell: bash
         run: |    
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            $env:Path="$GITHUB_WORKSPACE\sofa-install\bin"
-            $env:PYTHONPATH="$GITHUB_WORKSPACE\sofa-install\lib\python3\site-packages"
-            $env:PYTHONPATH+=";$GITHUB_WORKSPACE\sofa-install\plugins\SofaPython3\lib\python3\site-packages"
-            $env:PYTHONPATH+=";$GITHUB_WORKSPACE"
-          else
-            export PATH=$PATH:$SOFA_ROOT/bin
-            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
-          fi
+          export PATH=$PATH:$SOFA_ROOT/bin
+          export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
+          export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+          export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
 
