@@ -158,6 +158,7 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
+            ls $SOFA_ROOT
             $env:PATH+=";$SOFA_ROOT\bin"
             $env:PYTHONPATH="$SOFA_ROOT\lib\python3\site-packages"
             $env:PYTHONPATH+=";$SOFA_ROOT\plugins\SofaPython3\lib\python3\site-packages"
