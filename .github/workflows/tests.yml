@@ -159,7 +159,6 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' >> $SOFA_ROOT
             export SOFA_ROOT=$( echo "/$BEEP" | sed -e 's/\\/\//g' -e 's/://' )
             echo $SOFA_ROOT
             WIN_WORKSPACE=$( echo "/$BEEP" | sed -e 's/\\/\//g' -e 's/://' )
