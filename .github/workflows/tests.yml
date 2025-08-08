@@ -159,19 +159,19 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            export SOFA_ROOT=$( echo "/$BEEP" | sed -e 's/\\/\//g' -e 's/://' )
-            echo $SOFA_ROOT
-            WIN_WORKSPACE=$( echo "/$BEEP" | sed -e 's/\\/\//g' -e 's/://' )
+            export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            echo $WIN_SOFA_ROOT
+            WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
             echo $WIN_WORKSPACE
-            ls -a $SOFA_ROOT/bin
-            export PATH=$PATH:$SOFA_ROOT/bin
-            export PYTHONPATH="$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
+            ls -a $WIN_SOFA_ROOT/bin
+            export PATH=$PATH:$WIN_SOFA_ROOT/bin
+            export PYTHONPATH="$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
             export PYTHONPATH=$PYTHONPATH:$WIN_WORKSPACE
             echo $PYTHONPATH
-            echo $SOFA_ROOT/lib
-            ls -a $SOFA_ROOT/lib
-            echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            ls -a $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+            echo $WIN_SOFA_ROOT/lib
+            ls -a $WIN_SOFA_ROOT/lib
+            echo $WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+            ls -a $WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             ls -a $GITHUB_WORKSPACE
           else
             export PATH=$PATH:$SOFA_ROOT/bin
