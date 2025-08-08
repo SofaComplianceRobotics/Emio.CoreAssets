@@ -160,19 +160,10 @@ jobs:
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            echo $WIN_SOFA_ROOT
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
-            echo $WIN_WORKSPACE
-            ls -a $WIN_SOFA_ROOT/bin
             export PATH=$PATH:$WIN_SOFA_ROOT/bin
             export PYTHONPATH="$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
             export PYTHONPATH=$PYTHONPATH:$WIN_WORKSPACE
-            echo $PYTHONPATH
-            echo $WIN_SOFA_ROOT/lib
-            ls -a $WIN_SOFA_ROOT/lib
-            echo $WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            ls -a $WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            ls -a $GITHUB_WORKSPACE
           else
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
