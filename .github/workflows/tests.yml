@@ -159,7 +159,11 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' >> $SOFA_ROOT
             echo $SOFA_ROOT
+            export WIN_WORKSPACE = 
+            echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' >> $WIN_WORKSPACE
+            echo $WIN_WORKSPACE
             ls -a $SOFA_ROOT/bin
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH="$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
