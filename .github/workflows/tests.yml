@@ -165,8 +165,12 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
-            echo $PYHTONPATH
-            ls $SOFA_ROOT/lib/python3/site-packages
+            echo $PYTHONPATH
+            echo $SOFA_ROOT/lib
+            ls $SOFA_ROOT/lib
+            echo $SOFA_ROOT/lib/python3
+            ls $SOFA_ROOT/lib/python3
+            echo $SOFA_ROOT/plugins
             ls $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             ls $GITHUB_WORKSPACE
           else
