@@ -159,10 +159,10 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            export PATH=$PATH;$SOFA_ROOT/bin
-            export PYTHONPATH=$PYTHONPATH;$SOFA_ROOT/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH;$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH;$GITHUB_WORKSPACE
+            export PATH=$PATH:$SOFA_ROOT/bin
+            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
+            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+            export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
           else
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
