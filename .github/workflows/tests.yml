@@ -18,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest] #, macos-13, windows-2022]
+        os: [ubuntu-latest, macos-14, windows-2022]
         sofa_branch: [master]
 
     steps:    
@@ -50,8 +50,13 @@ jobs:
           unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA_*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
           $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA_*/* $SOFA_ROOT
           cp "$SOFA_ROOT/share/sofa/icons"/* "$SOFA_ROOT/share/sofa/"
-          sed -i "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf
-          sed -i "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/bin/plugin_list.conf
+            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/bin/plugin_list.conf.default
+          else
+            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf
+            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
+          fi
 
           # SoftRobots.Inverse
           echo "First, removing SoftRobots.Inverse from SOFA binaries (if any)"
@@ -113,20 +118,30 @@ jobs:
       - name: Move python packages
         shell: bash
         run: |    
+            cd $SOFA_ROOT/plugins
+            # Copy packages
             if [[ "$RUNNER_OS" != "macOS" ]]; then
-                cd $SOFA_ROOT/plugins
-                # Copy packages
                 find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
                     cp -r --preserve=links ${line}/* ./SofaPython3/lib/python3/site-packages
                     rm -rf ${line}
                 done
-                cd  ${GITHUB_WORKSPACE}
+            else
+                find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
+                    cp -R ${line}/* ./SofaPython3/lib/python3/site-packages
+                    rm -rf ${line}
+                done
             fi
+            cd  ${GITHUB_WORKSPACE}
 
       - name: Additional Install 
+        shell: bash
         run: |
             if [[ "$RUNNER_OS" == "Linux" ]]; then
                 sudo apt install libopengl0 
+            elif [[ "$RUNNER_OS" == "macOS" ]]; then
+                brew install glew
+                brew install glfw
+                brew install tinyxml2
             fi
 
       - name: Install Python
@@ -144,10 +159,11 @@ jobs:
         shell: bash
         run: |    
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            set PATH=%PATH%;"$SOFA_ROOT/bin"
-            set PYTHONPATH=%PYTHONPATH%;"$SOFA_ROOT/lib/python3/site-packages"
-            set PYTHONPATH=%PYTHONPATH%;"$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
-            set PYTHONPATH=%PYTHONPATH%;"$GITHUB_WORKSPACE"
+            export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
+            export PATH=$PATH:$WIN_SOFA_ROOT/bin
+            export PYTHONPATH="$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
+            export PYTHONPATH=$PYTHONPATH:$WIN_WORKSPACE
           else
             export PATH=$PATH:$SOFA_ROOT/bin
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
