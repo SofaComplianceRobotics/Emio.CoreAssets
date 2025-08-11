@@ -28,7 +28,7 @@ Click on the following button and try the command `import gmsh` in the python co
 #open-button("assets/data/meshes/legs/leg-cad.FCStd")
 
 ::: collapse Troubleshooting
-1. We encourage you to install [FreeCAD](https://www.freecad.org/downloads.php?) v0.21 or newer. 
+1. We encourage you to install [FreeCAD](https://www.freecad.org/downloads.php?) 1.0.1 or newer. 
 2. Add FreeCAD executable to your environment variable Path and set FreeCAD as the default application for files with extension `.FCStd`. This will allow the open buttons of this lab to launch FreeCAD.  
 3. Run the command `import gmsh` in the python console of FreeCAD (**View**>**Panels**>**Python Console**). If no import error shows, it confirms that the module is correctly installed and you can move on with the lab.
 4. If Gmsh is not integrated:
@@ -37,22 +37,19 @@ Click on the following button and try the command `import gmsh` in the python co
         freecad.pip install gmsh
         ```  
    2. For other installation methods. Locate the python executable of FreeCAD. In the python console of FreeCAD:
-        - for FreeCAD v0.21: 
-           ```python
-           from addonmanager_utilities import get_python_exe; get_python_exe()
-           ```
-        - for FreeCAD v0.22 and newer:  
-           ```python
-           from freecad.utils import get_python_exe; get_python_exe()
-           ```
+        ```python
+        from freecad.utils import get_python_exe; get_python_exe()
+        ```
       Now open a terminal, and install Gmsh module for the python executable of FreeCAD: 
         ```console 
-            PATH_TO_FREECAD_PYTHON/python -m pip install gmsh
+        PATH_TO_FREECAD_PYTHON/python -m pip install gmsh
         ```
       **On Windows**, if the path contains spaces you will have to put it in quotation marks `"PATH_TO_FREECAD_PYTHON/python.exe"`. When using PowerShell, add an extra `&` at the beginning of the command:
         ```console
-            & "PATH_TO_FREECAD_PYTHON/python.exe" -m pip install gmsh
+        & "PATH_TO_FREECAD_PYTHON/python.exe" -m pip install gmsh
         ```
+    3. Restart FreeCAD and run the command `import gmsh` in the python console of FreeCAD to check that the module is correctly installed.  
+      
 :::
 ::::
 
