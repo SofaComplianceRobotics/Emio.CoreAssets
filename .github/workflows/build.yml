@@ -43,7 +43,6 @@ jobs:
             parts/emio-sofa-api.md
 
   release:
-    name: Create Release
     if: always() && startsWith(github.ref, 'refs/heads/') # we are on a branch (not a PR), always() is used to run even if needed steps fail
     needs:
       - build
