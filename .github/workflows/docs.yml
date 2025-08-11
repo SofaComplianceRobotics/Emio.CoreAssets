@@ -10,15 +10,13 @@ on:
     - cron: '0 3 * * *' # nightly job at 3am UTC
 
 permissions:
-  contents: read
+      pull-requests: write
+      contents: write
+      packages: write
 
 jobs:
   build:
     runs-on: windows-latest
-    permissions:
-      contents: write
-      packages: write
-
     steps:
       - uses: actions/checkout@v4
 
@@ -35,6 +33,22 @@ jobs:
           $file = get-content emio-sofa-api.md
           $file | ForEach-Object {if ($_.ReadCount -eq 1) {$_ -replace "^.*", "# Emio SOFA API"} else {$_}} | Set-Content .\emio-sofa-api.md
           cd $env:GITHUB_WORKSPACE
+
+      
+      - name: Upload distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-dists
+          path: |
+            parts/emio-sofa-api.md
+
+  release:
+    name: Create Release
+    if: always() && startsWith(github.ref, 'refs/heads/') # we are on a branch (not a PR), always() is used to run even if needed steps fail
+    needs:
+      - build
+    runs-on: windows-latest
+    steps:
       - name: Set env vars and rename executables
         shell: powershell
         run: |
@@ -42,20 +56,36 @@ jobs:
           Add-Content -Path $env:GITHUB_ENV -Value "PROJECT_NAME=$PROJECT_NAME"
           
           $RELEASE_NAME = $env:GITHUB_REF_NAME
-          $RELEASE_TAGNAME = "release-$RELEASE_NAME"
+          $RELEASE_TAGNAME = "release-$env:GITHUB_REF_NAME"
           $BRANCH_NAME = $RELEASE_NAME
           $RELEASE_DATE = (Get-Date -Format "yyyy-MM-dd (at HH:mm:ss UTC)")
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_NAME=$RELEASE_NAME"
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_TAGNAME=$RELEASE_TAGNAME"
           Add-Content -Path $env:GITHUB_ENV -Value "RELEASE_DATE=$RELEASE_DATE"
+
+      - name: Download the artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: release-dists
+          path: artifacts/
+  
+      - name: Delete old release
+        env:
+            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release delete ${{ env.RELEASE_TAGNAME }} --cleanup-tag -y
+          
       - name: Create Release
-        if: success() 
-        uses: softprops/action-gh-release@v2.2.2
+        if: success() || failure()
+        uses: softprops/action-gh-release@v2.3.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
         with:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.RELEASE_TAGNAME }}
           fail_on_unmatched_files: false
           target_commitish: ${{ github.sha }}
           draft: false
+          body: |
+            Last updated on ${{ env.RELEASE_DATE }}.
           files: |
-            parts/emio-sofa-api.md
+            artifacts/emio-sofa-api.md
