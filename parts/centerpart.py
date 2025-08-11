@@ -7,6 +7,7 @@ runSofa -l SofaPython3,SofaImGui -g imgui centerpart.py
 ```
 """
 import Sofa
+import os, sys
 import numpy as np
 from math import pi
 import json
@@ -65,20 +66,50 @@ class CenterPart(Sofa.Prefab):
         {'name': 'rotation', 'type': 'Vec3d', 'help': '', 'default': [0, 0, 0]}
     ]
 
+
+    def _getFilePath(self, filename) -> str:
+        """
+        Get the file path of the given filename in the data/meshes/centerparts directory.
+        Returns the full path if the file exists, otherwise returns None.
+        """
+        dataDirPaths = ['/../../data/meshes/centerparts/',
+                        '/../data/meshes/centerparts/',
+                        '/data/meshes/centerparts/']
+        
+        for path in dataDirPaths:
+            filePath = getLoadingLocation(os.path.dirname(os.path.abspath(sys.argv[0])) + path + filename, __file__)
+            if os.path.isfile(filePath):
+                return filePath
+            
+        return None
+
+
+    def _checkFile(self, filename) -> bool:
+        """
+        Check if the file exists in the data/meshes/centerparts directory.
+        Returns True if it exists, False otherwise and logs an error.
+        """
+        if self._getFilePath(filename) is not None:
+            return True
+            
+        Sofa.msg_error(self.getName(), f'Missing file: {filename} in data/meshes/centerparts directory.')
+        return False
+    
+    
     def __init__(self, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
 
         self.__addRequiredPlugins()
 
-        directory = '../data/meshes/centerparts/'
-        filepath = directory + self.partName.value + '.json'
-        self._params = json.load(open(getLoadingLocation(filepath, __file__)))
-        self.filepath = getLoadingLocation(directory + self.partName.value, __file__)
+        filename = self.partName.value + '.json'
+        self._checkFile(filename)
+        self._params = json.load(open(self._getFilePath(filename)))
 
         self.flip = False
         if self.rotation[0] == 180:  # the legs are pointing upward, we flip the center part
             self.flip = True
 
+        self._checkFile(self.partName.value + '.stl')
         match self.type.value:
             case "deformable":
                 self._addDeformableCenterPart()
@@ -90,17 +121,19 @@ class CenterPart(Sofa.Prefab):
 
         self._addVisualModel()
 
+
     def _addDeformableCenterPart(self):
         """
         Add a deformable center part to the simulation.
         The part is created using a tetrahedral mesh loaded from a VTK file. The mass density, Poisson's ratio, and Young's modulus
         are set based on the parameters provided. The part is then attached to the legs using a rigid mapping.
         """
+        self._checkFile(self.partName.value + '.vtk')
 
         # Load the mesh and create the topology, mechanical object, mass and force field
         # This node contains the entire object
         part = Sofa.Core.Node("EntireObject")
-        part.addObject("MeshVTKLoader", filename=self.filepath + ".vtk", rotation=self.rotation)
+        part.addObject("MeshVTKLoader", filename=self._getFilePath(self.partName.value + ".vtk"), rotation=self.rotation)
         part.addObject("MeshTopology", src=part.MeshVTKLoader.linkpath)
         part.addObject('MechanicalObject')
         mass = part.addChild("ComputeMass")
@@ -163,7 +196,7 @@ class CenterPart(Sofa.Prefab):
                        showObject=False, showObjectScale=20,
                        rotation=self.rotation)
         mass = self.addChild("ComputeMass")
-        mass.addObject("MeshSTLLoader", filename=self.filepath + ".stl")
+        mass.addObject("MeshSTLLoader", filename=self._getFilePath(self.partName.value + ".stl"))
         mass.addObject('GenerateRigidMass', src=mass.MeshSTLLoader.linkpath, density=self.massDensity.value)
         self.addObject('UniformMass', vertexMass=mass.GenerateRigidMass.rigidMass.linkpath)
 
@@ -225,12 +258,12 @@ class CenterPart(Sofa.Prefab):
         match self.type.value:
             case "rigid":
                 visual = self.addChild("Visual")
-                visual.addObject("MeshSTLLoader", filename=self.filepath + ".stl")
+                visual.addObject("MeshSTLLoader", filename=self._getFilePath(self.partName.value + ".stl"))
                 visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color.value)
                 visual.addObject('RigidMapping')
             case _:
                 visual = self.part.addChild("Visual")
-                visual.addObject("MeshSTLLoader", filename=self.filepath + ".stl", rotation=self.rotation)
+                visual.addObject("MeshSTLLoader", filename=self._getFilePath(self.partName.value + ".stl"), rotation=self.rotation)
                 visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color.value)
                 visual.addObject("BarycentricMapping")
 
