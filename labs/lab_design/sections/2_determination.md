@@ -1,4 +1,4 @@
-:::: collapse Determination of the Design Specifications
+::::: collapse Determination of the Design Specifications
 ::: highlight
 ##### Overview
 
@@ -27,10 +27,8 @@ Second, it ensures a good regeneration of the Emio simulation scene on SOFA, and
 - **C4**: the legs should not collide either between them or with the robot base.
 - **C5**: the leg will be produced using Fused Filament Deposit additive manufacturing. 
 
-
-::: exercise
+:::: quiz 
 **Question:**
-:::: quiz
 ::: question While the four first elements of the design specifications are explained or understandable, the 5th one requires more attention as it might hide additional constraints in the design. What kind of constraints are brought by additive manufacturing, and in particular the Fused Filament Deposit principle ?
 Additive manufacturing, particularly the Fused Filament Deposition (FFD) method, introduces several constraints. 
 First, there is a limitation on the minimum thickness of parts, which is determined by the nozzle diameter and the layer thickness. 
@@ -39,3 +37,5 @@ Another important constraint is that the mechanical properties of the printed pa
 For slender parts that need to bend, it is preferable to orient them so that their planes are parallel to the print bed, as this provides better flexural strength.
 :::
 ::::
+
+:::::

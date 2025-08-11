@@ -2,9 +2,8 @@
 
 ## Comparison of Approaches
 
-::::: exercise
-**Question 1:**
 :::: quiz
+**Question 1:**
 ::: question What are the advantages of using beam models, compared to volume models?
 Beam models simplify calculations compared to full three-dimensional models, reducing computation time 
 and resources needed.
@@ -13,11 +12,9 @@ and design of structures such as bridges and buildings. In our case, beam models
 predict the behavior of a continuum robot, especially when the model is used for control purposes.
 :::
 ::::
-:::::
 
-::::: exercise
-**Question 2:**
 :::: quiz
+**Question 2:**
 ::: question What are the disadvantages of using beam models, compared to volume models?
 Beam models rely on assumptions that may not be valid for all situations, such as the assumption that 
 cross-sections are undeformable and remain flat and perpendicular to the neutral axis (Bernoulli-Euler 
@@ -27,11 +24,9 @@ Beams are often not appropriate for structures with complex geometries or signif
 effects, where local deformations and stresses play a crucial role.
 :::
 ::::
-:::::
 
-::::: exercise
-**Question 3:**
 :::: quiz
+**Question 3:**
 ::: question What can you tell about local and global parametrization?
 Using a local parametrization (rates of bending, torsion, elongation) for beams allows for a more 
 intuitive and compact modeling of internal deformations while parameterizing movement in a linear space. 
@@ -44,17 +39,14 @@ structures that connect a mesh of beams. This type of parameterization is often 
 for global structural analyses, contact management, or multi-physics coupling with other phenomena.
 :::
 ::::
-:::::
 
-::::: exercise
-**Question 4:**
 :::: quiz 
+**Question 4:**
 ::: question Which model is the best suited for the blue leg? 
 - [X] Cosserat
 - [ ] Volume
 - [X] Beam
 :::
 ::::
-:::::
 
 ::::::
