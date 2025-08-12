@@ -20,12 +20,6 @@
         },
         {
             "name": "sandbox"
-        },
-        {
-            "name": "demo_sensing"
-        },
-        {
-            "name": "lab_empty"
         }
     ]
 }
