@@ -72,9 +72,9 @@ class CenterPart(Sofa.Prefab):
         Get the file path of the given filename in the data/meshes/centerparts directory.
         Returns the full path if the file exists, otherwise returns None.
         """
-        dataDirPaths = ['/../../data/meshes/centerparts/',
+        dataDirPaths = ['/data/meshes/centerparts/',
                         '/../data/meshes/centerparts/',
-                        '/data/meshes/centerparts/']
+                        '/../../data/meshes/centerparts/']
         
         for path in dataDirPaths:
             filePath = getLoadingLocation(os.path.dirname(os.path.abspath(sys.argv[0])) + path + filename, __file__)
