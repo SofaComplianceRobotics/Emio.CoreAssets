@@ -166,6 +166,36 @@ class Leg(Sofa.Prefab):
                 q1.normalize()
                 position[0][3:7] = q1
 
+
+    def __getFilePath(self, filename) -> str:
+        """
+        Get the file path of the given filename in the data/meshes/legs directory.
+        Returns the full path if the file exists, otherwise returns None.
+        """
+        dataDirPaths = ['/data/meshes/legs/',
+                        '/../data/meshes/legs/',
+                        '/../../data/meshes/legs/']
+        
+        for path in dataDirPaths:
+            filePath = getLoadingLocation(os.path.dirname(os.path.abspath(sys.argv[0])) + path + filename, __file__)
+            if os.path.isfile(filePath):
+                return filePath
+            
+        return None
+
+
+    def __checkFile(self, filename) -> bool:
+        """
+        Check if the file exists in the data/meshes/legs directory.
+        Returns True if it exists, False otherwise and logs an error.
+        """
+        if self.__getFilePath(filename) is not None:
+            return True
+            
+        Sofa.msg_error(self.getName(), f'Missing file: {filename} in data/meshes/legs directory.')
+        return False
+    
+
     def __checkData(self):
         """
         Check if the data needed to create the leg is present.
@@ -175,38 +205,36 @@ class Leg(Sofa.Prefab):
             - legName.vtk: volume mesh for the tetra model
             - legName.txt: file containing the positions of the leg (for beam and cosserat models)
         """
-        dataDirPath = os.path.dirname(os.path.abspath(__file__)) + '/../data/meshes/legs/'
 
         if self.model.value in ["beam", "cosserat"]:
             if not self.positions.value.any():
-                self.positions.value = np.loadtxt(dataDirPath + self.legName.value + ".txt")
+                filename = self.legName.value + ".txt"
+                if not self.__checkFile(filename):
+                    return False
+                self.positions.value = np.loadtxt(self.__getFilePath(filename))
                 if not self.positions.value.any():
                     Sofa.msg_error(self.getName(), 'Empty positions. We cannot model the leg without a list of '
-                                                   'Rigid3 positions describing the curve when using the '
-                                                   'beam or cosserat model')
+                                                'Rigid3 positions describing the curve when using the '
+                                                'beam or cosserat model')
                     return False
-
         elif self.model.value == "tetra":
             if self.legName.value is None:
                 Sofa.msg_error(self.getName(),
                                'Empty legName. We cannot model the leg with tetra without a volume mesh.')
                 return False
-            if not os.path.isfile(dataDirPath + self.legName.value + '.vtk'):
-                Sofa.msg_error(self.getName(), 'Missing vtk volume mesh in data/meshes/legs directory. '
-                                               'Looking for : ' + dataDirPath + self.legName.value + '.vtk')
+            
+            if not self.__checkFile(self.legName.value + ".vtk"):
                 return False
-
         else:
             Sofa.msg_error(self.getName(), 'Unknown model, value should be "beam", "cosserat", or "tetra".')
             return False
 
-        if not os.path.isfile(dataDirPath + self.legName.value + '.stl'):
-            Sofa.msg_error(self.getName(), 'Missing stl surface mesh in data/meshes/legs directory. '
-                                           'Looking for : ' + dataDirPath + self.legName.value + '.stl')
+        filePath = self.__getFilePath(self.legName.value + ".stl")
+        if filePath is None:
             return False
 
         volume = self.addChild("Volume")
-        volume.addObject("MeshSTLLoader", filename=dataDirPath + self.legName.value + '.stl')
+        volume.addObject("MeshSTLLoader", filename=filePath)
         volume.addObject("VolumeFromTriangles",
                          position=volume.MeshSTLLoader.position.value,
                          triangles=volume.MeshSTLLoader.triangles.value)
@@ -214,6 +242,7 @@ class Leg(Sofa.Prefab):
         self.totalMass = volume.VolumeFromTriangles.volume.value * self.massDensity.value
 
         return True
+
 
     def __addBeamModel(self):
         """
@@ -277,6 +306,7 @@ class Leg(Sofa.Prefab):
                                   self.deformable.getMechanicalState().linkpath],
                            output=self.leg.getMechanicalState().linkpath,
                            indexPairs=indexPairs)
+
 
     def __addCosseratModel(self):
         """
@@ -358,13 +388,14 @@ class Leg(Sofa.Prefab):
                            output=self.leg.linkpath,
                            debug=False, baseIndex=0)
 
+
     def __addTetraModel(self):
         """
         FEM volume model. We need a volume mesh, and we will use the component TetrahedronFEMForceField.
         """
         # The volume model
         self.leg.addObject('MeshVTKLoader',
-                           filename=getLoadingLocation("../data/meshes/legs/" + self.legName.value + ".vtk", __file__),
+                           filename=self.__getFilePath(self.legName.value + ".vtk"),
                            rotation=self.rotation.value, translation=self.translation.value)
         self.leg.addObject('MeshTopology', src=self.leg.MeshVTKLoader.linkpath)
         self.leg.MeshTopology.init()
@@ -424,6 +455,7 @@ class Leg(Sofa.Prefab):
                                   self.deformable.getMechanicalState().linkpath],
                            output=self.leg.getMechanicalState().linkpath,
                            indexPairs=indexPairs)
+
 
     def __getIndicesDistribution(self, topology):
         """
@@ -485,6 +517,7 @@ class Leg(Sofa.Prefab):
         assert len(indicesDeformable) != 0, "The position of the leg seems to be incorrect."
         return indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs
 
+
     def __addVisualModel(self):
         """
         Adds a visual model to the leg. In case of the tetra model, we need the corresponding surface mesh.
@@ -493,7 +526,7 @@ class Leg(Sofa.Prefab):
         if self.model.value in ["tetra"]:
             visual = self.leg.addChild("Visual")
             visual.addObject("MeshSTLLoader",
-                             filename=getLoadingLocation("../data/meshes/legs/" + self.legName.value + ".stl", __file__))
+                             filename=self.__getFilePath(self.legName.value + ".stl"))
             visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color,
                              rotation=self.rotation.value, translation=self.translation.value)
             visual.addObject('BarycentricMapping') if self.model.value == "tetra" else visual.addObject(
@@ -501,10 +534,11 @@ class Leg(Sofa.Prefab):
         else:
             visual = self.leg.addChild("Visual")
             visual.addObject("MeshSTLLoader",
-                             filename=getLoadingLocation("../data/meshes/legs/" + self.legName.value + ".stl", __file__))
+                             filename=self.__getFilePath(self.legName.value + ".stl"))
             visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color,
                              rotation=self.rotation.value, translation=self.translation.value)
             visual.addObject('SkinningMapping')
+
 
     def __addRequiredPlugins(self):
         """
@@ -534,6 +568,7 @@ class Leg(Sofa.Prefab):
         plugins.addObject('RequiredPlugin', name='Sofa.Component.Engine.Generate')
         # Needed to use components [VolumeFromTriangles]
 
+
     def attachBase(self, attach, index) -> None:
         """
         Attach the base of the leg to the motor.
@@ -555,6 +590,7 @@ class Leg(Sofa.Prefab):
 
         self.__attach(part=base, attach=legAttach, indexPart=baseIndex, indexAttach=0)
 
+
     def attachExtremity(self, attach, index) -> None:
         """
         Attach the extremity of the leg to the motor.
@@ -567,6 +603,7 @@ class Leg(Sofa.Prefab):
             return
         self.__attach(part=self.extremity, attach=attach, indexPart=0, indexAttach=index)
 
+
     def __attach(self, part, attach, indexPart, indexAttach):
         difference = part.addChild("Difference"+str(indexAttach))
         attach.addChild(difference)
@@ -578,6 +615,7 @@ class Leg(Sofa.Prefab):
                              input2=attach.getMechanicalState().linkpath,
                              output=difference.getMechanicalState().linkpath,
                              first_point=[indexPart], second_point=[indexAttach])
+
 
     def isValid(self) -> bool:
         """

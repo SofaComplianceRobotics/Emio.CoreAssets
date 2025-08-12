@@ -90,12 +90,12 @@ class Gripper(CenterPart):
                 self.addObject('MechanicalObject', template="Rigid3", position=positions,
                                showObject=False, showObjectScale=1, showIndices=False, showIndicesScale=0.01)
                 mass = self.addChild("ComputeMass")
-                mass.addObject("MeshVTKLoader", filename=self.filepath + ".vtk")
-                mass.addObject('VolumeFromTetrahedrons',
-                               position=mass.MeshVTKLoader.position.value,
-                               tetras=mass.MeshVTKLoader.tetras.value)
-                mass.VolumeFromTetrahedrons.init()
-                self.addObject('UniformMass', totalMass=mass.VolumeFromTetrahedrons.volume.value * self.massDensity.value)
+                mass.addObject("MeshSTLLoader", filename=self._getFilePath(self.partName.value + ".stl"))
+                mass.addObject('VolumeFromTriangles',
+                               position=mass.MeshSTLLoader.position.value,
+                               triangles=mass.MeshSTLLoader.triangles.value)
+                mass.VolumeFromTriangles.init()
+                self.addObject('UniformMass', totalMass=mass.VolumeFromTriangles.volume.value * self.massDensity.value)
 
                 for i in range(2):
                     if i == 0:
@@ -141,7 +141,7 @@ class Gripper(CenterPart):
                 super()._addVisualModel()
             case _:
                 visual = self.addChild("Visual")
-                visual.addObject("MeshSTLLoader", filename=self.filepath + ".stl", rotation=self.rotation)
+                visual.addObject("MeshSTLLoader", filename=self._getFilePath(self.partName.value + ".stl"), rotation=self.rotation)
                 visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color.value)
                 visual.addObject("SkinningMapping")
 
@@ -183,7 +183,7 @@ class Gripper(CenterPart):
         else:
             collision = self.addChild("CollisionModel")
         collision.addObject("MeshSTLLoader",
-                            filename=getLoadingLocation('../data/meshes/centerparts/' + self.partName.value + "collision.stl", __file__))
+                            filename=self._getFilePath(self.partName + "collision.stl"))
         collision.addObject("MeshTopology", src=collision.MeshSTLLoader.linkpath)
         collision.addObject("MechanicalObject")
         collision.addObject("PointCollisionModel", group=group)
@@ -243,7 +243,9 @@ def createScene(rootnode):
             gripper.attach.addObject("SlidingActuator", template="Rigid3", indices=i, direction=[0, 1, 0, 0, 0, 0],
                                      maxPositiveDisp=15, maxNegativeDisp=15)
     else:
-
+        from splib3.animation import animate, AnimationManager
+        rootnode.addObject(AnimationManager(rootnode))
+        
         def animation(target, factor, index, direction, startTime):
             if factor > 0:
                 position = np.copy(target.rest_position.value)
