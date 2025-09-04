@@ -95,6 +95,24 @@ jobs:
             cp "$SoftRobotsInverse_ROOT/bin"/* "$SOFA_ROOT/bin/"
           fi
 
+          # STLIB
+          echo "First, removing STLIB from SOFA binaries (if any)"
+          rm -rf "$SOFA_ROOT/plugins"/STLIB*
+          rm -rf "$SOFA_ROOT/bin"/STLIB*
+          rm -rf "$SOFA_ROOT/lib"/STLIB*
+          
+          STLIB_ROOT="$SOFA_ROOT/plugins/STLIB"
+          mkdir -p "${{ runner.temp }}/stlib_tmp/zip" "${{ runner.temp }}/stlib_tmp/binaries" "$STLIB_ROOT"
+          url="https://github.com/SofaDefrost/STLIB/releases/download"
+          url="${url}/release-${{ matrix.sofa_branch }}/STLIB_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
+          echo "Getting STLIB from $url"
+          curl --output "${{ runner.temp }}/stlib_tmp/zip/STLIB.zip" -L $url
+          unzip -qq "${{ runner.temp }}/stlib_tmp/zip/STLIB.zip" -d "${{ runner.temp }}/stlib_tmp/binaries"
+          mv "${{ runner.temp }}"/stlib_tmp/binaries/STLIB_*/* "$STLIB_ROOT"
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            cp "$STLIB_ROOT/bin"/* "$SOFA_ROOT/bin/"
+          fi
+
           # Cosserat
           echo "First, removing Cosserat from SOFA binaries (if any)"
           rm -rf "$SOFA_ROOT/plugins"/Cosserat*
