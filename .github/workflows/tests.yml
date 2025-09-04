@@ -34,7 +34,7 @@ jobs:
         run: |      
           echo "SOFA_ROOT=$SOFA_ROOT"
           mkdir -p "${{ runner.temp }}/sofa_tmp/zip" "${{ runner.temp }}/sofa_tmp/binaries" $SOFA_ROOT
-          urlPrefix="https://ci.inria.fr/sofa-ci-dev/job/nightly-generate-binaries/CI_BRANCH=${{ matrix.sofa_branch }},CI_SCOPE=standard"
+          urlPrefix="https://ci.inria.fr/sofa-ci-dev/job/nightly-generate-binaries/CI_BRANCH=${{ matrix.sofa_branch }},CI_SCOPE=full"
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             urlSuffix="artifact/MacOS/*zip*/MacOS.zip"
           else 
@@ -59,29 +59,12 @@ jobs:
             sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
           fi
 
-          # SoftRobots
-          echo "First, removing SoftRobots from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/SoftRobots*
-          rm -rf "$SOFA_ROOT/bin"/SoftRobots*
-          rm -rf "$SOFA_ROOT/lib"/SoftRobots*
-          
-          SoftRobots_ROOT="$SOFA_ROOT/plugins/SoftRobots"
-          mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobots_ROOT"
-          url="https://github.com/SofaDefrost/SoftRobots/releases/download"
-          url="${url}/release-${{ matrix.sofa_branch }}/SoftRobots_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting SoftRobots from $url"
-          curl --output "${{ runner.temp }}/sr_tmp/zip/SoftRobots.zip" -L $url
-          unzip -qq "${{ runner.temp }}/sr_tmp/zip/SoftRobots.zip" -d "${{ runner.temp }}/sr_tmp/binaries"
-          mv "${{ runner.temp }}"/sr_tmp/binaries/SoftRobots_*/* "$SoftRobots_ROOT"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$SoftRobots_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-
           # SoftRobots.Inverse
           echo "First, removing SoftRobots.Inverse from SOFA binaries (if any)"
           rm -rf "$SOFA_ROOT/plugins"/SoftRobots.Inverse*
           rm -rf "$SOFA_ROOT/bin"/SoftRobots.Inverse*
           rm -rf "$SOFA_ROOT/lib"/SoftRobots.Inverse*
+          rm -rf "$SOFA_ROOT/lib"/libSoftRobots.Inverse*
           
           SoftRobotsInverse_ROOT="$SOFA_ROOT/plugins/SoftRobots.Inverse"
           mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobotsInverse_ROOT"
@@ -95,29 +78,12 @@ jobs:
             cp "$SoftRobotsInverse_ROOT/bin"/* "$SOFA_ROOT/bin/"
           fi
 
-          # STLIB
-          echo "First, removing STLIB from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/STLIB*
-          rm -rf "$SOFA_ROOT/bin"/STLIB*
-          rm -rf "$SOFA_ROOT/lib"/STLIB*
-          
-          STLIB_ROOT="$SOFA_ROOT/plugins/STLIB"
-          mkdir -p "${{ runner.temp }}/stlib_tmp/zip" "${{ runner.temp }}/stlib_tmp/binaries" "$STLIB_ROOT"
-          url="https://github.com/SofaDefrost/STLIB/releases/download"
-          url="${url}/release-${{ matrix.sofa_branch }}/STLIB_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting STLIB from $url"
-          curl --output "${{ runner.temp }}/stlib_tmp/zip/STLIB.zip" -L $url
-          unzip -qq "${{ runner.temp }}/stlib_tmp/zip/STLIB.zip" -d "${{ runner.temp }}/stlib_tmp/binaries"
-          mv "${{ runner.temp }}"/stlib_tmp/binaries/STLIB_*/* "$STLIB_ROOT"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$STLIB_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-
           # Cosserat
           echo "First, removing Cosserat from SOFA binaries (if any)"
           rm -rf "$SOFA_ROOT/plugins"/Cosserat*
           rm -rf "$SOFA_ROOT/bin"/Cosserat*
           rm -rf "$SOFA_ROOT/lib"/Cosserat*
+          rm -rf "$SOFA_ROOT/lib"/libCosserat*
           
           Cosserat_ROOT="$SOFA_ROOT/plugins/Cosserat"
           mkdir -p "${{ runner.temp }}/cosserat_tmp/zip" "${{ runner.temp }}/cosserat_tmp/binaries" "$Cosserat_ROOT"
@@ -136,9 +102,10 @@ jobs:
           rm -rf "$SOFA_ROOT/plugins"/SofaGLFW*
           rm -rf "$SOFA_ROOT/bin"/SofaGLFW*
           rm -rf "$SOFA_ROOT/lib"/SofaGLFW*
-          rm -rf "$SOFA_ROOT/plugins"/SofaImGui*
+          rm -rf "$SOFA_ROOT/lib"/libSofaGLFW*
           rm -rf "$SOFA_ROOT/bin"/SofaImGui*
           rm -rf "$SOFA_ROOT/lib"/SofaImGui*
+          rm -rf "$SOFA_ROOT/lib"/libSofaImGui*
           
           SofaGLFW_ROOT="$SOFA_ROOT/plugins/SofaGLFW"
           mkdir -p "${{ runner.temp }}/glfw_tmp/zip" "${{ runner.temp }}/glfw_tmp/binaries" "$SofaGLFW_ROOT"
