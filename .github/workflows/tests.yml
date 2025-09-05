@@ -184,17 +184,21 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
-            echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
+            WIN_SofaGLFW_ROOT=$( echo "/$SofaGLFW_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_SoftRobotsInverse_ROOT=$( echo "/$SoftRobotsInverse_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_SoftRobots_ROOT=$( echo "/$SoftRobots_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $WIN_WORKSPACE
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
+            echo "LD_LIBRARY_PATH=$WIN_SofaGLFW_ROOT/lib:$WIN_SOFA_ROOT/lib:$WIN_SoftRobotsInverse_ROOT/lib:$WIN_SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           else
-            #echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
+            echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$PYTHONPATH:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
+            if [[ "$RUNNER_OS" == "macOS" ]]; then
+              echo "DYLD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+            else
+              echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+            fi
           fi
-
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "DYLD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
-          fi
-          echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
       - name: Run tests
         shell: bash
