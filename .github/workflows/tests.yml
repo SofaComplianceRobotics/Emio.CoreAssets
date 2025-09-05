@@ -189,9 +189,7 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$WIN_WORKSPACE
           else
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
-            echo "PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages" | tee -a $GITHUB_ENV
-            echo "PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages" | tee -a $GITHUB_ENV
-            echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE" | tee -a $GITHUB_ENV
+            echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$PYTHONPATH:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
           fi
           
           if [[ "$RUNNER_OS" == "macOS" ]]; then
