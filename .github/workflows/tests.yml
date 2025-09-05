@@ -184,6 +184,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
+            echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
           else
             #echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
@@ -193,7 +194,7 @@ jobs:
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "DYLD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           fi
-          echo "LD_LIBRARY_PATH=$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
       - name: Run tests
         shell: bash
