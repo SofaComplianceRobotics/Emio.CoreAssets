@@ -64,7 +64,7 @@ jobs:
           rm -rf "$SOFA_ROOT/bin"/SoftRobots*
           rm -rf "$SOFA_ROOT/lib"/SoftRobots*
           
-          SoftRobots_ROOT="$SOFA_ROOT/SoftRobots"
+          SoftRobots_ROOT="$SOFA_ROOT/plugins/SoftRobots"
           mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobots_ROOT"
           url="https://github.com/SofaDefrost/SoftRobots/releases/download"
           url="${url}/release-${{ matrix.sofa_branch }}/SoftRobots_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
