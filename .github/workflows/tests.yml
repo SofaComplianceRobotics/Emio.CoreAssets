@@ -202,6 +202,9 @@ jobs:
           # Debug
           echo $SofaGLFW_ROOT/lib
           ls -al $SofaGLFW_ROOT/lib
+
+          echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+          ls -al $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
           
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
