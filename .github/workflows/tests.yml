@@ -111,6 +111,11 @@ jobs:
           curl --output "${{ runner.temp }}/glfw_tmp/zip/SofaGLFW.zip" -L $url
           unzip -qq "${{ runner.temp }}/glfw_tmp/zip/SofaGLFW.zip" -d "${{ runner.temp }}/glfw_tmp/binaries"
           mv "${{ runner.temp }}"/glfw_tmp/binaries/SofaGLFW_*/* "$SofaGLFW_ROOT"
+
+          # Debug
+          echo $SofaGLFW_ROOT
+          ls -al $SofaGLFW_ROOT
+          
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             cp "$SofaGLFW_ROOT/bin"/* "$SOFA_ROOT/bin/"
           fi
@@ -169,7 +174,10 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
-          fi
+            # Debug
+            echo $SOFA_ROOT
+            ls -al $SOFA_ROOT/bin
+          fi          
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
 
