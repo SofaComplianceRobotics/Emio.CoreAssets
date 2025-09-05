@@ -191,11 +191,6 @@ jobs:
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$PYTHONPATH:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
           fi
-          
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "DYLD_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
-          fi
-          echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
       - name: Run tests
         shell: bash
