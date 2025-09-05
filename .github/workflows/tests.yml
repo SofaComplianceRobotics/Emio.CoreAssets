@@ -58,6 +58,22 @@ jobs:
             sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
           fi
 
+          # SoftRobots
+          echo "First, removing SoftRobots from SOFA binaries (if any)"
+          rm -rf "$SOFA_ROOT/plugins"/SoftRobots*
+          rm -rf "$SOFA_ROOT/bin"/SoftRobots*
+          rm -rf "$SOFA_ROOT/lib"/SoftRobots*
+          
+          SoftRobots_ROOT="$SOFA_ROOT/SoftRobots"
+          mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobots_ROOT"
+          url="https://github.com/SofaDefrost/SoftRobots/releases/download"
+          url="${url}/release-${{ matrix.sofa_branch }}/SoftRobots_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
+          echo "Getting SoftRobots from $url"
+          curl --output "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -L $url
+          unzip -qq "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -d "${{ runner.temp }}/sr_tmp/binaries"
+          mv "${{ runner.temp }}"/sr_tmp/binaries/SoftRobots_*/* "$SoftRobots_ROOT"
+          echo "SoftRobots_ROOT=$SoftRobots_ROOT" | tee -a $GITHUB_ENV
+
           # SoftRobots.Inverse
           echo "First, removing SoftRobots.Inverse from SOFA binaries (if any)"
           rm -rf "$SOFA_ROOT/plugins"/SoftRobots.Inverse*
@@ -174,6 +190,12 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
+            
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "DYLD_LIBRARY_PATH=$WORKSPACE_ARTIFACT_PATH/lib:$SOFA_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+          fi
+          echo "LD_LIBRARY_PATH=$WORKSPACE_ARTIFACT_PATH/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+          
             
             # Debug
             echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
