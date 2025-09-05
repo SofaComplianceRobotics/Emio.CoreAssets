@@ -178,9 +178,9 @@ jobs:
             python -m pip install -r requirements.txt
             python -m pip install pytest
 
-      - name: Run tests
+      - name: Set env vars
         shell: bash
-        run: |    
+        run: |
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
@@ -199,7 +199,12 @@ jobs:
           fi
           echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
+      - name: Run tests
+        shell: bash
+        run: |    
           # Debug
+          echo $PATH
+          python -c "import sys; print('sys.version = ' + str(sys.version)); print('sys.path = ' + str(sys.path))"
           echo $SofaGLFW_ROOT/lib
           ls -al $SofaGLFW_ROOT/lib
 
