@@ -188,10 +188,10 @@ jobs:
             export PYTHONPATH="$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages"
             export PYTHONPATH=$PYTHONPATH:$WIN_WORKSPACE
           else
-            export PATH=$PATH:$SOFA_ROOT/bin
-            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
+            echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
+            echo "PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages" | tee -a $GITHUB_ENV
+            echo "PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages" | tee -a $GITHUB_ENV
+            echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE" | tee -a $GITHUB_ENV
           fi
           
           if [[ "$RUNNER_OS" == "macOS" ]]; then
