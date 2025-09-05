@@ -192,6 +192,8 @@ jobs:
             WIN_SoftRobots_ROOT=$( echo "/$SoftRobots_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             # echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
             echo "$WIN_SOFA_ROOT/bin" >> $GITHUB_PATH
+            echo "$(cd $WIN_SOFA_ROOT/lib && pwd -W)" >> $GITHUB_PATH
+            echo "$(cd $WIN_SOFA_ROOT/bin && pwd -W)" >> $GITHUB_PATH
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             echo "LD_LIBRARY_PATH=$WIN_SofaGLFW_ROOT/lib:$WIN_SOFA_ROOT/lib:$WIN_SoftRobotsInverse_ROOT/lib:$WIN_SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           else
@@ -206,7 +208,8 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: |              
+        run: |
+          echo $PATH
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
 
