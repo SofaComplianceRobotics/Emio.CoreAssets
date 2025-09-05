@@ -200,8 +200,8 @@ jobs:
           echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
           # Debug
-          echo $SOFA_ROOT/lib
-          ls -al $SOFA_ROOT/lib
+          echo $SofaGLFW_ROOT/lib
+          ls -al $SofaGLFW_ROOT/lib
           
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
