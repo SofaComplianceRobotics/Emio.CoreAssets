@@ -174,9 +174,12 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
+            
             # Debug
-            echo $SOFA_ROOT
-            ls -al $SOFA_ROOT/bin
+            echo $SOFA_ROOT/lib/python3/site-packages
+            ls -al $SOFA_ROOT/lib/python3/site-packages
+            echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
+            ls -al $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
           fi          
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
