@@ -196,7 +196,7 @@ jobs:
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "DYLD_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           fi
-          echo "LD_LIBRARY_PATH=$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+          echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
 
           # Debug
           echo $SOFA_ROOT/lib
