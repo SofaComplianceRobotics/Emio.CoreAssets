@@ -72,6 +72,9 @@ jobs:
           curl --output "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -L $url
           unzip -qq "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -d "${{ runner.temp }}/sr_tmp/binaries"
           mv "${{ runner.temp }}"/sr_tmp/binaries/SoftRobots_*/* "$SoftRobots_ROOT"
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+            cp "$SoftRobots_ROOT/bin"/* "$SOFA_ROOT/bin/"
+          fi
           echo "SoftRobots_ROOT=$SoftRobots_ROOT" | tee -a $GITHUB_ENV
 
           # SoftRobots.Inverse
