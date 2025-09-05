@@ -190,6 +190,8 @@ jobs:
             WIN_SofaGLFW_ROOT=$( echo "/$SofaGLFW_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_SoftRobotsInverse_ROOT=$( echo "/$SoftRobotsInverse_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_SoftRobots_ROOT=$( echo "/$SoftRobots_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            ls -al $WIN_SOFA_ROOT
+            ls -al $WIN_SOFA_ROOT/bin
             echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             echo "LD_LIBRARY_PATH=$WIN_SofaGLFW_ROOT/lib:$WIN_SOFA_ROOT/lib:$WIN_SoftRobotsInverse_ROOT/lib:$WIN_SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
