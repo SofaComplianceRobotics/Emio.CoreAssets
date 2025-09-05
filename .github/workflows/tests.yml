@@ -91,6 +91,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             cp "$SoftRobotsInverse_ROOT/bin"/* "$SOFA_ROOT/bin/"
           fi
+          echo "SoftRobotsInverse_ROOT=$SoftRobotsInverse_ROOT" | tee -a $GITHUB_ENV
 
           # Cosserat
           echo "First, removing Cosserat from SOFA binaries (if any)"
@@ -190,20 +191,17 @@ jobs:
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
             export PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE
-            
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "DYLD_LIBRARY_PATH=$WORKSPACE_ARTIFACT_PATH/lib:$SOFA_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           fi
-          echo "LD_LIBRARY_PATH=$WORKSPACE_ARTIFACT_PATH/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           
-            
-            # Debug
-            echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            ls -al $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages
-            
-            echo $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages/Sofa
-            ls -al $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages/Sofa
-          fi          
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "DYLD_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+          fi
+          echo "LD_LIBRARY_PATH=$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+
+          # Debug
+          echo $SOFA_ROOT/lib
+          ls -al $SOFA_ROOT/lib
+          
           cd  ${GITHUB_WORKSPACE}
           python -m pytest tests/
 
