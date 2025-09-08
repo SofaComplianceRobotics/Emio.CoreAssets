@@ -28,132 +28,9 @@ jobs:
           path: ${{ env.WORKSPACE_SRC_PATH }}
 
       - name: Download SOFA and plugins binaries
-        # Download SOFA from Jenkins
-        shell: bash
-        run: |      
-          echo "SOFA_ROOT=$SOFA_ROOT"
-          mkdir -p "${{ runner.temp }}/sofa_tmp/zip" "${{ runner.temp }}/sofa_tmp/binaries" $SOFA_ROOT
-          urlPrefix="https://ci.inria.fr/sofa-ci-dev/job/nightly-generate-binaries/CI_BRANCH=${{ matrix.sofa_branch }},CI_SCOPE=full"
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            urlSuffix="artifact/MacOS/*zip*/MacOS.zip"
-          else 
-            urlSuffix="artifact/${{ runner.os }}/*zip*/${{ runner.os }}.zip"
-          fi
-          url="$urlPrefix/lastBuild/$urlSuffix"
-          if ! curl --output /dev/null --silent --head --fail "$url"; then
-            echo 'There is no artifact for "lastBuild". Falling back on "lastSuccessfulBuild".'
-            url="$urlPrefix/lastSuccessfulBuild/$urlSuffix"
-          fi
-          echo "Getting SOFA from $url"
-          curl --http1.0 --output "${{ runner.temp }}/sofa_tmp/${{ runner.os }}.zip" -L $url
-          unzip -qq "${{ runner.temp }}"/sofa_tmp/${{ runner.os }}.zip -d "${{ runner.temp }}/sofa_tmp/zip"
-          unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA_*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
-          $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA_*/* $SOFA_ROOT
-          cp "$SOFA_ROOT/share/sofa/icons"/* "$SOFA_ROOT/share/sofa/"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/bin/plugin_list.conf
-            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/bin/plugin_list.conf.default
-          else
-            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf
-            sed -i.backup "/Sofa.Qt/d" $SOFA_ROOT/lib/plugin_list.conf.default
-          fi
-
-          # SoftRobots
-          echo "First, removing SoftRobots from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/SoftRobots*
-          rm -rf "$SOFA_ROOT/bin"/SoftRobots*
-          rm -rf "$SOFA_ROOT/lib"/SoftRobots*
-          
-          SoftRobots_ROOT="$SOFA_ROOT/plugins/SoftRobots"
-          mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobots_ROOT"
-          url="https://github.com/SofaDefrost/SoftRobots/releases/download"
-          url="${url}/release-${{ matrix.sofa_branch }}/SoftRobots_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting SoftRobots from $url"
-          curl --output "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -L $url
-          unzip -qq "${{ runner.temp }}/sr_tmp/SoftRobots.zip" -d "${{ runner.temp }}/sr_tmp/binaries"
-          mv "${{ runner.temp }}"/sr_tmp/binaries/SoftRobots_*/* "$SoftRobots_ROOT"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$SoftRobots_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-          echo "SoftRobots_ROOT=$SoftRobots_ROOT" | tee -a $GITHUB_ENV
-
-          # SoftRobots.Inverse
-          echo "First, removing SoftRobots.Inverse from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/SoftRobots.Inverse*
-          rm -rf "$SOFA_ROOT/bin"/SoftRobots.Inverse*
-          rm -rf "$SOFA_ROOT/lib"/SoftRobots.Inverse*
-          
-          SoftRobotsInverse_ROOT="$SOFA_ROOT/plugins/SoftRobots.Inverse"
-          mkdir -p "${{ runner.temp }}/sr_tmp/zip" "${{ runner.temp }}/sr_tmp/binaries" "$SoftRobotsInverse_ROOT"
-          url="https://github.com/SofaDefrost/SoftRobots.Inverse/releases/download"
-          url="${url}/release-main/SoftRobots.Inverse_main_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting SoftRobots.Inverse from $url"
-          curl --output "${{ runner.temp }}/sr_tmp/zip/SoftRobots.Inverse.zip" -L $url
-          unzip -qq "${{ runner.temp }}/sr_tmp/zip/SoftRobots.Inverse.zip" -d "${{ runner.temp }}/sr_tmp/binaries"
-          mv "${{ runner.temp }}"/sr_tmp/binaries/SoftRobots.Inverse_*/* "$SoftRobotsInverse_ROOT"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$SoftRobotsInverse_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-          echo "SoftRobotsInverse_ROOT=$SoftRobotsInverse_ROOT" | tee -a $GITHUB_ENV
-
-          # Cosserat
-          echo "First, removing Cosserat from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/Cosserat*
-          rm -rf "$SOFA_ROOT/bin"/Cosserat*
-          rm -rf "$SOFA_ROOT/lib"/Cosserat*
-          
-          Cosserat_ROOT="$SOFA_ROOT/plugins/Cosserat"
-          mkdir -p "${{ runner.temp }}/cosserat_tmp/zip" "${{ runner.temp }}/cosserat_tmp/binaries" "$Cosserat_ROOT"
-          url="https://github.com/SofaDefrost/Cosserat/releases/download"
-          url="${url}/release-${{ matrix.sofa_branch }}/Cosserat_${{ matrix.sofa_branch }}_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting Cosserat from $url"
-          curl --output "${{ runner.temp }}/cosserat_tmp/zip/Cosserat.zip" -L $url
-          unzip -qq "${{ runner.temp }}/cosserat_tmp/zip/Cosserat.zip" -d "${{ runner.temp }}/cosserat_tmp/binaries"
-          mv "${{ runner.temp }}"/cosserat_tmp/binaries/Cosserat_*/* "$Cosserat_ROOT"
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$Cosserat_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-
-          # SofaGLFW & SofaImGui
-          echo "First, removing SofaGLFW and SofaImGui from SOFA binaries (if any)"
-          rm -rf "$SOFA_ROOT/plugins"/SofaGLFW*
-          rm -rf "$SOFA_ROOT/bin"/SofaGLFW*
-          rm -rf "$SOFA_ROOT/lib"/SofaGLFW*
-          rm -rf "$SOFA_ROOT/plugins"/SofaImGui*
-          rm -rf "$SOFA_ROOT/bin"/SofaImGui*
-          rm -rf "$SOFA_ROOT/lib"/SofaImGui*
-          
-          SofaGLFW_ROOT="$SOFA_ROOT/plugins/SofaGLFW"
-          mkdir -p "${{ runner.temp }}/glfw_tmp/zip" "${{ runner.temp }}/glfw_tmp/binaries" "$SofaGLFW_ROOT"
-          url="https://github.com/SofaComplianceRobotics/SofaGLFW/releases/download"
-          url="${url}/release-robotics-with-imgui/SofaGLFW_robotics_with_imgui_for-SOFA-${{ matrix.sofa_branch }}_${{ runner.os }}.zip"
-          echo "Getting SofaGLFW and SofaImGui from $url"
-          curl --output "${{ runner.temp }}/glfw_tmp/zip/SofaGLFW.zip" -L $url
-          unzip -qq "${{ runner.temp }}/glfw_tmp/zip/SofaGLFW.zip" -d "${{ runner.temp }}/glfw_tmp/binaries"
-          mv "${{ runner.temp }}"/glfw_tmp/binaries/SofaGLFW_*/* "$SofaGLFW_ROOT"
-          echo "SofaGLFW_ROOT=$SofaGLFW_ROOT" | tee -a $GITHUB_ENV
-          
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
-            cp "$SofaGLFW_ROOT/bin"/* "$SOFA_ROOT/bin/"
-          fi
-    
-      - name: Move python packages
-        shell: bash
-        run: |    
-            cd $SOFA_ROOT/plugins
-            # Copy packages
-            if [[ "$RUNNER_OS" != "macOS" ]]; then
-                find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
-                    cp -r --preserve=links ${line}/* ./SofaPython3/lib/python3/site-packages
-                    rm -rf ${line}
-                done
-            else
-                find ./ -type f |  sed -n 's|\(.*python3/site-packages\).*|\1|p' | uniq | grep -v '.*SofaPython3.*' | while IFS= read -r line; do
-                    cp -R ${line}/* ./SofaPython3/lib/python3/site-packages
-                    rm -rf ${line}
-                done
-            fi
-            cd  ${GITHUB_WORKSPACE}
+        uses: actions/emiolabs-sofa-download@main
+        with:
+          sofa_root: $SOFA_ROOT
 
       - name: Additional Install 
         shell: bash
@@ -183,9 +60,9 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SofaGLFW_ROOT=$( echo "/$SofaGLFW_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SoftRobotsInverse_ROOT=$( echo "/$SoftRobotsInverse_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SoftRobots_ROOT=$( echo "/$SoftRobots_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_SofaGLFW_ROOT=$( echo "/$SOFAGLFW_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_SoftRobotsInverse_ROOT=$( echo "/$SOFTROBOTSINVERSE_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_SoftRobots_ROOT=$( echo "/$SOFTROBOTS_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             # echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
             echo "$WIN_SOFA_ROOT/bin" >> $GITHUB_PATH
             echo "$(cd $WIN_SOFA_ROOT/lib && pwd -W)" >> $GITHUB_PATH
@@ -196,9 +73,9 @@ jobs:
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             if [[ "$RUNNER_OS" == "macOS" ]]; then
-              echo "DYLD_FALLBACK_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
+              echo "DYLD_FALLBACK_LIBRARY_PATH=$SOFAGLFW_ROOT/lib:$SOFA_ROOT/lib:$SOFTROBOTSINVERSE_ROOT/lib:$SOFTROBOTS_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
             else
-              echo "LD_LIBRARY_PATH=$SofaGLFW_ROOT/lib:$SOFA_ROOT/lib:$SoftRobotsInverse_ROOT/lib:$SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+              echo "LD_LIBRARY_PATH=$SOFAGLFW_ROOT/lib:$SOFA_ROOT/lib:$SOFTROBOTSINVERSE_ROOT/lib:$SOFTROBOTS_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
             fi
           fi
 
