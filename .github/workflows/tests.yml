@@ -29,6 +29,7 @@ jobs:
 
       - name: Download SOFA and plugins binaries
         uses: SofaComplianceRobotics/emiolabs-sofa-download@v1
+        id: sofa-download
         with:
           sofa_root: $SOFA_ROOT
 
@@ -56,6 +57,10 @@ jobs:
 
       - name: Set env vars
         shell: bash
+        env:
+          SOFTROBOTS_ROOT: ${{ steps.sofa-download.outputs.softrobots_root }}
+          SOFTROBOTSINVERSE_ROOT: $ {{ steps.sofa-download.outputs.softrobotsinvers_root }}
+          SOFAGLFW_ROOT: ${{ steps.sofa-download.outputs.sofaglfw_root }}
         run: |
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
