@@ -128,7 +128,7 @@ def test_inverse_kinematics_exercise1():
     # The scene is in mm
     assert p0[0] == pytest.approx(p1[0], abs=1e-6), "check the effector x position"
     assert p0[1] == pytest.approx(p1[1], abs=1e-6), "check the effector y position"
-    assert p0[2] == pytest.approx(p1[0], abs=1e-6), "check the effector z position"
+    assert p0[2] == pytest.approx(p1[2], abs=1e-6), "check the effector z position"
 
 def test_inverse_kinematics_exercise2():
     nbTimeStep = 200
@@ -163,7 +163,7 @@ def test_inverse_kinematics_exercise2():
     # The scene is in mm
     assert p0[0] == pytest.approx(p1[0], abs=1e-6), "check the effector x position"
     assert p0[1] == pytest.approx(p1[1], abs=1e-6), "check the effector y position"
-    assert p0[2] == pytest.approx(p1[0], abs=1e-6), "check the effector z position"
+    assert p0[2] == pytest.approx(p1[2], abs=1e-6), "check the effector z position"
 
 def test_inverse_kinematics_exercise3():
     nbTimeStep = 200
@@ -198,4 +198,4 @@ def test_inverse_kinematics_exercise3():
     # The scene is in mm
     assert p0[0] == pytest.approx(p1[0], abs=1e-6), "check the effector x position"
     assert p0[1] == pytest.approx(p1[1], abs=1e-6), "check the effector y position"
-    assert p0[2] == pytest.approx(p1[0], abs=1e-6), "check the effector z position"
+    assert p0[2] == pytest.approx(p1[2], abs=1e-6), "check the effector z position"
