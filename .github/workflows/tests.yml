@@ -59,7 +59,7 @@ jobs:
         shell: bash
         env:
           SOFTROBOTS_ROOT: ${{ steps.sofa-download.outputs.softrobots_root }}
-          SOFTROBOTSINVERSE_ROOT: $ {{ steps.sofa-download.outputs.softrobotsinvers_root }}
+          SOFTROBOTSINVERSE_ROOT: $ {{ steps.sofa-download.outputs.softrobotsinverse_root }}
           SOFAGLFW_ROOT: ${{ steps.sofa-download.outputs.sofaglfw_root }}
         run: |
           if [[ "$RUNNER_OS" == "Windows" ]]; then
