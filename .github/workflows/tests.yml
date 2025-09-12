@@ -28,7 +28,7 @@ jobs:
           path: ${{ env.WORKSPACE_SRC_PATH }}
 
       - name: Download SOFA and plugins binaries
-        uses: SofaComplianceRobotics/emiolabs-sofa-download@v1
+        uses: SofaComplianceRobotics/emiolabs-sofa-download@main
         id: sofa-download
         with:
           sofa_root: $SOFA_ROOT
