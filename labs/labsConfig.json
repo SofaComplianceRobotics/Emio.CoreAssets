@@ -1,1 +1,25 @@
-{"labs":[{"name":"introduction"},{"name":"demo_tentacool"},{"name":"sandbox"},{"name":"demo_tictactoe"},{"name":"lab_models"}]}
+{
+    "labs": [
+        {
+            "name": "introduction"
+        },    
+        {
+            "name": "lab_models"
+        },
+        {
+            "name": "lab_inversekinematics"
+        },
+        {
+            "name": "project_pickandplace"
+        },
+        {
+            "name": "lab_design"
+        },
+        {
+            "name": "lab_closedloop"
+        },
+        {
+            "name": "sandbox"
+        }
+    ]
+}
