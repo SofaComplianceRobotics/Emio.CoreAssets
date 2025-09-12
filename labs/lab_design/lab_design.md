@@ -25,7 +25,7 @@ We use FreeCAD and Gmsh to design the legs and generate the meshes needed for si
 Depending on your operating system and your FreeCAD installation, Gmsh may or may not be included in the FreeCAD installation binaries.
 Click on the following button and try the command `import gmsh` in the python console of FreeCAD (**View**>**Panels**>**Python Console**). If something does not work follow the instructions below, otherwise you can start following the lab and enjoy!
 
-#open-button("assets/data/meshes/legs/leg-cad.FCStd")
+#open-button("assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd")
 
 ::: collapse Troubleshooting
 1. We encourage you to install [FreeCAD](https://www.freecad.org/downloads.php?) 1.0.1 or newer. 
