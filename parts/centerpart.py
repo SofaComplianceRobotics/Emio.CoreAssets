@@ -75,11 +75,17 @@ class CenterPart(Sofa.Prefab):
         dataDirPaths = ['/data/meshes/centerparts/',
                         '/../data/meshes/centerparts/',
                         '/../../data/meshes/centerparts/']
-        
+            
+        # First check relative to the simulation file
         for path in dataDirPaths:
             filePath = getLoadingLocation(os.path.dirname(os.path.abspath(sys.argv[0])) + path + filename, __file__)
             if os.path.isfile(filePath):
                 return filePath
+            
+        # Then check relative to the leg.py file
+        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../data/meshes/centerparts/" + filename, __file__)
+        if os.path.isfile(filePath):
+            return filePath
             
         return None
 
