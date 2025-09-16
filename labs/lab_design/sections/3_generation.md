@@ -28,7 +28,7 @@ The spline is initially composed of a limited number of points to limit the numb
 You can add more points on the spline by selecting first the spline, then clicking the **Insert a node** button in the sketch toolbar, 
 and finally clicking on the spline where you want to place it.
 
-Once all the design parameters are specified, the python script `MYHOME/emio-labs/assets/utils/freecadbeziercurvetomeshes.py` is used to 
+Once all the design parameters are specified, the python script `MYHOME/emio-labs/assets/labs/lab_design/utils/freecadbeziercurvetomeshes.py` is used to 
 generate the parametric geometry of the leg. Using the OpenCascade tool incorporated in FreeCAD, it recovers the B-spline
 from the sketch `myleg`, defines a rectangular cross-section using variables **w** and **t**, to finally extrude (sweep) this 
 cross-section along the planar curved profile. 
