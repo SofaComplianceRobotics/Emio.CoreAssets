@@ -36,9 +36,10 @@ class LabGUI(Sofa.Core.Controller):
         self.markersInitDone = False
 
     def onAnimateBeginEvent(self, e):
-        if self.root.getChild("DepthCamera") is not None:
-            if self.root.DotTracker.tracker._camera and self.root.DotTracker.tracker.calibration_status is CalibrationStatusEnum.NOT_CALIBRATED: 
-                self.root.DotTracker.tracker.calibrate()
+        if self.root.getChild("DepthCamera") is not None: # Wait for the camera to be initialized
+            if self.root.DotTracker.tracker is not None: # Wait for the tracker to be initialized
+                if self.root.DotTracker.tracker._camera and self.root.DotTracker.tracker.calibration_status is not CalibrationStatusEnum.CALIBRATED: 
+                    self.root.DotTracker.tracker.calibrate()
 
             # Compute simulation to real error
             trackers = self.root.DepthCamera.Trackers.position.value
@@ -150,4 +151,5 @@ def createScene(rootnode):
             rootnode.addObject(tracker)        
         except RuntimeError:
             Sofa.msg_error(__file__, "Camera not detected")
+
     return

@@ -65,22 +65,16 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SofaGLFW_ROOT=$( echo "/$SOFAGLFW_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SoftRobotsInverse_ROOT=$( echo "/$SOFTROBOTSINVERSE_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_SoftRobots_ROOT=$( echo "/$SOFTROBOTS_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            # echo "PATH=$PATH:$WIN_SOFA_ROOT/bin"| tee -a $GITHUB_ENV
-            echo "$WIN_SOFA_ROOT/bin" >> $GITHUB_PATH
-            echo "$(cd $WIN_SOFA_ROOT/lib && pwd -W)" >> $GITHUB_PATH
             echo "$(cd $WIN_SOFA_ROOT/bin && pwd -W)" >> $GITHUB_PATH
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
-            echo "LD_LIBRARY_PATH=$WIN_SofaGLFW_ROOT/lib:$WIN_SOFA_ROOT/lib:$WIN_SoftRobotsInverse_ROOT/lib:$WIN_SoftRobots_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+            echo "LD_LIBRARY_PATH=$WIN_SOFA_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           else
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             if [[ "$RUNNER_OS" == "macOS" ]]; then
-              echo "DYLD_FALLBACK_LIBRARY_PATH=$SOFAGLFW_ROOT/lib:$SOFA_ROOT/lib:$SOFTROBOTSINVERSE_ROOT/lib:$SOFTROBOTS_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
+              echo "DYLD_FALLBACK_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
             else
-              echo "LD_LIBRARY_PATH=$SOFAGLFW_ROOT/lib:$SOFA_ROOT/lib:$SOFTROBOTSINVERSE_ROOT/lib:$SOFTROBOTS_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
+              echo "LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
             fi
           fi
 
