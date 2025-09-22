@@ -19,7 +19,7 @@ The first four points and the last two points must not be changed to satisfy the
 You can specify the width and thickness values. For the B-spline points, entering directly the position coordinates
 would not be ergonomic, as it could be difficult to imagine the resulting curve.
 Therefore, we propose to modify these points graphically using the open-source and free software FreeCAD.
-By opening the file `MYHOME/emio-labs/assets/data/meshes/legs/leg-cad.FCStd`, you will see the window shown in the figure above.
+By opening the file `MYHOME/emio-labs/assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd`, you will see the window shown in the figure above.
 You can then double-click on the sketch `myleg` where the points composing the spline are defined and the spline depicted.
 You can finally change the point position by dragging their center. 
 Please, ensure that on the very bottom right of the interface, the FreeCAD control set **CAD** is selected.
@@ -28,7 +28,7 @@ The spline is initially composed of a limited number of points to limit the numb
 You can add more points on the spline by selecting first the spline, then clicking the **Insert a node** button in the sketch toolbar, 
 and finally clicking on the spline where you want to place it.
 
-Once all the design parameters are specified, the python script `MYHOME/emio-labs/assets/utils/freecadbeziercurvetomeshes.py` is used to 
+Once all the design parameters are specified, the python script `MYHOME/emio-labs/assets/labs/lab_design/utils/freecadbeziercurvetomeshes.py` is used to 
 generate the parametric geometry of the leg. Using the OpenCascade tool incorporated in FreeCAD, it recovers the B-spline
 from the sketch `myleg`, defines a rectangular cross-section using variables **w** and **t**, to finally extrude (sweep) this 
 cross-section along the planar curved profile. 
@@ -52,7 +52,7 @@ factor will induce a bad discretization and errors in the scene.
 :::: exercise
 **Exercise 1:**
 
-1. Change the curvature of the leg. Open the file `MYHOME/emio-labs/assets/data/meshes/legs/leg-cad.FCStd` with FreeCAD. Double-click on `mylegSketch` and make your changes.  
+1. Change the curvature of the leg. Open the file `MYHOME/emio-labs/assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd` with FreeCAD. Double-click on `mylegSketch` and make your changes.  
 
 2. Once you're done. Still in FreeCAD, open the `View/Panels/Python console`. In the console copy and paste the following commands: 
     ```python
@@ -81,7 +81,7 @@ factor will induce a bad discretization and errors in the scene.
 
 4. Once you're done, test your design in simulation by clicking the SOFA button.
 
-#open-button("assets/data/meshes/legs/leg-cad.FCStd")
+#open-button("assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd")
 
 #runsofa-button("assets/labs/lab_design/lab_design.py", "rigid")
 

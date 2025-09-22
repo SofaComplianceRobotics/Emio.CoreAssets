@@ -16,7 +16,7 @@ The gripper is composed of two fingers linked together with a ring with a square
 The legs are then rigidly attached to this ring, and will deform it upon actuation.
 As a couple design parameters, we propose you to modify the ring's thickness and the fingers opening.
 
-1. Open the file `MYHOME/emio-labs/assets/data/meshes/centerparts/gripper-cad.FCStd` with FreeCAD.  
+1. Open the file `MYHOME/emio-labs/assets/labs/lab_design/data/meshes/centerparts/my-gripper-cad.FCStd` with FreeCAD.  
 
 2. Still in FreeCAD, open the `View/Panels/Python console`. In the console copy and paste the following commands: 
     ```python
@@ -47,7 +47,7 @@ As a couple design parameters, we propose you to modify the ring's thickness and
 - What is the optimal value of ring thickness ? 
 - How does the ring's flexibility alter the robot workspace?
 
-#open-button("assets/data/meshes/centerparts/gripper-cad.FCStd")
+#open-button("assets/data/meshes/labs/lab_design/centerparts/my-gripper-cad.FCStd")
 
 #runsofa-button("assets/labs/lab_design/lab_design.py", "deformable")
 ::::
