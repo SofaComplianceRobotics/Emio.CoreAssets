@@ -1,6 +1,5 @@
 {
     "name": "lab_closedloop",
     "title": "Lab Closed Loop",
-    "description": "discover and implement a closed loop controller",
-    "url": ""
+    "description": "discover and implement a closed loop controller"
 }

@@ -1,6 +1,5 @@
 {
     "name": "lab_inversekinematics",
     "title": "Lab Inverse Kinematics",
-    "description": "implement your own quadratic program",
-    "url":""
+    "description": "implement your own quadratic program"
 }
