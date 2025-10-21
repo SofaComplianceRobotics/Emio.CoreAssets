@@ -156,12 +156,12 @@ class Emio(Sofa.Prefab):
         {'name': 'motorsDistanceToCenter', 'type': 'vector<double>', 'help': '', 'default': [100, 100, 100, 100]},
     ]
 
-    __validState = True
+    _validState = True
 
     def __init__(self, centerPartClass=CenterPart, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
 
-        self.__centerPartClass = centerPartClass
+        self._centerPartClass = centerPartClass
         self.addData(name="nbLegs", type="int", value=4)
         centerPartPositions = []
 
@@ -182,15 +182,15 @@ class Emio(Sofa.Prefab):
         assert len(legsPoissonRatio) > 0, "At least one Poisson's ratio is expected"
 
         for i in range(self.nbLegs.value):
-            angle = 2. * pi / 4. * i
+            angle = 2. * pi / self.nbLegs.value * i
 
             radius = distances[i] if i < len(distances) else distances[0]
             translation = [radius * sin(angle), 0, radius * cos(angle)]
-            rotation = [0, [180, 90, 0, -90][i], 0]
+            rotation = [0., angle*360./(2.*pi) + 180. * (i%2+1), 0.] # the motors are rotated to match the real device (facing each other)
 
             # Motor
             motor = Motor(name="Motor" + str(i), translation=translation, rotation=rotation,
-                          tempvisurotation=[[-90, 90, -90, 90][i], 180, 0], color=[0., 0., 0., 0.])
+                          tempvisurotation=[[-90, 90][i % 2], 180, 0], color=[0., 0., 0., 0.])
             self.addChild(motor)
             self.motors.append(motor)
 
@@ -211,7 +211,7 @@ class Emio(Sofa.Prefab):
                         )
                 self.legs.append(leg)
                 if not leg.isValid():
-                    self.__validState = False
+                    self._validState = False
                     Sofa.msg_error(self.getName(), "At least one leg is not valid, cannot create Emio.")
                     break
                 else:
@@ -226,7 +226,7 @@ class Emio(Sofa.Prefab):
                     centerPartPositions += [position]
 
         # Robot's center part
-        if self.__validState:
+        if self._validState:
             if self.centerPartName.value is not None and self.centerPartName.value != "None":
                 color = getColorFromFilename(self.centerPartName.value) if "blue" not in self.centerPartName.value else RGBAColor.lightblue
                 self.centerpart = centerPartClass(name="CenterPart",
@@ -245,22 +245,22 @@ class Emio(Sofa.Prefab):
                 else:
                     self.effector = self.centerpart.attach.addChild("Effector")
                 self.addChild(self.centerpart)
-            self.__addBox()
-            self.__addCamera()
+            self._addBox()
+            self._addCamera()
 
-    def __addBox(self):
+    def _addBox(self):
         """
         Adds the structure of the robot to the simulation (only for visual rendering).
         """
         box = self.addChild("Box")
         if self.extended.value:
             box.addObject("MeshSTLLoader", filename=getLoadingLocation("../data/meshes/base-extended.stl", __file__))
-            self.__addPlatform()
+            self._addPlatform()
         else:
             box.addObject("MeshSTLLoader", filename=getLoadingLocation("../data/meshes/base-compact.stl", __file__))
         box.addObject("OglModel", src=box.MeshSTLLoader.linkpath, color=[1, 1, 1, 0.05])
 
-    def __addPlatform(self):
+    def _addPlatform(self):
         """
         Adds the platform to the simulation (only for visual rendering).
         """
@@ -269,7 +269,7 @@ class Emio(Sofa.Prefab):
                            translation=[0, [0, 35, 70][self.platformLevel.value], 0])
         platform.addObject("OglModel", src=platform.MeshSTLLoader.linkpath, color=[1, 1, 1, 0.1])
 
-    def __addCamera(self):
+    def _addCamera(self):
         """
         Adds the camera to the simulation (for visual rendering and access the sim to real transformations).
         """
@@ -281,7 +281,7 @@ class Emio(Sofa.Prefab):
         The center part is attached to the legs at their extremities.
         The legs are attached to the motors at their base.
         """
-        if not self.__validState:
+        if not self._validState:
             Sofa.msg_error(self.getName(),
                            "Emio has not been correctly initialized, cannot attach the center part to the legs.")
             return
@@ -311,7 +311,7 @@ class Emio(Sofa.Prefab):
             - `withGUI`: If True, add the GUI components. Default is True.
             - `barycentric`: If True, use barycentric coordinates for the effector. Default is False.
         """
-        if not self.__validState:
+        if not self._validState:
             Sofa.msg_error(self.getName(), "Emio has not been correctly initialized, cannot add the "
                                            "inverse components.")
             return
@@ -338,7 +338,7 @@ class Emio(Sofa.Prefab):
                                     weight=orientationWeight,
                                     effectorGoal=targetMechaLink, name="EffectorOrientation")
 
-        if self.__centerPartClass == Gripper:
+        if self._centerPartClass == Gripper:
             self.centerpart.addGripperEffector()
 
         if withGUI:
@@ -369,7 +369,7 @@ class Emio(Sofa.Prefab):
         """
         Check if Emio is in a valid state. Returns True if Emio is in a valid state, False otherwise.
         """
-        return self.__validState
+        return self._validState
 
 
 def getParserArgs():

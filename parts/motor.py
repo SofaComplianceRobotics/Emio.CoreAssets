@@ -41,7 +41,7 @@ class Motor(Sofa.Prefab):
     def __init__(self, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
 
-        self.__addRequiredPlugins()
+        self._addRequiredPlugins()
 
         self.addObject('MechanicalObject', template='Vec1', position=[[0]])
 
@@ -89,7 +89,7 @@ class Motor(Sofa.Prefab):
         visual.addObject('OglModel', color=[1, 1, 1, 1])
         visual.addObject('RigidMapping', index=1)
 
-    def __addRequiredPlugins(self):
+    def _addRequiredPlugins(self):
         """
         Private method to add required plugins. Create a dedicated node in the Motor node.
         Called at the beginning of __init__.

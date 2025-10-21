@@ -101,7 +101,7 @@ class CenterPart(Sofa.Prefab):
     def __init__(self, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
 
-        self.__addRequiredPlugins()
+        self._addRequiredPlugins()
 
         filename = self.partName.value + '.json'
         self._checkFile(filename)
@@ -116,7 +116,7 @@ class CenterPart(Sofa.Prefab):
             case "deformable":
                 self._addDeformableCenterPart()
             case "rigid":
-                self.__addRigidCenterPart()
+                self._addRigidCenterPart()
             case _:
                 Sofa.msg_error("centerpart.py", 'Unknown model, value should be "deformable", or "rigid".')
                 return
@@ -188,7 +188,7 @@ class CenterPart(Sofa.Prefab):
                        output=part.getMechanicalState().linkpath,
                        indexPairs=indexPairs)
 
-    def __addRigidCenterPart(self):
+    def _addRigidCenterPart(self):
         """
         Add a rigid center part to the simulation.
         """
@@ -269,7 +269,7 @@ class CenterPart(Sofa.Prefab):
                 visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color.value)
                 visual.addObject("BarycentricMapping")
 
-    def __addRequiredPlugins(self):
+    def _addRequiredPlugins(self):
         plugins = self.addChild("RequiredPlugins")
         plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Constant')
         # Needed to use components [MeshTopology]
