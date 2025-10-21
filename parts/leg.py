@@ -125,12 +125,12 @@ class Leg(Sofa.Prefab):
         {'name': 'width', 'type': 'float', 'help': '', 'default': parameters.width},
     ]
 
-    __validState = False
+    _validState = False
 
     def __init__(self, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
 
-        self.__addRequiredPlugins()
+        self._addRequiredPlugins()
 
         self.base = self.addChild(self.name.value + 'RigidBase')
         self.extremity = self.addChild(self.name.value + 'RigidExtremity')
@@ -147,16 +147,16 @@ class Leg(Sofa.Prefab):
         q.rotateFromEuler(to_radians(rotation))
         self.rotation.value = to_degrees(q.getEulerAngles())
 
-        if self.__checkData():
+        if self._checkData():
             match self.model.value:
                 case "beam":
-                    self.__addBeamModel()
+                    self._addBeamModel()
                 case "cosserat":
-                    self.__addCosseratModel()
+                    self._addCosseratModel()
                 case _:
-                    self.__addTetraModel()
-            self.__addVisualModel()
-            self.__validState = True
+                    self._addTetraModel()
+            self._addVisualModel()
+            self._validState = True
 
         if self.positionOnMotor.value in ["clockwiseup", "clockwisedown"]:
             with self.extremity.getMechanicalState().position.writeable() as position:
@@ -167,7 +167,7 @@ class Leg(Sofa.Prefab):
                 position[0][3:7] = q1
 
 
-    def __getFilePath(self, filename) -> str:
+    def _getFilePath(self, filename) -> str:
         """
         Get the file path of the given filename in the data/meshes/legs directory.
         Returns the full path if the file exists, otherwise returns None.
@@ -186,19 +186,19 @@ class Leg(Sofa.Prefab):
         return None
 
 
-    def __checkFile(self, filename) -> bool:
+    def _checkFile(self, filename) -> bool:
         """
         Check if the file exists in the data/meshes/legs directory.
         Returns True if it exists, False otherwise and logs an error.
         """
-        if self.__getFilePath(filename) is not None:
+        if self._getFilePath(filename) is not None:
             return True
             
         Sofa.msg_error(self.getName(), f'Missing file: {filename} in data/meshes/legs directory.')
         return False
     
 
-    def __checkData(self):
+    def _checkData(self):
         """
         Check if the data needed to create the leg is present.
         The leg is created from a mesh, and the data should be in the data/meshes/legs directory.
@@ -211,9 +211,9 @@ class Leg(Sofa.Prefab):
         if self.model.value in ["beam", "cosserat"]:
             if not self.positions.value.any():
                 filename = self.legName.value + ".txt"
-                if not self.__checkFile(filename):
+                if not self._checkFile(filename):
                     return False
-                self.positions.value = np.loadtxt(self.__getFilePath(filename))
+                self.positions.value = np.loadtxt(self._getFilePath(filename))
                 if not self.positions.value.any():
                     Sofa.msg_error(self.getName(), 'Empty positions. We cannot model the leg without a list of '
                                                 'Rigid3 positions describing the curve when using the '
@@ -225,13 +225,13 @@ class Leg(Sofa.Prefab):
                                'Empty legName. We cannot model the leg with tetra without a volume mesh.')
                 return False
             
-            if not self.__checkFile(self.legName.value + ".vtk"):
+            if not self._checkFile(self.legName.value + ".vtk"):
                 return False
         else:
             Sofa.msg_error(self.getName(), 'Unknown model, value should be "beam", "cosserat", or "tetra".')
             return False
 
-        filePath = self.__getFilePath(self.legName.value + ".stl")
+        filePath = self._getFilePath(self.legName.value + ".stl")
         if filePath is None:
             return False
 
@@ -246,7 +246,7 @@ class Leg(Sofa.Prefab):
         return True
 
 
-    def __addBeamModel(self):
+    def _addBeamModel(self):
         """
         FEM line model from the plugin BeamAdapter.
         base, extremity, deformable
@@ -275,7 +275,7 @@ class Leg(Sofa.Prefab):
 
         # The extremity and the base of the leg are attached to something (either the motor or a support)
         # Thus, we need to rigidify these parts.
-        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self.__getIndicesDistribution(self.leg.MeshTopology)
+        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(self.leg.MeshTopology)
 
         # The rigid base part
         self.base.addObject('MechanicalObject', template='Rigid3', position=positions[0])
@@ -310,7 +310,7 @@ class Leg(Sofa.Prefab):
                            indexPairs=indexPairs)
 
 
-    def __addCosseratModel(self):
+    def _addCosseratModel(self):
         """
         Cosserat line model from the plugin Cosserat.
         """
@@ -333,7 +333,7 @@ class Leg(Sofa.Prefab):
 
         # The extremity and the base of the leg are attached to something (either the motor or a support)
         # Thus, we need to rigidify these parts.
-        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self.__getIndicesDistribution(
+        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(
             self.leg.MeshTopology)
 
         applyRotation([extremityPosition], to_radians(self.rotation.value))
@@ -391,13 +391,13 @@ class Leg(Sofa.Prefab):
                            debug=False, baseIndex=0)
 
 
-    def __addTetraModel(self):
+    def _addTetraModel(self):
         """
         FEM volume model. We need a volume mesh, and we will use the component TetrahedronFEMForceField.
         """
         # The volume model
         self.leg.addObject('MeshVTKLoader',
-                           filename=self.__getFilePath(self.legName.value + ".vtk"),
+                           filename=self._getFilePath(self.legName.value + ".vtk"),
                            rotation=self.rotation.value, translation=self.translation.value)
         self.leg.addObject('MeshTopology', src=self.leg.MeshVTKLoader.linkpath)
         self.leg.MeshTopology.init()
@@ -409,7 +409,7 @@ class Leg(Sofa.Prefab):
 
         # The extremity and the base of the leg are attached to something (either the motor or a support)
         # Thus, we need to rigidify these parts.
-        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self.__getIndicesDistribution(
+        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(
             self.leg.MeshTopology)
 
         # The rigid base
@@ -459,7 +459,7 @@ class Leg(Sofa.Prefab):
                            indexPairs=indexPairs)
 
 
-    def __getIndicesDistribution(self, topology):
+    def _getIndicesDistribution(self, topology):
         """
         Get the indices of the rigidified and deformable parts of the leg.
         The rigidified parts are the base and the extremity, and the deformable part is the rest of the leg.
@@ -520,7 +520,7 @@ class Leg(Sofa.Prefab):
         return indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs
 
 
-    def __addVisualModel(self):
+    def _addVisualModel(self):
         """
         Adds a visual model to the leg. In case of the tetra model, we need the corresponding surface mesh.
         Otherwise, the surface will be generated from the leg positions.
@@ -528,7 +528,7 @@ class Leg(Sofa.Prefab):
         if self.model.value in ["tetra"]:
             visual = self.leg.addChild("Visual")
             visual.addObject("MeshSTLLoader",
-                             filename=self.__getFilePath(self.legName.value + ".stl"))
+                             filename=self._getFilePath(self.legName.value + ".stl"))
             visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color,
                              rotation=self.rotation.value, translation=self.translation.value)
             visual.addObject('BarycentricMapping') if self.model.value == "tetra" else visual.addObject(
@@ -536,13 +536,13 @@ class Leg(Sofa.Prefab):
         else:
             visual = self.leg.addChild("Visual")
             visual.addObject("MeshSTLLoader",
-                             filename=self.__getFilePath(self.legName.value + ".stl"))
+                             filename=self._getFilePath(self.legName.value + ".stl"))
             visual.addObject("OglModel", src=visual.MeshSTLLoader.linkpath, color=self.color,
                              rotation=self.rotation.value, translation=self.translation.value)
             visual.addObject('SkinningMapping')
 
 
-    def __addRequiredPlugins(self):
+    def _addRequiredPlugins(self):
         """
         Add the RequiredPlugins of the Leg class.
         """
@@ -579,7 +579,7 @@ class Leg(Sofa.Prefab):
             - `attach` (`Sofa.Node`): The node to which the leg's base will be attached.
             - `index` (`int`): The index of the degrees of freedom (DOFs) in the `attach` node to connect to.
         """
-        if not self.__validState:
+        if not self._validState:
             return
 
         base = self.leg if self.model.value == "cosserat" else self.base
@@ -590,7 +590,7 @@ class Leg(Sofa.Prefab):
                             position=base.getMechanicalState().position.value[baseIndex])
         legAttach.addObject("RigidMapping", globalToLocalCoords=True, index=index)
 
-        self.__attach(part=base, attach=legAttach, indexPart=baseIndex, indexAttach=0)
+        self._attach(part=base, attach=legAttach, indexPart=baseIndex, indexAttach=0)
 
 
     def attachExtremity(self, attach, index) -> None:
@@ -601,12 +601,12 @@ class Leg(Sofa.Prefab):
             - `attach` (`Sofa.Node`): The node to which the leg's extremity will be attached.
             - `index` (`int`): The index of the degrees of freedom (DOFs) in the `attach` node to connect to.
         """
-        if not self.__validState:
+        if not self._validState:
             return
-        self.__attach(part=self.extremity, attach=attach, indexPart=0, indexAttach=index)
+        self._attach(part=self.extremity, attach=attach, indexPart=0, indexAttach=index)
 
 
-    def __attach(self, part, attach, indexPart, indexAttach):
+    def _attach(self, part, attach, indexPart, indexAttach):
         difference = part.addChild("Difference"+str(indexAttach))
         attach.addChild(difference)
         difference.addObject("MechanicalObject", template="Rigid3", position=[[0, 0, 0, 0, 0, 0, 1]])
@@ -623,7 +623,7 @@ class Leg(Sofa.Prefab):
         """
         Check if the leg is in a valid state. Returns True if the leg is in a valid state, False otherwise.
         """
-        return self.__validState
+        return self._validState
 
 
 def createScene(rootnode):
