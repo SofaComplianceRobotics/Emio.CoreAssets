@@ -27,6 +27,7 @@ def test_lab_closedloop():
 
 def test_sandbox():
     partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection", 40)
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,deformable", 40)
+    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,deformable,-cm,tetra", 40)
+    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,deformable,-cm,beam", 40)
 
 
