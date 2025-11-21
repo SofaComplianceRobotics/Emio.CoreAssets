@@ -158,9 +158,9 @@ def createScene(rootnode):
 
     if GRIPPER and DEFORMABLE:
         # GUI slider for the gripper opening
-        MyGui.MoveWindow.addAccessory("Gripper's opening (mm)", emio.centerpart.Effector.Distance.DistanceMapping.restLengths, 8, 70)
-        MyGui.ProgramWindow.addGripper(emio.centerpart.Effector.Distance.DistanceMapping.restLengths, 8, 70)
-        MyGui.IOWindow.addSubscribableData("/Gripper", emio.centerpart.Effector.Distance.DistanceMapping.restLengths)
+        MyGui.MoveWindow.addAccessory("Gripper's opening (mm)", emio.centerpart.effector.Distance.DistanceMapping.restLengths, 8, 70)
+        MyGui.ProgramWindow.addGripper(emio.centerpart.effector.Distance.DistanceMapping.restLengths, 8, 70)
+        MyGui.IOWindow.addSubscribableData("/Gripper", emio.centerpart.effector.Distance.DistanceMapping.restLengths)
     MyGui.ProgramWindow.importProgram(os.path.dirname(__file__)+"/mypickandplace.crprog")
 
     # Components for the connection to the real robot 
