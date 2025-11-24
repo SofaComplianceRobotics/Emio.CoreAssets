@@ -16,7 +16,6 @@ from math import pi, sin
 import numpy as np
 from scipy.linalg import logm, inv
 from scipy.spatial.transform import Rotation
-from splib3.numerics import Quat
 
 from splib3.numerics import Quat, Vec3, vsub, to_radians, to_degrees
 from splib3.loaders import getLoadingLocation
