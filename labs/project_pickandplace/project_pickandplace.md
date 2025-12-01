@@ -51,8 +51,13 @@ on physical obstacles to achieve tasks:
 :::: exercise 
 
 ::: collapse {open} Set up Emio
+- Raise the platform using the blue elevators
+- Place the blue tray on the platform using the small pins
+- Put the white cube into one the the tray's slots
 - Take four <span style="color:blue">*blue legs*</span> and attach them to each motor (as shown on the left image).
 - Attach the *white connector* (the soft gripper) at the tip of each leg. Pay close attention to the robot's motor numbering to correctly position the gripper. **The gripper's jaws must align with motors n°0 and n°2 (as shown on the right image)**.
+
+You should have Emio set up as shown in the left image.
 
 ![](assets/data/images/project1-emio.png){width=49%}
 ![](assets/data/images/project1-gripper.png){width=49%}
