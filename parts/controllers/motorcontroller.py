@@ -45,6 +45,7 @@ class MotorController(Sofa.Core.Controller):
         MyGui.MyRobotWindow.listAvailablePortsCallback(self, "listAvailablePortsCallback")
 
         # Connection thread
+        MyGui.MyRobotWindow.updateAvailablePorts() # Initial population of available ports
         self.connectionThread = threading.Thread(target=connectRobot, args=[self.emiomotors])
         self.connectionThread.daemon = True
         self.connectionThread.start()
