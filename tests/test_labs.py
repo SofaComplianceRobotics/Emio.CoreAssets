@@ -26,9 +26,19 @@ def test_lab_closedloop():
 
 
 def test_sandbox():
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection", 40)
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,deformable,-cm,tetra", 40)
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,deformable,-cm,beam", 40)
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", "--no-connection,-cn,whitepart,-ct,rigid", 40)
+    from itertools import product
+    configsParams = {
+        "legsName": ["blueleg"],
+        "legsModel": [ "beam", "cosserat", "tetra"],
+        "centerPartName": ["whitepart", "yellowpart"],
+        "centerPartType": ["deformable", "rigid"],
+        "centerPartModel": [ "beam", "cosserat", "tetra"]
+    }
 
-
+    combinations = list(product(*configsParams.values()))
+    combinations = list(filter(lambda t: (t[2]!="whitepart" and t[3]=="rigid" and t[4]==combinations[0][4]) or t[2]=="whitepart", combinations)) # Removes non valid combinations
+    
+    for combination in combinations:
+        partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", 
+                f"""--no-connection,-ln,{combination[0]},{combination[0]},{combination[0]},{combination[0]},-lm,{combination[1]},{combination[1]},{combination[1]},{combination[1]},-cn,{combination[2]},-ct,{combination[3]},-cm,{combination[4]}""", 
+                40)
