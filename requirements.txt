@@ -10,4 +10,4 @@ opencv-python
 pyrealsense2; platform_system == "Windows" or platform_system == "Linux"
 pyrealsense2-macosx; platform_system == "Darwin"
 pillow
-git+https://github.com/SofaComplianceRobotics/Emio.API.git@main
+emioapi==0.2.0
