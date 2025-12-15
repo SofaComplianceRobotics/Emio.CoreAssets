@@ -5,9 +5,7 @@ on:
   pull_request:
   push:
     branches:
-      - main
-  schedule:
-    - cron: '0 3 * * *' # nightly job at 3 am UTC
+      - v25.12
 
 env:
   SOFA_ROOT: ${{ github.workspace }}/sofa-install
