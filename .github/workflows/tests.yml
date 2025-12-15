@@ -27,10 +27,11 @@ jobs:
           path: ${{ env.WORKSPACE_SRC_PATH }}
 
       - name: Download SOFA and plugins binaries
-        uses: SofaComplianceRobotics/emiolabs-sofa-download@v1
+        uses: SofaComplianceRobotics/emiolabs-sofa-download@v2
         id: sofa-download
         with:
           sofa_root: $SOFA_ROOT
+          sofaglfw_branch: "robotics-v25.12"
 
       - name: Additional Install 
         shell: bash
