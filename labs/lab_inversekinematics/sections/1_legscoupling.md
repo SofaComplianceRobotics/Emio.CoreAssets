@@ -10,6 +10,7 @@ and that, sometimes, several position of the effector $\mathbf{y}_{e}$ can be fo
 
 Next, we propose to introduce the mathematical modeling of leg coupling using three different modeling approaches. 
 In each case, the objective is to constrain the degrees of freedom (DOF) of the leg ends to match those of the effector. 
+Note that in the case of FEM, the DOF are the unkonwn positions (nodes), in Cosserat models, they correspond to the strains.
 For simplicity, we assume in the following that the robot has only two actuated legs, although in reality it has four. 
 
 ### Case 1: Absolute Coordinates 
@@ -82,7 +83,7 @@ d\mathbf{x}_2  = \mathbf{H}_2 d\mathbf{q}_2 = d\mathbf{y}_e
 \right.
 $$
 
-with $\mathbf{H}_1  = \frac{\partial  \delta_1}{\partial \mathbf{q}_1}$ and $\mathbf{H}_2  = \frac{\partial  \delta_2}{\partial \mathbf{q}_2}$.
+with $\mathbf{H}_1  = \frac{\partial  \delta_1}{\partial \mathbf{q}_1}$ and $\mathbf{H}_2  = \frac{\partial  \delta_2}{\partial \mathbf{q}_2}$, the direction of the effort applied on the FEM nodes.
 
 so we need to impose the kinematic constraint:
 $$

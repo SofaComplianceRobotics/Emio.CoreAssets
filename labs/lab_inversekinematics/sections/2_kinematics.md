@@ -11,6 +11,8 @@ $\textcolor{darkgreen}{\mathbf{y}_{e}}$ based on the commanded motor position $\
 To compute this function, we will modify the static force calculations, incorporate the coupling of the four legs, 
 and impose the motor motion.
 
+In the following, the indices letters $\mathbf{a}$ and $\mathbf{e}$ refer respectively to the actuation (motor) and the end-effector. 
+
 In the algorithm, the four values of the actuation torque are introduced into the simulation as a vector of 
 Lagrange multiplier $\boldsymbol{\lambda}_{\mathrm{a}}$. Furthermore, the motor positions in the simulation, 
 $\boldsymbol{\delta}_{\mathrm{a}}$, is a function of the robot's position $\mathbf{q}$ 

@@ -1,6 +1,6 @@
 def addHeader(rootnode,
               inverse=False, multithreading=True,
-              mouseStiffness=1000, friction=0.6,
+              mouseStiffness=10, friction=0.6,
               withCollision=False, withConstraint=True):
 
     # RequiredPlugins
@@ -17,7 +17,7 @@ def addHeader(rootnode,
                                    'Sofa.Component.Collision.Response.Contact',
                                    # Needed to use components [RuleBasedContactManager]
                                    'Sofa.Component.Constraint.Lagrangian.Solver',
-                                   # Needed to use components [ProjectedGaussSeidelConstraintSolver]
+                                   # Needed to use components [BlockGaussSeidelConstraintSolver]
                                    'Sofa.Component.StateContainer',  # Needed to use components [MechanicalObject]
                                    'Sofa.Component.Visual',  # Needed to use components [VisualStyle]
                                    'Sofa.GUI.Component',  # Needed to use components [AttachBodyButtonSetting]
@@ -52,7 +52,7 @@ def addHeader(rootnode,
             rootnode.addObject('QPInverseProblemSolver', name='ConstraintSolver', tolerance=1e-8, maxIterations=500,
                                multithreading=multithreading, responseFriction=friction, allowSliding=False, epsilon=0.01)
         else:
-            rootnode.addObject('ProjectedGaussSeidelConstraintSolver', name='ConstraintSolver', tolerance=1e-8, maxIterations=500,
+            rootnode.addObject('BlockGaussSeidelConstraintSolver', name='ConstraintSolver', tolerance=1e-8, maxIterations=500,
                                multithreading=multithreading)
     else:
         rootnode.addObject('DefaultAnimationLoop')

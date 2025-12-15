@@ -8,7 +8,7 @@ We assume that whatever the configuration, the robot exhibits elastic behavior, 
 Additionally, we assume that the robot moves slowly enough that kinetic energy can be neglected for the time being. 
 This energy-based formulation is particularly well-suited to the weak formulations commonly used in continuum mechanics.  
 
-Whatever the model, we suppose that $\mathbf{q}$ represents the parameters of the motion (motion of the nodes in FEM, 
+Whatever the model, we suppose that the vector $\mathbf{q}$ represents the parameters of the motion (motion of the nodes in FEM, 
 strains for Cosserat models) and $\mathcal{W}(\mathbf{q})$ is the potential energy of the deformation for the structure. 
 The variation of the energy at the structural level can be discretized, meaning it can be decomposed as a sum of the 
 energy variations at the level of each element $e$ (or each discrete rod), with $\sigma$ being the stress and $\mathbf{E}$ 
