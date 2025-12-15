@@ -20,7 +20,6 @@ from utils.topology import applyTranslation, applyRotation
 from utils import getListFromArgs, getColorFromFilename, RGBAColor
 
 import Sofa.Core
-import Sofa.ImGui as MyGui
 import Sofa.SofaConstraintSolver
 import parameters
 
@@ -47,6 +46,7 @@ class EmioGUI(Sofa.Core.Controller):
     """
 
     def __init__(self, emio, plotTorquesAngles=False):
+        import Sofa.ImGui as MyGui
         Sofa.Core.Controller.__init__(self)
         self.name = "EmioGUI"
         root = emio.getRoot()
