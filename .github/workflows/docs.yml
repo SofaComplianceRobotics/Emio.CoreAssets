@@ -6,8 +6,6 @@ on:
   push:
     branches: 
       - v25.12
-  schedule:
-    - cron: '0 3 * * *' # nightly job at 3am UTC
 
 permissions:
       pull-requests: write
