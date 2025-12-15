@@ -70,7 +70,8 @@ factor will induce a bad discretization and errors in the scene.
    #icon("info-circle") **Note:** The parameter **size** changes the discretization of the mesh; the smaller the value, the finer the discretization. 
    The discretization is an important parameter as it influences both the accuracy and the computation time of the simulation. 
    A mesh that is too coarse will result in fast computation time but poor accuracy, while a mesh that is too fine will 
-   yield good accuracy but significantly increase computation time. 
+   yield good accuracy but significantly increase computation time.
+   `gmsh` uses the bounding box of the object to determine the mesh elements size, and allows the user to change it by multiplying by the `size` parameter.
    :::
    
    Then generate the corresponding meshes by copy and paste the following code into the python console of FreeCAD:
