@@ -7,7 +7,7 @@ import time
 from splib3.interface import serialport
     
 
-def connectRobot(emiomotors: EmioMotors):
+def connectRobot(emiomotors: EmioMotors, stopevent: threading.Event):
     """
     This function runs in a separate thread to check the connection status of the robot.
     It will open the connection if the simulation/robot toggle button from the GUI is on and the robot is not connected,
@@ -15,7 +15,7 @@ def connectRobot(emiomotors: EmioMotors):
     """
     emioConnected = False
     
-    while True:
+    while not stopevent.is_set():
         emioConnected = emiomotors.is_connected
         if MyGui.getRobotConnectionToggle() and not emioConnected:
             try:
@@ -34,6 +34,17 @@ def connectRobot(emiomotors: EmioMotors):
 
         time.sleep(2) # wait 2 seconds before checking again
 
+    if emioConnected:
+        emiomotors.close()
+    
+
+stopThreadEvent = threading.Event()
+connectionThread = None
+
+def isConnectionThreadAlive():
+    global connectionThread
+    global stopThreadEvent
+    return connectionThread and connectionThread.is_alive()
 
 class MotorController(Sofa.Core.Controller):
     
@@ -46,9 +57,31 @@ class MotorController(Sofa.Core.Controller):
 
         # Connection thread
         MyGui.MyRobotWindow.updateAvailablePorts() # Initial population of available ports
-        self.connectionThread = threading.Thread(target=connectRobot, args=[self.emiomotors])
-        self.connectionThread.daemon = True
-        self.connectionThread.start()
+        if isConnectionThreadAlive(): # stop the thread before continuing
+            self.stopConnectionThread()
+
+        self.startConnectionThread()
+
+    def __del__(self):
+        if isConnectionThreadAlive():
+            self.stopConnectionThread()
+
+    def startConnectionThread(self):
+        global connectionThread
+        global stopThreadEvent
+
+        connectionThread = threading.Thread(target=connectRobot, args=[self.emiomotors, stopThreadEvent])
+        connectionThread.daemon = True
+        connectionThread.start()
+
+    def stopConnectionThread(self):
+        global connectionThread
+        global stopThreadEvent
+
+        stopThreadEvent.set()
+        connectionThread.join()
+        connectionThread = None
+        stopThreadEvent.clear()
 
     def onAnimateEndEvent(self, _):
         """
