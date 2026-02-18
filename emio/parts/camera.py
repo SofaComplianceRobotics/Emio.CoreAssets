@@ -61,7 +61,7 @@ class Camera(Sofa.Prefab):
         torealtranslation = [-t, -params.cameraTranslation[1] if self.extended.value else params.cameraTranslation[1], -t] 
 
         self.addObject("MeshSTLLoader",
-                       filename=getLoadingLocation("../data/meshes/camera.stl", __file__),
+                       filename=getLoadingLocation("../../data/meshes/camera.stl", __file__),
                        translation=torealtranslation,
                        rotation=[45, 45, 0] if self.extended.value else [-45, 45, 0]) 
         self.addObject("OglModel", src=self.MeshSTLLoader.linkpath, 
@@ -75,5 +75,5 @@ def createScene(rootnode):
 
     box = rootnode.addChild("Box")
     box.addObject("MeshSTLLoader",
-                  filename=getLoadingLocation("../data/meshes/base-compact.stl", __file__))
+                  filename=getLoadingLocation("../../data/meshes/base-compact.stl", __file__))
     box.addObject("OglModel", src=box.MeshSTLLoader.linkpath, color=[1, 1, 1, 1])

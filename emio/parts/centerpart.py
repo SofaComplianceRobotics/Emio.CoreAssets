@@ -82,7 +82,7 @@ class CenterPart(Sofa.Prefab):
             return filePath
             
         # Then check relative to the centerpart.py file
-        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../data/meshes/centerparts/" + filename, __file__)
+        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../../data/meshes/centerparts/" + filename, __file__)
         if os.path.isfile(filePath):
             return filePath
             

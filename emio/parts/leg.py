@@ -179,7 +179,7 @@ class Leg(Sofa.Prefab):
             return filePath
             
         # Then check relative to the leg.py file
-        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../data/meshes/legs/" + filename, __file__)
+        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../../data/meshes/legs/" + filename, __file__)
         if os.path.isfile(filePath):
             return filePath
         

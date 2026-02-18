@@ -255,10 +255,10 @@ class Emio(Sofa.Prefab):
         """
         box = self.addChild("Box")
         if self.extended.value:
-            box.addObject("MeshSTLLoader", filename=getLoadingLocation("../data/meshes/base-extended.stl", __file__))
+            box.addObject("MeshSTLLoader", filename=getLoadingLocation("../../data/meshes/base-extended.stl", __file__))
             self._addPlatform()
         else:
-            box.addObject("MeshSTLLoader", filename=getLoadingLocation("../data/meshes/base-compact.stl", __file__))
+            box.addObject("MeshSTLLoader", filename=getLoadingLocation("../../data/meshes/base-compact.stl", __file__))
         box.addObject("OglModel", src=box.MeshSTLLoader.linkpath, color=[1, 1, 1, 0.05])
 
     def _addPlatform(self):
@@ -266,7 +266,7 @@ class Emio(Sofa.Prefab):
         Adds the platform to the simulation (only for visual rendering).
         """
         platform = self.addChild("Platform")
-        platform.addObject("MeshSTLLoader", filename=getLoadingLocation("../data/meshes/supports/platform.stl", __file__),
+        platform.addObject("MeshSTLLoader", filename=getLoadingLocation("../../data/meshes/supports/platform.stl", __file__),
                            translation=[0, [0, 35, 70][self.platformLevel.value], 0])
         platform.addObject("OglModel", src=platform.MeshSTLLoader.linkpath, color=[1, 1, 1, 0.1])
 
@@ -352,7 +352,7 @@ class Emio(Sofa.Prefab):
         Adds the connection components to the Emio robot.
         The components are used to connect the simulation to the real robot.
         """
-        from parts.controllers.motorcontroller import MotorController
+        from emio.parts.controllers.motorcontroller import MotorController
 
         actuators = []
         for motor in self.motors:
