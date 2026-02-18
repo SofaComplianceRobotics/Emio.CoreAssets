@@ -5,10 +5,10 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
 
 
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
-    from utils import getListFromArgs
-    from parts.controllers.assemblycontroller import AssemblyController
-    from parts.emio import Emio, getParserArgs
+    from emio.utils.header import addHeader, addSolvers
+    from emio.utils import getListFromArgs
+    from emio.parts.controllers.assemblycontroller import AssemblyController
+    from emio.parts.emio import Emio, getParserArgs
 
     args = getParserArgs()
 

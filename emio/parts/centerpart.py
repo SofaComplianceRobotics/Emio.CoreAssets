@@ -7,14 +7,17 @@ runSofa -l SofaPython3,SofaImGui -g imgui centerpart.py
 ```
 """
 import Sofa
+
 import os, sys
 import numpy as np
 from math import pi
 import json
+
 from splib3.loaders import getLoadingLocation
 from splib3.numerics import Quat
-from utils.topology import getIndicesInBox
-import parameters
+
+from emio.utils.topology import getIndicesInBox
+import emio.parameters as parameters
 
 
 class CenterPart(Sofa.Prefab):
@@ -282,7 +285,7 @@ class CenterPart(Sofa.Prefab):
 
 
 def createScene(rootnode):
-    import utils
+    import emio.utils as utils
     import sys
     from utils.header import addHeader, addSolvers
     import argparse

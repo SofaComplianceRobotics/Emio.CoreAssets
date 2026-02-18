@@ -1,17 +1,13 @@
 import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
-
 import os.path
 
 
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
-    from parts.gripper import Gripper
-    from parts.controllers.assemblycontroller import AssemblyController
+    from emio.utils.header import addHeader, addSolvers
+    from emio.parts.gripper import Gripper
+    from emio.parts.controllers.assemblycontroller import AssemblyController
+    from emio.parts.emio import Emio, getParserArgs
     import Sofa.ImGui as MyGui
-    from parts.emio import Emio, getParserArgs
 
     args = getParserArgs()
 

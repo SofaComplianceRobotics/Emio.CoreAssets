@@ -1,23 +1,18 @@
-import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
-
 import Sofa
+import Sofa.ImGui as MyGui
+
 import sys
 import argparse
 from math import pi
 
-from utils.header import addHeader, addSolvers
+from emio.utils.header import addHeader, addSolvers
+from emio.parts.motor import Motor
+from emio.parts.leg import Leg
+from emio.parts.camera import Camera
+from emio.parts.controllers.trackercontroller import *
 
 from splib3.loaders import getLoadingLocation
 from splib3.numerics import Vec3, vsub
-
-from parts.motor import Motor
-from parts.leg import Leg
-from parts.camera import Camera
-from parts.controllers.trackercontroller import *
-import Sofa.ImGui as MyGui
 
 
 class LabGUI(Sofa.Core.Controller):
@@ -81,7 +76,7 @@ class LabGUI(Sofa.Core.Controller):
 
 
 def createScene(rootnode):
-    from utils import RGBAColor
+    from emio.utils import RGBAColor
     import myparameters
 
     parser = argparse.ArgumentParser(prog=sys.argv[0],
@@ -196,7 +191,7 @@ def createScene(rootnode):
     if args.connection:
         # Add RealSense camera tracker
         try:
-            from parts.controllers.motorcontroller import MotorController
+            from emio.parts.controllers.motorcontroller import MotorController
             rootnode.addObject(MotorController([motor.JointConstraint.displacement, None, None, None],
                                             name="MotorController"))
 

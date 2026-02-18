@@ -1,6 +1,6 @@
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
-    from parts.leg import Leg
+    from emio.utils.header import addHeader, addSolvers
+    from emio.parts.leg import Leg
 
     # Header of the simulation
     settings, modelling, simulation = addHeader(rootnode, withCollision=False)

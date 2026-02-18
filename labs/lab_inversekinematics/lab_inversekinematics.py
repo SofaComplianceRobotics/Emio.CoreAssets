@@ -1,21 +1,18 @@
-import os
-import sys
+import numpy as np
+from math import pi
+from splib3.numerics import Vec3, vsub
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-
-from utils import getListFromArgs
-from utils.header import addHeader, addSolvers
-from parts.emio import Emio, getParserArgs
-from parts.controllers.assemblycontroller import AssemblyController
-from parts.controllers.trackercontroller import DotTracker
+from emio.utils import getListFromArgs
+from emio.utils.header import addHeader, addSolvers
+from emio.parts.emio import Emio, getParserArgs
+from emio.parts.controllers.assemblycontroller import AssemblyController
+from emio.parts.controllers.trackercontroller import DotTracker
+import emio.parameters as parameters
 
 import Sofa.SoftRobotsInverse
-import myQP_lab_inversekinematics as myQP
-import numpy as np
 import Sofa.ImGui as MyGui
-from splib3.numerics import Vec3, vsub
-from math import pi
-import parameters
+
+import myQP_lab_inversekinematics as myQP
 
 
 class LabGUIExerciseDirect(Sofa.Core.Controller):

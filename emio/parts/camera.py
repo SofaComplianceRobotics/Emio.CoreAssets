@@ -8,11 +8,14 @@ runSofa -l SofaPython3,SofaImGui -g imgui camera.py
 """
 
 import Sofa
-from utils import RGBAColor
-from splib3.loaders import getLoadingLocation
+
 from math import pi, cos
+
+from splib3.loaders import getLoadingLocation
 from splib3.numerics import Quat, to_degrees
-import parameters as params
+
+from emio.utils import RGBAColor
+import emio.parameters as params
 
 
 class Camera(Sofa.Prefab):
@@ -32,7 +35,7 @@ class Camera(Sofa.Prefab):
 
     Example Usage:
     ```python
-    from camera import Camera
+    from emio.parts.camera import Camera
 
     def createScene(root):
         camera = root.addChild(Camera(extended=True))

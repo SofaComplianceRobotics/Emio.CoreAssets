@@ -113,7 +113,7 @@ class Motor(Sofa.Prefab):
 def createScene(rootnode):
     import math
     from splib3.animation import AnimationManager, animate
-    from utils.header import addHeader, addSolvers
+    from emio.utils.header import addHeader, addSolvers
 
     settings, modelling, simulation = addHeader(rootnode)
     rootnode.addObject(AnimationManager(rootnode))
