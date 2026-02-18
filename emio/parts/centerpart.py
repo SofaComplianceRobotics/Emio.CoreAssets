@@ -45,8 +45,8 @@ class CenterPart(Sofa.Prefab):
 
     Example Usage:
     ```python
-    from centerpart import CenterPart
-    from utils import addHeader, addSolvers
+    from emio.parts.centerpart import CenterPart
+    from emio.utils import addHeader, addSolvers
     def createScene(root):
         settings, modelling, simulation = addHeader(root)
         addSolvers(simulation)
@@ -285,9 +285,9 @@ class CenterPart(Sofa.Prefab):
 
 
 def createScene(rootnode):
-    import emio.utils as utils
     import sys
-    from utils.header import addHeader, addSolvers
+    import emio.utils as utils
+    from emio.utils.header import addHeader, addSolvers
     import argparse
 
     parser = argparse.ArgumentParser(prog=sys.argv[0],

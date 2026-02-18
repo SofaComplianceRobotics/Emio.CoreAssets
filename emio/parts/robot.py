@@ -117,7 +117,7 @@ class Emio(Sofa.Prefab):
 
     Example Usage:
     ```python
-    from emio.parts.emio import Emio
+    from emio import Emio
     from emio.utils import addHeader, addSolvers
 
     def createScene(root):

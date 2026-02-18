@@ -87,7 +87,7 @@ def createScene(rootnode):
     from emio.utils.header import addHeader, addSolvers
     from emio.parts.gripper import Gripper
     from emio.parts.controllers.assemblycontroller import AssemblyController
-    from emio.parts.emio import Emio
+    from emio import Emio
     from emio.parts.centerpart import CenterPart
     from emio.utils import getListFromArgs
     from emio.parts.controllers.trackercontroller import DotTracker

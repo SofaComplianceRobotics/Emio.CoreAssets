@@ -2,6 +2,7 @@ import os
 import numpy as np
 
 import Sofa
+import Sofa.SofaConstraintSolver  
 import Sofa.SoftRobotsInverse
 import Sofa.ImGui as MyGui
 
@@ -143,7 +144,7 @@ class MyController(Sofa.Core.Controller):
 
 def createScene(rootnode):
     from emio.utils.header import addHeader, addSolvers
-    from emio.parts.emio import Emio, getParserArgs
+    from emio import Emio, getParserArgs
     import Sofa.ImGui as MyGui
 
     args = getParserArgs()

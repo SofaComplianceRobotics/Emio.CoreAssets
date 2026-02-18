@@ -8,7 +8,7 @@ def createScene(rootnode):
     from emio.utils.header import addHeader, addSolvers
     from emio.utils import getListFromArgs
     from emio.parts.controllers.assemblycontroller import AssemblyController
-    from emio.parts.emio import Emio, getParserArgs
+    from emio import Emio, getParserArgs
 
     args = getParserArgs()
 

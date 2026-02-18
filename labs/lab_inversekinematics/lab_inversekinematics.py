@@ -4,7 +4,7 @@ from splib3.numerics import Vec3, vsub
 
 from emio.utils import getListFromArgs
 from emio.utils.header import addHeader, addSolvers
-from emio.parts.emio import Emio, getParserArgs
+from emio import Emio, getParserArgs
 from emio.parts.controllers.assemblycontroller import AssemblyController
 from emio.parts.controllers.trackercontroller import DotTracker
 import emio.parameters as parameters

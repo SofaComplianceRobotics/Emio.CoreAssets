@@ -17,7 +17,7 @@ def test_emio():
     partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/emio.py", "--no-connection")
     for leg in ["blueleg", "whiteleg"]:
         for model in ["beam", "tetra"]:
-            partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/emio.py", "-ln," + leg + ",-lm," + model + ",--no-connection")
+            partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/robot.py", "-ln," + leg + ",-lm," + model + ",--no-connection")
 
 
 def test_motor():
