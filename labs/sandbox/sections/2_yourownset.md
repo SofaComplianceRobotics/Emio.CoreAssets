@@ -2,18 +2,21 @@
 
 ## With your own set
 
-Set up Emio using your own legs and connectors. You should add your own leg's meshes in `home/emio-labs/assets/data/meshes/legs`
-and the connector's mesh in `home/emio-labs/assets/data/meshes/centerparts`.
+Set up Emio using your own legs and connectors:
+1. You should add your own leg meshes in   
+   `~/emio-labs/assets/labs/sandbox/data/meshes/legs`
+2. and the connector mesh in   
+   `~/emio-labs/assets/labs/sandbox/data/meshes/centerparts`.
 
 For the legs you should provide:
-1. A surface mesh in the `stl` format for the visualization.
-2. A volume mesh in the `vtk` format, if you want to use the tetra model.
-3. A `txt` file with coordinates in the format [x, y, z, qx, qy, qz, qw], if you want to use the beam and cosserat models.
+1. A surface mesh in the `.stl` format for the visualization.
+2. A volume mesh in the `.vtk` format, if you want to use the tetra model.
+3. A `.txt` file with coordinates in the format [x, y, z, qx, qy, qz, qw], if you want to use the beam and cosserat models.
 
 For the connector you should provide:
-1. A surface mesh in the `stl` format for the visualization.
-2. A volume mesh in the `vtk` format, if you want to use the tetra model (deformable option).
-3. A `json` file defining the positions and orientations for attaching the legs.
+1. A surface mesh in the `.stl` format for the visualization.
+2. A volume mesh in the `.vtk` format, if you want to use the tetra model (deformable option).
+3. A `.json` file defining the positions and orientations for attaching the legs.
 
 
 :::::: highlight
