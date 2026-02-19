@@ -14,7 +14,7 @@ def test_centerpart():
 
 
 def test_emio():
-    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/emio.py", "--no-connection")
+    partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/robot.py", "--no-connection")
     for leg in ["blueleg", "whiteleg"]:
         for model in ["beam", "tetra"]:
             partTest(os.path.dirname(os.path.abspath(__file__)) + "/../emio/parts/robot.py", "-ln," + leg + ",-lm," + model + ",--no-connection")
