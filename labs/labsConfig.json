@@ -1,1 +1,25 @@
-{"labs":[{"name":"introduction"},{"name":"sandbox"},{"name":"demo_sensing"},{"name":"lab_empty"},{"name":"lab_sensingmuca"},{"name":"lab_design"}]}
+{
+    "labs": [
+        {
+            "name": "introduction"
+        },    
+        {
+            "name": "lab_models"
+        },
+        {
+            "name": "lab_inversekinematics"
+        },
+        {
+            "name": "project_pickandplace"
+        },
+        {
+            "name": "lab_design"
+        },
+        {
+            "name": "lab_closedloop"
+        },
+        {
+            "name": "sandbox"
+        }
+    ]
+}
