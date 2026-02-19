@@ -13,11 +13,20 @@ For the legs you should provide:
 2. A volume mesh in the `.vtk` format, if you want to use the tetra model.
 3. A `.txt` file with coordinates in the format [x, y, z, qx, qy, qz, qw], if you want to use the beam and cosserat models.
 
+::: highlight
+#icon("info") **Tips:** For more details see the README file in  
+`~/emio-labs/assets/labs/sandbox/data/meshes/legs`.
+:::
+
 For the connector you should provide:
 1. A surface mesh in the `.stl` format for the visualization.
 2. A volume mesh in the `.vtk` format, if you want to use the tetra model (deformable option).
 3. A `.json` file defining the positions and orientations for attaching the legs.
 
+::: highlight
+#icon("info") **Tips:** For more details see the README file in  
+`~/emio-labs/assets/labs/sandbox/data/meshes/centerparts`.
+:::
 
 :::::: highlight
 ::::: group-grid {style="grid-template-rows:repeat(7, 0fr);"}
