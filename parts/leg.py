@@ -332,8 +332,7 @@ class Leg(Sofa.Prefab):
 
         # The extremity and the base of the leg are attached to something (either the motor or a support)
         # Thus, we need to rigidify these parts.
-        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(
-            self.leg.MeshTopology)
+        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(self.leg.MeshTopology)
 
         applyRotation([extremityPosition], to_radians(self.rotation.value))
         applyTranslation([extremityPosition], self.translation.value)
@@ -371,8 +370,8 @@ class Leg(Sofa.Prefab):
                                   lengthY=self.width.linkpath,
                                   lengthZ=self.thickness.linkpath,
                                   length=lengths)
-        self.deformable.addObject("FixedProjectiveConstraint",
-                                  indices=[i - len(indicesRigidified2) for i in indicesRigidified1])
+        # We fix the dofs (torsion and bendings) of the first sections / beams of the leg; the beams attached to the motor.
+        self.deformable.addObject("FixedProjectiveConstraint", indices=[i - len(indicesRigidified2) for i in indicesRigidified1[1:]])
         self.deformable.addChild(self.leg)
 
         self.leg.addObject('UniformMass', totalMass=self.totalMass, showAxisSizeFactor=5)
