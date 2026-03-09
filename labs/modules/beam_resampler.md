@@ -27,6 +27,6 @@ where the resampled mesh will be saved. Either provide an absolute path, or a re
 #input("NumPoints", "the desired number of points in the resampled mesh")
 :::::
 
-#python-button("assets/labs/modules/beam_resampler.py" "InputLegFilename" "OutputLegFilename" "NumPoints")
+#python-button("'assets/labs/modules/beam_resampler.py' InputLegFilename OutputLegFilename NumPoints")
 
 ::::::
