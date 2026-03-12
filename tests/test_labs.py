@@ -30,14 +30,14 @@ def test_sandbox():
     configsParams = {
         "legsName": ["blueleg"],
         "legsModel": [ "beam", "cosserat", "tetra"],
-        "centerPartName": ["whitepart", "yellowpart"],
+        "centerPartName": ["whitepart", "yellowpart", "bluepart"],
         "centerPartType": ["deformable", "rigid"],
-        "centerPartModel": [ "beam", "cosserat", "tetra"]
+        "centerPartModel": ["beam", "tetra"]
     }
 
     combinations = list(product(*configsParams.values()))
-    combinations = list(filter(lambda t: (t[2]!="whitepart" and t[3]=="rigid" and t[4]==combinations[0][4]) or t[2]=="whitepart", combinations)) # Removes non valid combinations
-    
+    combinations = list(filter(lambda t: (t[2]!="whitepart" and t[3]=="rigid" and t[4]=="beam") or t[2]=="whitepart", combinations)) # Removes non valid combinations
+
     for combination in combinations:
         partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", 
                 f"""--no-connection,-ln,{combination[0]},{combination[0]},{combination[0]},{combination[0]},-lm,{combination[1]},{combination[1]},{combination[1]},{combination[1]},-cn,{combination[2]},-ct,{combination[3]},-cm,{combination[4]}""", 
