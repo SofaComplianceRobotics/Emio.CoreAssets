@@ -55,6 +55,6 @@ Once the calibration is complete, you can close the SOFA window. The saved calib
 2. In the simulation window (SOFA Robotics), press the _Play_ button to start the simulation
 3. Toggle the robot connection button (Simulation / Robot switch) to connect to the robot
 
-#runsofa-button("assets/labs/modules/calibrationscene.py")
+#runsofa-button("assets/labs/modules/camera_calibration_scene.py")
 
 :::
