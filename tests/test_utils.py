@@ -24,7 +24,7 @@ def test_getColorFromFilename():
 
 def test_getExtremityFromBase():
     node = Sofa.Core.Node()
-    node.addObject("RequiredPlugin", name="Sofa.Component.Topology.Container.Constant")
+    node.addObject("RequiredPlugin", pluginName=["Sofa.Component.Topology.Container.Constant"])
     topology1 = node.addObject("MeshTopology", position=[[0, 0, 0], [10, 0, 0], [0, 20, 0]])
     assert getExtremityFromBase(topology1, 0) == 2
 

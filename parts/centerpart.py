@@ -271,14 +271,12 @@ class CenterPart(Sofa.Prefab):
 
     def _addRequiredPlugins(self):
         plugins = self.addChild("RequiredPlugins")
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Constant')
-        # Needed to use components [MeshTopology]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Grid')
-        # Needed to use components [RegularGridTopology]
-        plugins.addObject('RequiredPlugin', name='Sofa.GL.Component.Rendering3D')
-        # Needed to use components [OglModel]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Engine.Generate')
-        # Needed to use components [GenerateRigidMass]
+        plugins.addObject('RequiredPlugin', 
+                          pluginName=['Sofa.Component.Topology.Container.Constant' # Needed to use components [MeshTopology]
+                                      ,'Sofa.Component.Topology.Container.Grid' # Needed to use components [RegularGridTopology]
+                                      ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
+                                      ,'Sofa.Component.Engine.Generate' # Needed to use components [GenerateRigidMass]
+                                    ])
 
 
 def createScene(rootnode):
@@ -303,7 +301,7 @@ def createScene(rootnode):
         args = parser.parse_args([])
 
     settings, modelling, simulation = addHeader(rootnode)
-    settings.addObject('RequiredPlugin', name='Sofa.Component.Constraint.Projective')
+    settings.addObject('RequiredPlugin', pluginName='Sofa.Component.Constraint.Projective')
 
     rootnode.dt = 0.01
     rootnode.gravity = [0., -9810., 0.]

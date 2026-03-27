@@ -80,7 +80,7 @@ def createScene(rootnode):
     rootnode.dt = 0.01
     rootnode.gravity = [0., -9810., 0.]
 
-    settings.addObject('RequiredPlugin', name='Sofa.Component.Constraint.Projective')
+    settings.addObject('RequiredPlugin', pluginName='Sofa.Component.Constraint.Projective')
     # Needed to use components [FixedProjectiveConstraint]
 
     translation = [0, 0, 100]

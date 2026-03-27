@@ -96,18 +96,14 @@ class Motor(Sofa.Prefab):
         """
         plugins = self.addChild("RequiredPlugins")
         plugins.addObject('RequiredPlugin', name="ArticulatedSystemPlugin")
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.IO.Mesh')
-        # Needed to use components [MeshOBJLoader,MeshSTLLoader]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Mapping.NonLinear')
-        # Needed to use components [RigidMapping]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Mass')
-        # Needed to use components [UniformMass]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.SolidMechanics.Spring')
-        # Needed to use components [RestShapeSpringsForceField]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Constant')
-        # Needed to use components [MeshTopology]
-        plugins.addObject('RequiredPlugin', name='Sofa.GL.Component.Rendering3D')
-        # Needed to use components [OglModel]
+        plugins.addObject('RequiredPlugin', 
+                          pluginName=['Sofa.Component.IO.Mesh' # Needed to use components [MeshOBJLoader,MeshSTLLoader]
+                                    ,'Sofa.Component.Mapping.NonLinear' # Needed to use components [RigidMapping]
+                                    ,'Sofa.Component.Mass' # Needed to use components [UniformMass]
+                                    ,'Sofa.Component.SolidMechanics.Spring' # Needed to use components [RestShapeSpringsForceField]
+                                    ,'Sofa.Component.Topology.Container.Constant' # Needed to use components [MeshTopology]
+                                    ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
+                            ])
 
 
 def createScene(rootnode):

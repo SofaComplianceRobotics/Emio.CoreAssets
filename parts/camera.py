@@ -47,8 +47,8 @@ class Camera(Sofa.Prefab):
 
         self.support = None
 
-        self.addObject('RequiredPlugin', name='Sofa.Component.IO.Mesh') # Needed to use components [MeshSTLLoader]  
-        self.addObject('RequiredPlugin', name='Sofa.GL.Component.Rendering3D') # Needed to use components [OglModel] 
+        self.addObject('RequiredPlugin', pluginName=['Sofa.Component.IO.Mesh' # Needed to use components [MeshSTLLoader]  
+                                                     ,'Sofa.GL.Component.Rendering3D']) # Needed to use components [OglModel] 
 
         q = Quat()
         q.rotateFromQuat(Quat.createFromAxisAngle([0., 1., 0.], -pi / 4.))
