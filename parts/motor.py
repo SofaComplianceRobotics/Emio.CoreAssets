@@ -95,14 +95,14 @@ class Motor(Sofa.Prefab):
         Called at the beginning of __init__.
         """
         plugins = self.addChild("RequiredPlugins")
-        plugins.addObject('RequiredPlugin', name="ArticulatedSystemPlugin")
         plugins.addObject('RequiredPlugin', 
                           pluginName=['Sofa.Component.IO.Mesh' # Needed to use components [MeshOBJLoader,MeshSTLLoader]
-                                    ,'Sofa.Component.Mapping.NonLinear' # Needed to use components [RigidMapping]
-                                    ,'Sofa.Component.Mass' # Needed to use components [UniformMass]
-                                    ,'Sofa.Component.SolidMechanics.Spring' # Needed to use components [RestShapeSpringsForceField]
-                                    ,'Sofa.Component.Topology.Container.Constant' # Needed to use components [MeshTopology]
-                                    ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
+                                     ,'Sofa.Component.Mapping.NonLinear' # Needed to use components [RigidMapping]
+                                     ,'Sofa.Component.Mass' # Needed to use components [UniformMass]
+                                     ,'Sofa.Component.SolidMechanics.Spring' # Needed to use components [RestShapeSpringsForceField]
+                                     ,'Sofa.Component.Topology.Container.Constant' # Needed to use components [MeshTopology]
+                                     ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
+                                     ,'ArticulatedSystemPlugin'
                             ])
 
 

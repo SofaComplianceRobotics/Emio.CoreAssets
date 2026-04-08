@@ -276,7 +276,13 @@ class CenterPart(Sofa.Prefab):
                                       ,'Sofa.Component.Topology.Container.Grid' # Needed to use components [RegularGridTopology]
                                       ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
                                       ,'Sofa.Component.Engine.Generate' # Needed to use components [GenerateRigidMass]
+                                      ,'Sofa.Component.Mapping.Linear' # Needed to use components [BarycentricMapping,SubsetMultiMapping]  
+                                      ,'Sofa.Component.Mapping.NonLinear' # Needed to use components [RigidMapping]  
+                                      ,'Sofa.Component.Mass' # Needed to use components [UniformMass]  
+                                      ,'Sofa.Component.SolidMechanics.FEM.Elastic' # Needed to use components [TetrahedronFEMForceField]
                                     ])
+        
+
 
 
 def createScene(rootnode):
