@@ -14,6 +14,6 @@ def partTest(filename, argv=None, nbIterations=10):
         assert str(nbIterations) + " iterations done" in result.stdout
         print("STDERR: ", result.stderr)
         assert "[ERROR]" not in result.stderr
-        # assert "[WARNING]" not in result.stdout # todo: fix warning "Implicit object registration is deprecated since v24.12. Check #4429 for more information."
+        assert "[WARNING]" not in result.stdout 
     else:
         raise FileNotFoundError(filename)

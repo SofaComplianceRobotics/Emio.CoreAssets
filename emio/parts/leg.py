@@ -333,8 +333,7 @@ class Leg(Sofa.Prefab):
 
         # The extremity and the base of the leg are attached to something (either the motor or a support)
         # Thus, we need to rigidify these parts.
-        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(
-            self.leg.MeshTopology)
+        indicesRigidified1, indicesRigidified2, indicesDeformable, indexPairs = self._getIndicesDistribution(self.leg.MeshTopology)
 
         applyRotation([extremityPosition], to_radians(self.rotation.value))
         applyTranslation([extremityPosition], self.translation.value)
@@ -372,8 +371,8 @@ class Leg(Sofa.Prefab):
                                   lengthY=self.width.linkpath,
                                   lengthZ=self.thickness.linkpath,
                                   length=lengths)
-        self.deformable.addObject("FixedProjectiveConstraint",
-                                  indices=[i - len(indicesRigidified2) for i in indicesRigidified1])
+        # We fix the dofs (torsion and bendings) of the first sections / beams of the leg; the beams attached to the motor.
+        self.deformable.addObject("FixedProjectiveConstraint", indices=[i - len(indicesRigidified2) for i in indicesRigidified1[1:]])
         self.deformable.addChild(self.leg)
 
         self.leg.addObject('UniformMass', totalMass=self.totalMass, showAxisSizeFactor=5)
@@ -547,28 +546,21 @@ class Leg(Sofa.Prefab):
         Add the RequiredPlugins of the Leg class.
         """
         plugins = self.addChild("RequiredPlugins")
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.IO.Mesh')
-        # Needed to use components [MeshOBJLoader]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Dynamic')
-        # Needed to use components [EdgeSetTopologyContainer]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Constant')
-        # Needed to use components [MeshTopology]
-        plugins.addObject('RequiredPlugin', name='Sofa.GL.Component.Rendering3D')
-        # Needed to use components [OglModel]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Topology.Container.Grid')
-        # Needed to use components [RegularGridTopology]
-        plugins.addObject('RequiredPlugin', name='SoftRobots')
-        plugins.addObject('RequiredPlugin', name='BeamAdapter')
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Mapping.Linear')
-        # Needed to use components [SubsetMultiMapping]
-        plugins.addObject('RequiredPlugin', name='Cosserat')
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.SolidMechanics.FEM.Elastic')
-        # Needed to use components [TetrahedronFEMForceField]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Mapping.NonLinear')
-        # Needed to use components [RigidMapping]
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Constraint.Projective')
-        plugins.addObject('RequiredPlugin', name='Sofa.Component.Engine.Generate')
-        # Needed to use components [VolumeFromTriangles]
+        plugins.addObject('RequiredPlugin', 
+                          pluginName=['Sofa.Component.IO.Mesh' # Needed to use components [MeshOBJLoader]
+                                        ,'Sofa.Component.Topology.Container.Dynamic' # Needed to use components [EdgeSetTopologyContainer]
+                                        ,'Sofa.Component.Topology.Container.Constant' # Needed to use components [MeshTopology]
+                                        ,'Sofa.GL.Component.Rendering3D' # Needed to use components [OglModel]
+                                        ,'Sofa.Component.Topology.Container.Grid' # Needed to use components [RegularGridTopology]
+                                        ,'SoftRobots'
+                                        ,'BeamAdapter'
+                                        ,'Sofa.Component.Mapping.Linear' # Needed to use components [SubsetMultiMapping]
+                                        ,'Cosserat'
+                                        ,'Sofa.Component.SolidMechanics.FEM.Elastic' # Needed to use components [TetrahedronFEMForceField]
+                                        ,'Sofa.Component.Mapping.NonLinear' # Needed to use components [RigidMapping]
+                                        ,'Sofa.Component.Constraint.Projective'
+                                        ,'Sofa.Component.Engine.Generate' # Needed to use components [VolumeFromTriangles]
+                          ])
 
 
     def attachBase(self, attach, index) -> None:

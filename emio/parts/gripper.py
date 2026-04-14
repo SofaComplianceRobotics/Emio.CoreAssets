@@ -223,7 +223,7 @@ def createScene(rootnode):
         args = parser.parse_args([])
 
     settings, modelling, simulation = addHeader(rootnode, inverse=inverse)
-    settings.addObject('RequiredPlugin', name='Sofa.Component.Constraint.Projective')
+    settings.addObject('RequiredPlugin', pluginName='Sofa.Component.Constraint.Projective')
     rootnode.addObject("VisualStyle", displayFlags=["showWireframe", "showBehavior"])
 
     rootnode.dt = 0.01

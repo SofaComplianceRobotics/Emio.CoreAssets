@@ -76,7 +76,7 @@ jobs:
           
       - name: Create Release
         if: success() || failure()
-        uses: softprops/action-gh-release@v2.3.2
+        uses: softprops/action-gh-release@v2.5.0
         env:
           GITHUB_TOKEN: ${{ secrets.SUPPORT_TOKEN }}
         with:

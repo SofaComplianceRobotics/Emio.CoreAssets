@@ -8,7 +8,7 @@ def createScene(rootnode):
     rootnode.gravity = [0., -98100., 0.]
     addSolvers(simulation)
 
-    settings.addObject('RequiredPlugin', name='Sofa.Component.Constraint.Projective')
+    settings.addObject('RequiredPlugin', pluginName='Sofa.Component.Constraint.Projective')
     rootnode.VisualStyle.displayFlags = ["showWireframe", "showBehavior"]
     # Needed to use components [FixedProjectiveConstraint]
 

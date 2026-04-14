@@ -184,7 +184,7 @@ def createScene(rootnode):
                                                     showObject=True, showObjectScale=20)
 
     # User Target
-    UserEffectorTarget = modelling.addChild('User Target')
+    UserEffectorTarget = modelling.addChild('UserTarget')
     UserEffectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
     UserEffectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     UserEffectorTarget.addObject('MechanicalObject', template='Rigid3',
