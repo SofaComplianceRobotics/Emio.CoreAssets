@@ -20,8 +20,8 @@ from the effector position.
 3.  If everything goes well, try on the robot. 
 4.  Write an open loop controller that relies on the QP solver. 
   
-#open-button("assets/labs/lab_closedloop/myControl.py")
+#open-button(file="assets/labs/lab_closedloop/myControl.py")
 
-#runsofa-button("assets/labs/lab_closedloop/lab_closedloop.py")
+#runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 ::::
 :::::

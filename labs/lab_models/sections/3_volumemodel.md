@@ -61,7 +61,7 @@ Try the simulation using the *beam*, *cosserat*, and *tetra* models.
 
 What differences do you observe?
 
-#runsofa-button("assets/labs/lab_models/lab_models.py", "whiteleg", "modelsexo2")
+#runsofa-button(file="assets/labs/lab_models/lab_models.py", pyargs=["whiteleg", "modelsexo2"])
 
 :::::
 

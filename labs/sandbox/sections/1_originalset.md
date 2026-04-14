@@ -136,6 +136,6 @@ Set up Emio using the legs and connectors that were originally provided with the
 ::::
 :::::
 
-#runsofa-button("assets/labs/sandbox/sandbox.py", "--legsName" "m1leg" "m2leg" "m3leg" "m4leg" "--legsModel" "m1model" "m2model" "m3model" "m4model" "--legsYoungModulus" "" "" "" "" "--legsPositionOnMotor" "m1orientation" "m2orientation" "m3orientation" "m4orientation" "--centerPartName" "centerpartname" "--centerPartType" "centerparttype" "--configuration" "configuration")
+#runsofa-button(file="assets/labs/sandbox/sandbox.py", pyargs=["--legsName", "m1leg", "m2leg", "m3leg", "m4leg", "--legsModel", "m1model", "m2model", "m3model", "m4model", "--legsYoungModulus", "", "", "", "", "--legsPositionOnMotor", "m1orientation", "m2orientation", "m3orientation", "m4orientation", "--centerPartName", "centerpartname", "--centerPartType", "centerparttype", "--configuration", "configuration"])
 ::::::
 :::::::
