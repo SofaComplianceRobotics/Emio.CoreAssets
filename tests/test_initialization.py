@@ -6,7 +6,7 @@ import pytest
 from math import pi
 
 def create_scene(args=["leg"]):
-    from parts.leg import createScene
+    from emio.parts.leg import createScene
 
     node = Sofa.Core.Node("root")
     sys.argv = args

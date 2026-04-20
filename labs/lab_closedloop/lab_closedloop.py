@@ -1,17 +1,13 @@
 import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/../../")
-
-from parts.controllers.assemblycontroller import AssemblyController
-
-import Sofa.SoftRobotsInverse
-
 import numpy as np
-import Sofa.ImGui as MyGui
-import Sofa
 
-from parts.controllers.trackercontroller import DotTracker
+import Sofa
+import Sofa.SofaConstraintSolver  
+import Sofa.SoftRobotsInverse
+import Sofa.ImGui as MyGui
+
+from emio.parts.controllers.assemblycontroller import AssemblyController
+from emio.parts.controllers.trackercontroller import DotTracker
 
 import myQP_lab_closedloop as myQP
 import myControl as myControl
@@ -147,8 +143,8 @@ class MyController(Sofa.Core.Controller):
 
 
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
-    from parts.emio import Emio, getParserArgs
+    from emio.utils.header import addHeader, addSolvers
+    from emio import Emio, getParserArgs
     import Sofa.ImGui as MyGui
 
     args = getParserArgs()

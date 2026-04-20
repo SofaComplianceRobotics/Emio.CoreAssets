@@ -1,11 +1,13 @@
 import Sofa
 import numpy as np
-from parts.centerpart import CenterPart
-from utils.topology import getExtremityFromBase
+
+from emio.parts.centerpart import CenterPart
+from emio.utils.topology import getExtremityFromBase
+import emio.parameters as parameters
+
 from splib3.numerics import Quat, Vec3
 from splib3.loaders import getLoadingLocation
 from math import pi, cos, sin, floor
-import parameters
 
 
 class Gripper(CenterPart):
@@ -197,9 +199,10 @@ class Gripper(CenterPart):
 
 
 def createScene(rootnode):
-    import utils
+    import emio.utils as utils
+    from emio.utils.header import addHeader, addSolvers
+    
     import sys
-    from utils.header import addHeader, addSolvers
     import argparse
 
     inverse = False

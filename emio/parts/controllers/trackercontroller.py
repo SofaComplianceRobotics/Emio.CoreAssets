@@ -10,7 +10,7 @@ from emioapi import EmioAPI
 from emioapi.emiocamera import EmioCamera, CalibrationStatusEnum
 
 import Sofa.ImGui as MyGui
-import parameters as params
+import emio.parameters as params
 
 CLIP_DIST = np.array([0.4, 0.1, 0.4])
 
