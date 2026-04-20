@@ -82,9 +82,9 @@ factor will induce a bad discretization and errors in the scene.
 
 4. Once you're done, test your design in simulation by clicking the SOFA button.
 
-#open-button("assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd")
+#open-button(file="assets/labs/lab_design/data/meshes/legs/my-leg-cad.FCStd")
 
-#runsofa-button("assets/labs/lab_design/lab_design.py", "rigid")
+#runsofa-button(file="assets/labs/lab_design/lab_design.py", pyargs=["rigid"])
 
 ::::
 :::::

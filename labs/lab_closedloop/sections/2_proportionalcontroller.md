@@ -39,9 +39,9 @@ This controller is composed of a feedforward $q_{user}$ and a feedback part $k_p
 4.  Try to increase the control gain. 
 5.  Conclude on what to do next. 
   
-#open-button("assets/labs/lab_closedloop/myControl.py")
+#open-button(file="assets/labs/lab_closedloop/myControl.py")
 
-#runsofa-button("assets/labs/lab_closedloop/lab_closedloop.py")
+#runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 ::::
 
 :::::

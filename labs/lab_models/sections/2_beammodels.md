@@ -92,9 +92,9 @@ mirrors the deformation of the real device.
 After determining the appropriate values, save them in the file `myparameters.py`. Click the *open* button, enter 
 the values, and save the changes (ctrl + s).
 
-#open-button("assets/labs/lab_models/myparameters.py")
+#open-button(file="assets/labs/lab_models/myparameters.py")
 
-#runsofa-button("assets/labs/lab_models/lab_models.py", "blueleg", "modelsexo1")
+#runsofa-button(file="assets/labs/lab_models/lab_models.py", pyargs=["blueleg", "modelsexo1"])
 
 :::::
 ::::::

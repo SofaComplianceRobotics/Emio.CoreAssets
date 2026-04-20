@@ -34,7 +34,7 @@ between the two green and red spheres (you can also use the *Plotting* tab).
 
 2. Which model gives the best simulation to real results?
 
-#runsofa-button("assets/labs/lab_inversekinematics/lab_inversekinematics.py" "--legsName" "whiteleg" "--legsModel" "exo3model" "--legsPositionOnMotor" "counterclockwisedown" "clockwisedown" "counterclockwisedown" "clockwisedown" "--centerPartName" "bluepart")
+#runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "whiteleg", "--legsModel", "exo3model", "--legsPositionOnMotor", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "--centerPartName", "bluepart"])
 
 :::::
 ::::::

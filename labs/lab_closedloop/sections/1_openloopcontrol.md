@@ -32,7 +32,7 @@ Open the script `assets/labs/lab_closedloop/myControl.py` by clicking on the *op
 a glance at the content. Read the descriptions and try to understand what the script does 
 and how it works. 
 
-#open-button("assets/labs/lab_closedloop/myControl.py")
+#open-button(file="assets/labs/lab_closedloop/myControl.py")
 ::::
 
 :::: exercise
@@ -40,7 +40,7 @@ and how it works.
 
 Write the QP optimization problem. 
 
-#open-button("assets/labs/lab_closedloop/myQP_lab_closedloop.py")
+#open-button(file="assets/labs/lab_closedloop/myQP_lab_closedloop.py")
 ::::
 
 :::: exercise
@@ -51,7 +51,7 @@ Choose some target points and try to reach them. Then:
 2. Conclude about the accuracy of the open loop controller.
 3. Try to reach points outside the workspace of the robot.
 
-#runsofa-button("assets/labs/lab_closedloop/lab_closedloop.py")
+#runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 ::::
 
 :::::

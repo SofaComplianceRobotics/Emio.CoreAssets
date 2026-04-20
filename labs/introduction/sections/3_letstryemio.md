@@ -23,7 +23,7 @@ the command to the robot.
 **3. Pilot the robot:**
 Navigate to the *Move* tab, and use the sliders to move the effector's target.
 
-#runsofa-button("assets/labs/introduction/introduction.py", "-ln", "blueleg", "-lm", "beam", "-lp", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "-cn", "bluepart")
+#runsofa-button(file="assets/labs/introduction/introduction.py", pyargs=["-ln", "blueleg", "-lm", "beam", "-lp", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "-cn", "bluepart"])
 
 ::: collapse Troubleshooting
 
