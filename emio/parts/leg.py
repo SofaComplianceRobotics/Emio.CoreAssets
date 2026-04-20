@@ -19,10 +19,11 @@ from scipy.spatial.transform import Rotation
 
 from splib3.numerics import Quat, Vec3, vsub, to_radians, to_degrees
 from splib3.loaders import getLoadingLocation
-from utils.topology import getIndicesInBox, getRigidPositionsFromSVGPath, getExtremityFromBase
-from utils.topology import applyRotation, applyTranslation
-from utils import getColorFromFilename
-import parameters
+
+from emio.utils.topology import getIndicesInBox, getRigidPositionsFromSVGPath, getExtremityFromBase
+from emio.utils.topology import applyRotation, applyTranslation
+from emio.utils import getColorFromFilename
+import emio.parameters as parameters
 
 
 def _getStrainFromQuat(frame, curvAbs, gXp) -> tuple:
@@ -90,7 +91,7 @@ class Leg(Sofa.Prefab):
 
     Example Usage:
     ```python
-    from utils.header import addHeader, addSolvers
+    from emio.utils.header import addHeader, addSolvers
 
     def createScene(root):
         # Header of the simulation
@@ -178,7 +179,7 @@ class Leg(Sofa.Prefab):
             return filePath
             
         # Then check relative to the leg.py file
-        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../data/meshes/legs/" + filename, __file__)
+        filePath = getLoadingLocation(os.path.dirname(os.path.abspath(__file__)) + "/../../data/meshes/legs/" + filename, __file__)
         if os.path.isfile(filePath):
             return filePath
         
@@ -618,9 +619,10 @@ class Leg(Sofa.Prefab):
 
 
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
+    from emio.utils.header import addHeader, addSolvers
+    from emio.parts.motor import Motor
+    
     from splib3.animation import AnimationManager, animate
-    from parts.motor import Motor
     import argparse
     """
     Test the simulation of a single leg attached to a motor.

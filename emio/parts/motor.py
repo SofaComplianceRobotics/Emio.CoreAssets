@@ -67,7 +67,7 @@ class Motor(Sofa.Prefab):
 
         visual = parts.addChild('MotorVisual')
         visual.addObject('MeshSTLLoader', name='loader',
-                         filename=getLoadingLocation("../data/meshes/motor.stl", __file__),
+                         filename=getLoadingLocation("../../data/meshes/motor.stl", __file__),
                          rotation=self.tempvisurotation.value)
         visual.addObject('MeshTopology', src='@loader')
         visual.addObject('OglModel', color=self.color)
@@ -75,7 +75,7 @@ class Motor(Sofa.Prefab):
 
         visual = parts.addChild('LegAttachCapVisual')
         visual.addObject('MeshSTLLoader', name='loader',
-                         filename=getLoadingLocation("../data/meshes/legmotorattachcap.stl", __file__),
+                         filename=getLoadingLocation("../../data/meshes/legmotorattachcap.stl", __file__),
                          rotation=self.tempvisurotation.value)
         visual.addObject('MeshTopology', src='@loader')
         visual.addObject('OglModel', color=[1, 1, 1, 0.1])
@@ -83,7 +83,7 @@ class Motor(Sofa.Prefab):
 
         visual = parts.addChild('LegAttachBaseVisual')
         visual.addObject('MeshSTLLoader', name='loader',
-                         filename=getLoadingLocation("../data/meshes/legmotorattachbase.stl", __file__),
+                         filename=getLoadingLocation("../../data/meshes/legmotorattachbase.stl", __file__),
                          rotation=self.tempvisurotation.value)
         visual.addObject('MeshTopology', src='@loader')
         visual.addObject('OglModel', color=[1, 1, 1, 1])
@@ -109,7 +109,7 @@ class Motor(Sofa.Prefab):
 def createScene(rootnode):
     import math
     from splib3.animation import AnimationManager, animate
-    from utils.header import addHeader, addSolvers
+    from emio.utils.header import addHeader, addSolvers
 
     settings, modelling, simulation = addHeader(rootnode)
     rootnode.addObject(AnimationManager(rootnode))

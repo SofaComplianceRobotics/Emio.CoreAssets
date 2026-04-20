@@ -1,10 +1,6 @@
 import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
-
 import os.path
-import parameters
+import emio.parameters as parameters
 import Sofa
 
 def getParserArgs():
@@ -88,14 +84,15 @@ def getParserArgs():
 
 
 def createScene(rootnode):
-    from utils.header import addHeader, addSolvers
-    from parts.gripper import Gripper
-    from parts.controllers.assemblycontroller import AssemblyController
+    from emio.utils.header import addHeader, addSolvers
+    from emio.parts.gripper import Gripper
+    from emio.parts.controllers.assemblycontroller import AssemblyController
+    from emio import Emio
+    from emio.parts.centerpart import CenterPart
+    from emio.utils import getListFromArgs
+    from emio.parts.controllers.trackercontroller import DotTracker
+    
     import Sofa.ImGui as MyGui
-    from parts.emio import Emio
-    from parts.centerpart import CenterPart
-    from utils import getListFromArgs
-    from parts.controllers.trackercontroller import DotTracker
 
     args = getParserArgs()
 

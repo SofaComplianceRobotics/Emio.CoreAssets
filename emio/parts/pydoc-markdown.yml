@@ -1,5 +1,11 @@
 loaders:
   - type: python
+    packages:
+      - robot
+      - leg
+      - centerpart
+      - motor
+      - camera
 processors:
   - type: filter
     skip_empty_modules: true

@@ -27,7 +27,7 @@ jobs:
       - name: Build docs
         shell: powershell
         run: |
-          cd $env:GITHUB_WORKSPACE/parts
+          cd $env:GITHUB_WORKSPACE/emio/parts
           python -m pip install pydoc-markdown
           pydoc-markdown
           $file = get-content emio-sofa-api.md
@@ -40,7 +40,7 @@ jobs:
         with:
           name: release-dists
           path: |
-            parts/emio-sofa-api.md
+            emio/parts/emio-sofa-api.md
 
   release:
     if: always() && startsWith(github.ref, 'refs/heads/') # we are on a branch (not a PR), always() is used to run even if needed steps fail
