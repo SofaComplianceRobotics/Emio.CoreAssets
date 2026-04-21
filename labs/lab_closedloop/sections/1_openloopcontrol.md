@@ -54,4 +54,6 @@ Choose some target points and try to reach them. Then:
 #runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 ::::
 
+#solution(file="solutions/lab_closedloop/answers.md", id="open-loop")
+
 :::::

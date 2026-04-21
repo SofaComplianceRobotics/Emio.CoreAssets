@@ -42,6 +42,8 @@ This controller is composed of a feedforward $q_{user}$ and a feedback part $k_p
 #open-button(file="assets/labs/lab_closedloop/myControl.py")
 
 #runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
+
+#solution(file="solutions/lab_closedloop/answers.md", id="proportional")
 ::::
 
 :::::
