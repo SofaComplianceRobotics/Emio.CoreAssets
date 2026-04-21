@@ -71,6 +71,14 @@ including the soft gripper's 4th DoF. This will involve picking up the cube from
 
 #runsofa-button(file="assets/labs/project_pickandplace/project_pickandplace.py")
 
+::: solution pickandplace
+
+You can import the following program into Sofa Robotics.
+
+#open-button(file="solutions/project_pickandplace")
+
+:::
+
 ::::
 :::::
 
