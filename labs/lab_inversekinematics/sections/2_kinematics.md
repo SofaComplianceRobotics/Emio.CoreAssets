@@ -142,5 +142,7 @@ Also observe if and when some combinations of legs and connector configuration l
 2. What is the most *stable* configuration of the robot you have found (i.e. on which there is no mechanical instabilities)?
 
 #runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "blueleg-direct", "--legsModel", "beam", "--legsPositionOnMotor", "exo1motor1orientation", "exo1motor2orientation", "exo1motor3orientation", "exo1motor4orientation", "--centerPartName", "exo1centerpart"])
+
+#solution(file="solutions/lab_inversekinematics/answers.md", id="exercise-1")
 ::::::
 :::::::
