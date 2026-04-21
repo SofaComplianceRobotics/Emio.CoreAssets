@@ -22,6 +22,6 @@ Some advices:
 - Try to vary one parameter at a time (at least at the beginning), to learn its influence on the robot behavior. 
 - Keep notes of what designs you already tried. 
 
-#runsofa-button("assets/labs/lab_design/lab_design.py", "rigid")
+#runsofa-button(file="assets/labs/lab_design/lab_design.py", pyargs=["rigid"])
 :::
 ::::

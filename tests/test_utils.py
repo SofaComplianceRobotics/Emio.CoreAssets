@@ -2,8 +2,8 @@ import Sofa
 import os
 import pytest
 
-from utils import getListFromArgs, getColorFromFilename, RGBAColor
-from utils.topology import getExtremityFromBase, getRigidPositionsFromSVGPath, getIndicesInBox, applyTranslation, applyRotation
+from emio.utils import getListFromArgs, getColorFromFilename, RGBAColor
+from emio.utils.topology import getExtremityFromBase, getRigidPositionsFromSVGPath, getIndicesInBox, applyTranslation, applyRotation
 
 
 def test_getListFromArgs():

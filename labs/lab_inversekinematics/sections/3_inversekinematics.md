@@ -123,9 +123,9 @@ by step (todos):
 At each step, try your implementation by clicking the *SOFA* button (for this exercise, we won't connect the robot). Each time
 you change the file `myQP_lab_inversekinematics.py`, you will need to close and relaunch the simulation for the changes to be taking into account.
 
-#open-button("assets/labs/lab_inversekinematics/myQP_lab_inversekinematics.py")
+#open-button(file="assets/labs/lab_inversekinematics/myQP_lab_inversekinematics.py")
 
-#runsofa-button("assets/labs/lab_inversekinematics/lab_inversekinematics.py" "--legsName" "blueleg" "--legsModel" "beam" "--legsPositionOnMotor" "counterclockwisedown" "clockwisedown" "counterclockwisedown" "clockwisedown" "--centerPartName" "bluepart")
+#runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "blueleg", "--legsModel", "beam", "--legsPositionOnMotor", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "--centerPartName", "bluepart"])
 
 ::::
 :::::

@@ -69,7 +69,7 @@ Your task is to program Emio to perform a pick & place operation on a small cube
 The goal is to apply the principles of inverse kinematics in soft robotics and successfully control the robot's end-effector, 
 including the soft gripper's 4th DoF. This will involve picking up the cube from one location and placing it in another.
 
-#runsofa-button("assets/labs/project_pickandplace/project_pickandplace.py")
+#runsofa-button(file="assets/labs/project_pickandplace/project_pickandplace.py")
 
 ::::
 :::::

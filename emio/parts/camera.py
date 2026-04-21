@@ -8,11 +8,14 @@ runSofa -l SofaPython3,SofaImGui -g imgui camera.py
 """
 
 import Sofa
-from utils import RGBAColor
-from splib3.loaders import getLoadingLocation
+
 from math import pi, cos
+
+from splib3.loaders import getLoadingLocation
 from splib3.numerics import Quat, to_degrees
-import parameters as params
+
+from emio.utils import RGBAColor
+import emio.parameters as params
 
 
 class Camera(Sofa.Prefab):
@@ -32,7 +35,7 @@ class Camera(Sofa.Prefab):
 
     Example Usage:
     ```python
-    from camera import Camera
+    from emio.parts.camera import Camera
 
     def createScene(root):
         camera = root.addChild(Camera(extended=True))
@@ -58,7 +61,7 @@ class Camera(Sofa.Prefab):
         torealtranslation = [-t, -params.cameraTranslation[1] if self.extended.value else params.cameraTranslation[1], -t] 
 
         self.addObject("MeshSTLLoader",
-                       filename=getLoadingLocation("../data/meshes/camera.stl", __file__),
+                       filename=getLoadingLocation("../../data/meshes/camera.stl", __file__),
                        translation=torealtranslation,
                        rotation=[45, 45, 0] if self.extended.value else [-45, 45, 0]) 
         self.addObject("OglModel", src=self.MeshSTLLoader.linkpath, 
@@ -72,5 +75,5 @@ def createScene(rootnode):
 
     box = rootnode.addChild("Box")
     box.addObject("MeshSTLLoader",
-                  filename=getLoadingLocation("../data/meshes/base-compact.stl", __file__))
+                  filename=getLoadingLocation("../../data/meshes/base-compact.stl", __file__))
     box.addObject("OglModel", src=box.MeshSTLLoader.linkpath, color=[1, 1, 1, 1])

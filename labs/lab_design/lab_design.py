@@ -2,15 +2,13 @@ import os
 import sys
 import Sofa
 
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
-
 from splib3.numerics import Vec3, vsub
 
-from utils.header import addHeader, addSolvers
-from parts.emio import Emio, getParserArgs
-from parts.controllers.assemblycontroller import AssemblyController
-from parts.gripper import Gripper
-from parts.centerpart import CenterPart
+from emio.utils.header import addHeader, addSolvers
+from emio import Emio, getParserArgs
+from emio.parts.controllers.assemblycontroller import AssemblyController
+from emio.parts.gripper import Gripper
+from emio.parts.centerpart import CenterPart
 
 import Sofa.ImGui as MyGui
 
@@ -39,7 +37,7 @@ class LabGUI(Sofa.Core.Controller):
 def createScene(rootnode):
 
     import argparse
-    import parameters
+    import emio.parameters as parameters
 
     parser = argparse.ArgumentParser(prog=sys.argv[0],
                                      description='')
