@@ -75,7 +75,7 @@ including the soft gripper's 4th DoF. This will involve picking up the cube from
 
 You can import the following program into Sofa Robotics.
 
-#open-button(file="solutions/project_pickandplace")
+#open-button(file="assets/solutions/project_pickandplace")
 
 :::
 
