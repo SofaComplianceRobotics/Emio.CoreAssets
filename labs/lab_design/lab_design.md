@@ -68,7 +68,7 @@ Emio's legs (and gripper) were printed using TPU [filament](https://shop3d.ca/co
 #include(assets/labs/lab_design/sections/5_deformablegripper.md)
 
 :::: solution labdesign
-#include(solutions/lab_design/answers.md)
+#include(assets/solutions/lab_design/answers.md)
 ::::
 
 ::: highlight
