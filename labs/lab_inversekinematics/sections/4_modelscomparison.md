@@ -36,6 +36,6 @@ between the two green and red spheres (you can also use the *Plotting* tab).
 
 #runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "whiteleg", "--legsModel", "exo3model", "--legsPositionOnMotor", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "--centerPartName", "bluepart"])
 
-#solution(file="solutions/lab_inversekinematics/answers.md", id="exercise-3")
+#solution(file="assets/solutions/lab_inversekinematics/answers.md", id="exercise-3")
 :::::
 ::::::

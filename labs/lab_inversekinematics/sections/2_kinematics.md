@@ -143,6 +143,6 @@ Also observe if and when some combinations of legs and connector configuration l
 
 #runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "blueleg-direct", "--legsModel", "beam", "--legsPositionOnMotor", "exo1motor1orientation", "exo1motor2orientation", "exo1motor3orientation", "exo1motor4orientation", "--centerPartName", "exo1centerpart"])
 
-#solution(file="solutions/lab_inversekinematics/answers.md", id="exercise-1")
+#solution(file="assets/solutions/lab_inversekinematics/answers.md", id="exercise-1")
 ::::::
 :::::::

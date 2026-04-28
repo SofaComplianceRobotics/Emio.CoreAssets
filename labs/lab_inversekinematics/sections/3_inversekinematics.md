@@ -127,7 +127,7 @@ you change the file `myQP_lab_inversekinematics.py`, you will need to close and 
 
 #runsofa-button(file="assets/labs/lab_inversekinematics/lab_inversekinematics.py", pyargs=["--legsName", "blueleg", "--legsModel", "beam", "--legsPositionOnMotor", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "--centerPartName", "bluepart"])
 
-#solution(file="solutions/lab_inversekinematics/answers.md", id="exercise-2")
+#solution(file="assets/solutions/lab_inversekinematics/answers.md", id="exercise-2")
 
 ::::
 :::::
