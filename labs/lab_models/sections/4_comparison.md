@@ -50,5 +50,5 @@ for global structural analyses, contact management, or multi-physics coupling wi
 :::
 ::::
 
-#solution(file="solutions/lab_models/answers.md", id="quiz")
+#solution(file="assets/solutions/lab_models/answers.md", id="quiz")
 ::::::
