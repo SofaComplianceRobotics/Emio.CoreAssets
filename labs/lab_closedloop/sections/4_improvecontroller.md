@@ -24,6 +24,6 @@ from the effector position.
 
 #runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 
-#solution(file="solutions/lab_closedloop/answers.md", id="improvement")
+#solution(file="assets/solutions/lab_closedloop/answers.md", id="improvement")
 ::::
 :::::

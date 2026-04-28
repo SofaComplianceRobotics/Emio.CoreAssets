@@ -24,7 +24,7 @@ admissible value for the robot otherwise the robot might go crazy.
 
 #runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
 
-#solution(file="solutions/lab_closedloop/answers.md", id="integral")
+#solution(file="assets/solutions/lab_closedloop/answers.md", id="integral")
 ::::
 
 :::::
