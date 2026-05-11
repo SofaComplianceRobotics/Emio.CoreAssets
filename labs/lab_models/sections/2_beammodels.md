@@ -96,5 +96,7 @@ the values, and save the changes (ctrl + s).
 
 #runsofa-button(file="assets/labs/lab_models/lab_models.py", pyargs=["blueleg", "modelsexo1"])
 
+#solution(file="assets/solutions/lab_models/answers.md", id="parameters")
+
 :::::
 ::::::

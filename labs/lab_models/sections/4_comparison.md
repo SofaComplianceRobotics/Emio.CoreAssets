@@ -13,6 +13,7 @@ predict the behavior of a continuum robot, especially when the model is used for
 :::
 ::::
 
+
 :::: quiz
 **Question 2:**
 ::: question What are the disadvantages of using beam models, compared to volume models?
@@ -49,4 +50,5 @@ for global structural analyses, contact management, or multi-physics coupling wi
 :::
 ::::
 
+#solution(file="assets/solutions/lab_models/answers.md", id="quiz")
 ::::::

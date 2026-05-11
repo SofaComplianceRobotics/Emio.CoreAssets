@@ -23,6 +23,8 @@ admissible value for the robot otherwise the robot might go crazy.
 #open-button(file="assets/labs/lab_closedloop/myControl.py")
 
 #runsofa-button(file="assets/labs/lab_closedloop/lab_closedloop.py")
+
+#solution(file="assets/solutions/lab_closedloop/answers.md", id="integral")
 ::::
 
 :::::
