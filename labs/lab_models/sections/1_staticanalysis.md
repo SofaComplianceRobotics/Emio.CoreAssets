@@ -30,7 +30,7 @@ $$
 
 In practice $\mathbf{F}(\mathbf{q})$ being non-linear, the computation of the equilibrium position is obtained by iterative resolution (see algorithm 1 below).
 
-![](assets/data/images/lab1-algorithm1.png){width=65%, .center}
+#include(assets/data/algorithms/algorithm1.md)
 
 To model the various legs and their deformations, we propose three types of modeling of these internal forces:
 
