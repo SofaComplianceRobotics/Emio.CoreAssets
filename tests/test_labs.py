@@ -26,18 +26,16 @@ def test_lab_closedloop():
 
 
 def test_sandbox():
-    from itertools import product
-    configsParams = {
-        "legsName": ["blueleg"],
-        "legsModel": [ "beam", "cosserat", "tetra"],
-        "centerPartName": ["whitepart", "yellowpart"],
-        "centerPartType": ["deformable", "rigid"],
-        "centerPartModel": [ "beam", "tetra"]
-    }
+    combinations = [('blueleg', 'beam', 'whitepart', 'rigid', 'beam'), 
+                    ('blueleg', 'beam', 'whitepart', 'deformable', 'beam'), 
+                    ('blueleg', 'beam', 'whitepart', 'deformable', 'tetra'), 
+                    ('blueleg', 'beam', 'yellowpart', 'rigid', 'beam'), 
+                    ('blueleg', 'cosserat', 'whitepart', 'rigid', 'beam'), 
+                    ('blueleg', 'tetra', 'whitepart', 'rigid', 'beam'), 
+                    ('whiteleg', 'beam', 'bluepart', 'rigid', 'beam'), 
+                    ('whiteleg', 'cosserat', 'bluepart', 'rigid', 'beam'), 
+                    ('whiteleg', 'tetra', 'bluepart', 'rigid', 'beam'), ]
 
-    combinations = list(product(*configsParams.values()))
-    combinations = list(filter(lambda t: (t[2]!="whitepart" and t[3]=="rigid") or t[2]=="whitepart", combinations)) # Removes non valid combinations
-    
     for combination in combinations:
         partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", 
                 f"""--no-connection,-ln,{combination[0]},{combination[0]},{combination[0]},{combination[0]},-lm,{combination[1]},{combination[1]},{combination[1]},{combination[1]},-cn,{combination[2]},-ct,{combination[3]},-cm,{combination[4]}""", 
