@@ -26,9 +26,9 @@ def test_lab_closedloop():
 
 
 def test_sandbox():
-    combinations = [#('blueleg', 'beam', 'whitepart', 'rigid', 'beam'), 
-                    ('blueleg', 'beam', 'whitepart', 'deformable', 'beam'), 
+    combinations = [('blueleg', 'beam', 'whitepart', 'deformable', 'beam'), 
                     ('blueleg', 'beam', 'whitepart', 'deformable', 'tetra'), 
+                    ('blueleg', 'beam', 'whitepart', 'rigid', 'beam'),
                     ('blueleg', 'beam', 'yellowpart', 'rigid', 'beam'), 
                     ('blueleg', 'cosserat', 'whitepart', 'rigid', 'beam'), 
                     ('blueleg', 'tetra', 'whitepart', 'rigid', 'beam'), 
