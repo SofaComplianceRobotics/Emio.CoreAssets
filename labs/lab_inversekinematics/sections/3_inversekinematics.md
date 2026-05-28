@@ -10,7 +10,15 @@ There are several challenges in solving this inverse problem:
 
 To handle these challenges, we typically employ QP optimization techniques. 
 
-![](assets/data/images/lab2-algorithm3.png){width=65%, .center}
+#include(assets/data/algorithms/algorithm3.md){width=65%, .center}
+
+::: spoiler Algorithm 1: Statics of the continuum legs
+
+#include(assets/data/algorithms/algorithm1.md)
+
+:::
+
+<br/>
 
 With the indirect solving, the optimization presented in equation 20 (in the algorithm above) can be rewriten:
 

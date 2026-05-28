@@ -18,7 +18,16 @@ Lagrange multiplier $\boldsymbol{\lambda}_{\mathrm{a}}$. Furthermore, the motor 
 $\boldsymbol{\delta}_{\mathrm{a}}$, is a function of the robot's position $\mathbf{q}$ 
 (which is a concatenation of the leg positions: $\mathbf{q}_1,  ..., \mathbf{q}_4$).
 
-![](assets/data/images/lab2-algorithm2.png){width=65%, .center}
+
+#include(assets/data/algorithms/algorithm2.md)
+
+::: spoiler Algorithm 1: Statics of the continuum legs
+
+#include(assets/data/algorithms/algorithm1.md)
+
+:::
+
+<br/>
 
 To compute Equation 15 (in the algorithm above), it is more efficient to proceed with an indirect solution. 
 We will decompose the movement at each time step by separating the contributions from the force $\mathbf{b}$, which is 
