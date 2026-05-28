@@ -29,6 +29,7 @@ For the connector you should provide:
 :::
 
 :::::: highlight
+
 ::::: group-grid {style="grid-template-rows:repeat(7, 0fr);"}
 **Motor n°0**
 #input("custom1leg", "leg name")
@@ -155,5 +156,15 @@ For the connector you should provide:
 :::::
 
 #runsofa-button(file="assets/labs/sandbox/sandbox.py", pyargs=["--legsName", "custom1leg", "custom2leg", "custom3leg", "custom4leg", "--legsModel", "custom1model", "custom2model", "custom3model", "custom4model", "--legsMassDensity", "custom1massdensity", "custom2massdensity", "custom3massdensity", "custom4massdensity", "--legsYoungModulus", "custom1youngmodulus", "custom2youngmodulus", "custom3youngmodulus", "custom4youngmodulus", "--legsPoissonRatio", "custom1poissonratio", "custom2poissonratio", "custom3poissonratio", "custom4poissonratio", "--legsPositionOnMotor", "custom1orientation", "custom2orientation", "custom3orientation", "custom4orientation", "--centerPartName", "customcenterpartname", "--centerPartMassDensity", "customcenterpartmassdensity", "--centerPartPoissonRatio", "customcenterpartpoissonratio", "--centerPartYoungModulus", "customcenterpartyoungmodulus", "--centerPartType", "customcenterparttype", "--centerPartModel", "customcenterpartmodel", "--configuration", "customconfiguration", "--camera", "customcamera", "--cameraFeed", "customshowfeed", "--nbTrackers", "customnbtracker"])
+
+::: collapse Default Parameters
+If no value is entered in the input fields, the default values will be used.
+
+The default leg name is `blueleg`. 
+You can see the rest of the parameters in `assets/emio/parameters.py`:
+
+#open-button(file="assets/emio/parameters.py")
+:::
+
 ::::::
 :::::::
