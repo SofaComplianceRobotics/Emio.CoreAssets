@@ -28,13 +28,13 @@ def test_lab_closedloop():
 def test_sandbox():
     combinations = [('blueleg', 'beam', 'whitepart', 'deformable', 'beam'), 
                     ('blueleg', 'beam', 'whitepart', 'deformable', 'tetra'), 
-                    ('blueleg', 'beam', 'whitepart', 'rigid', 'beam'),
                     ('blueleg', 'beam', 'yellowpart', 'rigid', 'beam'), 
                     ('blueleg', 'cosserat', 'whitepart', 'rigid', 'beam'), 
                     ('blueleg', 'tetra', 'whitepart', 'rigid', 'beam'), 
                     ('whiteleg', 'beam', 'bluepart', 'rigid', 'beam'), 
                     ('whiteleg', 'cosserat', 'bluepart', 'rigid', 'beam'), 
-                    ('whiteleg', 'tetra', 'bluepart', 'rigid', 'beam'), ]
+                    ('whiteleg', 'tetra', 'bluepart', 'rigid', 'beam'), 
+                    ('blueleg', 'beam', 'whitepart', 'rigid', 'tetra'),]
 
     for combination in combinations:
         partTest(os.path.dirname(os.path.abspath(__file__)) + "/../labs/sandbox/sandbox.py", 
