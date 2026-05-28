@@ -69,6 +69,7 @@ class CenterPart(Sofa.Prefab):
         {'name': 'rotation', 'type': 'Vec3d', 'help': '', 'default': [0, 0, 0]}
     ]
 
+    _validState = True
 
     def _getFilePath(self, filename) -> str:
         """
@@ -100,6 +101,12 @@ class CenterPart(Sofa.Prefab):
         Sofa.msg_error(self.getName(), f'Missing file: {filename} in data/meshes/centerparts directory.')
         return False
     
+
+    def isValid(self) -> bool:
+        """
+        Check if the centerpart is in a valid state. Returns True if the centerpart is in a valid state, False otherwise.
+        """
+        return self._validState
     
     def __init__(self, *args, **kwargs):
         Sofa.Prefab.__init__(self, *args, **kwargs)
@@ -107,25 +114,32 @@ class CenterPart(Sofa.Prefab):
         self._addRequiredPlugins()
 
         filename = self.partName.value + '.json'
-        self._checkFile(filename)
-        self._params = json.load(open(self._getFilePath(filename)))
+        if self._checkFile(filename):
+            self._params = json.load(open(self._getFilePath(filename)))
 
-        self.flip = False
-        if self.rotation[0] == 180:  # the legs are pointing upward, we flip the center part
-            self.flip = True
+            self.flip = False
+            if self.rotation[0] == 180:  # the legs are pointing upward, we flip the center part
+                self.flip = True
 
-        self._checkFile(self.partName.value + '.stl')
-        match self.type.value:
-            case "deformable":
-                self._addDeformableCenterPart()
-            case "rigid":
-                self._addRigidCenterPart()
-            case _:
-                Sofa.msg_error("centerpart.py", 'Unknown model, value should be "deformable", or "rigid".')
-                return
+            if self._checkFile(self.partName.value + '.stl'):
+                match self.type.value:
+                    case "deformable":
+                        if self._checkFile(self.partName.value + '.vtk'):
+                            self._addDeformableCenterPart()
+                        else:
+                            self._validState = False
+                            return
+                    case "rigid":
+                        self._addRigidCenterPart()
+                    case _:
+                        Sofa.msg_error("centerpart.py", 'Unknown model, value should be "deformable", or "rigid".')
+                        return
+                self._addVisualModel()
+            else:
+                self._validState = False
 
-        self._addVisualModel()
-
+        else:
+            self._validState = False
 
     def _addDeformableCenterPart(self):
         """
@@ -133,8 +147,6 @@ class CenterPart(Sofa.Prefab):
         The part is created using a tetrahedral mesh loaded from a VTK file. The mass density, Poisson's ratio, and Young's modulus
         are set based on the parameters provided. The part is then attached to the legs using a rigid mapping.
         """
-        self._checkFile(self.partName.value + '.vtk')
-
         # Load the mesh and create the topology, mechanical object, mass and force field
         # This node contains the entire object
         part = Sofa.Core.Node("EntireObject")
