@@ -7,5 +7,3 @@ massDensity = 1.220e-6
 # Parameters of the legs, for beam and cosserat models
 width = 10
 thickness = 5
-# Camera parameters
-cameraTranslation = [147, 5]  # [xz, y] in mm
