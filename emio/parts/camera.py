@@ -8,14 +8,7 @@ runSofa -l SofaPython3,SofaImGui -g imgui camera.py
 """
 
 import Sofa
-
-from math import pi, cos
-
 from splib3.loaders import getLoadingLocation
-from splib3.numerics import Quat, to_degrees
-
-from emio.utils import RGBAColor
-import emio.parameters as params
 
 
 class Camera(Sofa.Prefab):
@@ -53,16 +46,9 @@ class Camera(Sofa.Prefab):
         self.addObject('RequiredPlugin', pluginName=['Sofa.Component.IO.Mesh' # Needed to use components [MeshSTLLoader]  
                                                      ,'Sofa.GL.Component.Rendering3D']) # Needed to use components [OglModel] 
 
-        q = Quat()
-        q.rotateFromQuat(Quat.createFromAxisAngle([0., 1., 0.], -pi / 4.))
-        q.rotateFromQuat(Quat.createFromAxisAngle([0., 0., 1.], pi / 4. if self.extended.value else 3 * pi / 4.))
-        q.rotateFromQuat(Quat.createFromAxisAngle([1., 0., 0.], pi / 2.))
-        t = cos(pi / 4.) * params.cameraTranslation[0]
-        torealtranslation = [-t, -params.cameraTranslation[1] if self.extended.value else params.cameraTranslation[1], -t] 
-
         self.addObject("MeshSTLLoader",
                        filename=getLoadingLocation("../../data/meshes/camera.stl", __file__),
-                       translation=torealtranslation,
+                       translation=[-103.94, 5, -103.94],
                        rotation=[45, 45, 0] if self.extended.value else [-45, 45, 0]) 
         self.addObject("OglModel", src=self.MeshSTLLoader.linkpath, 
                        color=[0.4, 0.4, 0.4, 1.])
@@ -74,6 +60,5 @@ def createScene(rootnode):
     rootnode.addChild(Camera())
 
     box = rootnode.addChild("Box")
-    box.addObject("MeshSTLLoader",
-                  filename=getLoadingLocation("../../data/meshes/base-compact.stl", __file__))
+    box.addObject("MeshSTLLoader", filename=getLoadingLocation("../../data/meshes/base-compact.stl", __file__))
     box.addObject("OglModel", src=box.MeshSTLLoader.linkpath, color=[1, 1, 1, 1])
