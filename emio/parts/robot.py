@@ -231,21 +231,27 @@ class Emio(Sofa.Prefab):
             if self.centerPartName.value is not None and self.centerPartName.value != "None":
                 color = getColorFromFilename(self.centerPartName.value) if "blue" not in self.centerPartName.value else RGBAColor.lightblue
                 self.centerpart = centerPartClass(name="CenterPart",
-                                                positions=centerPartPositions,
-                                                partName=self.centerPartName.value,
-                                                model=self.centerPartModel.value,
-                                                massDensity=self.centerPartMassDensity.value,
-                                                poissonRatio=self.centerPartPoissonRatio.value,
-                                                youngModulus=self.centerPartYoungModulus.value,
-                                                type=self.centerPartType.value,
-                                                color=color,
-                                                rotation=[0, 0, 0] if "down" in legsPositionOnMotor[0] else [180, 180, 0]
-                                                )
-                if self.centerPartType.value == "rigid":
-                    self.effector = self.centerpart.addChild("Effector")
+                                                    positions=centerPartPositions,
+                                                    partName=self.centerPartName.value,
+                                                    model=self.centerPartModel.value,
+                                                    massDensity=self.centerPartMassDensity.value,
+                                                    poissonRatio=self.centerPartPoissonRatio.value,
+                                                    youngModulus=self.centerPartYoungModulus.value,
+                                                    type=self.centerPartType.value,
+                                                    color=color,
+                                                    rotation=[0, 0, 0] if "down" in legsPositionOnMotor[0] else [180, 180, 0]
+                                                    )
+                if self.centerpart.isValid():
+                    if self.centerPartType.value == "rigid":
+                        self.effector = self.centerpart.addChild("Effector")
+                    else:
+                        self.effector = self.centerpart.attach.addChild("Effector")
                 else:
-                    self.effector = self.centerpart.attach.addChild("Effector")
+                    self._validState = False
                 self.addChild(self.centerpart)
+
+        # Structure and camera visual
+        if self._validState:
             self._addBox()
             self._addCamera()
 
