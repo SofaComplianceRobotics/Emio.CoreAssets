@@ -27,15 +27,13 @@ Navigate to the *Move* tab, and use the sliders to move the effector's target.
 
 ::: collapse Troubleshooting
 
-1. If you connect the robot to your computer and still get the following error message `[ERROR] No serial port found with manufacturer = FTDI`. 
+1. If you get the error message `ImportError: [libtk8.6.so]`, you need to install Tk, check the [requirements and the installation steps](https://docs-support.compliance-robotics.com/docs/next/Users/EmioLabs/emio-labs-user-manual/#installation). 
+
+2. On Windows, if you connect the robot to your computer and get the following error message `[ERROR] No serial port found with manufacturer = FTDI`. 
 Try to install the [FTDI drivers](https://ftdichip.com/drivers/vcp-drivers/).
 
-2. On Ubuntu, when trying to connect the real robot, if you get a `[Errno 13] Permission denied: '/dev/ttyUSB0'` message. Run the following command in a terminal:
-    ```console
-    sudo chmod 777 /dev/ttyUSB0
-    ```
-   Make sure that the name of the USB port matches the one from the error message.
-   
+3. On Linux, when trying to connect the real robot, if you get a `[Errno 13] Permission denied: '/dev/ttyUSB0'` message. You need to give the serial port specific permissions to be accessed, you can follow [these instructions](https://docs-support.compliance-robotics.com/docs/next/Users/Emio/getting-started-with-emio/#connecting-emio-to-your-computer).
+
 :::
 
 ::::
