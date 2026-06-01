@@ -27,7 +27,7 @@ Navigate to the *Move* tab, and use the sliders to move the effector's target.
 
 ::: collapse Troubleshooting
 
-1. If you get the error message `ImportError: [libtk8.6.so]`, you need to install Tk, check the [requirements and the installation steps](https://docs-support.compliance-robotics.com/docs/v25.12/Users/EmioLabs/emio-labs-user-manual/#installation). 
+1. If you get the error message `ImportError: [libtk8.6.so]`, you need to install Tk, check the [requirements and the installation steps](https://docs-support.compliance-robotics.com/docs/next/Users/EmioLabs/emio-labs-user-manual/#installation). 
 
 2. On Windows, if you connect the robot to your computer and get the following error message `[ERROR] No serial port found with manufacturer = FTDI`. 
 Try to install the [FTDI drivers](https://ftdichip.com/drivers/vcp-drivers/).
