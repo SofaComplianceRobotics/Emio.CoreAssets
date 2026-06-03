@@ -47,6 +47,7 @@ def getTorques(W, dq_free, iE, iA, q_s, q_t, q_e, q_a):
     q = None
 
     # todo: Step2, add a constraint to block the motor n°0 in displacement (angle = -0.5)
+    # Note that: b should be a numpy array
     A = None
     b = None
 
@@ -60,6 +61,7 @@ def getTorques(W, dq_free, iE, iA, q_s, q_t, q_e, q_a):
 
     # Add a constraint on the motors' displacement
     # todo: Step4, add a constraint to prevent the end effector for going downward after the setup animation
+    # Note that: h, lb, and ub should be numpy arrays
     G = None
     h = None
     lb = None
