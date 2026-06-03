@@ -47,9 +47,9 @@ Once the calibration is complete, you can close the SOFA window. The saved calib
 
 ### Start the Calibration
 
-|![](assets/data/images/play-pause-buttons.png){width="45%" class="center"}| ![](assets/data/images/simulation-toggle.png){width="30%" class="center"}|
+|![](assets/data/images/play-pause-buttons.png){width="50%" class="center"}| ![](assets/data/images/simulation-toggle.png){width="30%" class="center"}|
 |:------------------------------------------------------------------------:| :-----------------------------------------------------------------------:|
-|                 **Play / Pause and Step buttons**                        |                  **Simulation / Robot switch button**                    |
+|                 **Play / Pause, Step, and Reload buttons**                        |                  **Simulation / Robot switch button**                    |
 
 1. Open the calibration scene by clicking the runSofa button below
 2. In the simulation window (SOFA Robotics), press the _Play_ button to start the simulation
