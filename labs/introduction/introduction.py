@@ -9,6 +9,7 @@ def createScene(rootnode):
     from emio.utils import getListFromArgs
     from emio.parts.controllers.assemblycontroller import AssemblyController
     from emio import Emio, getParserArgs
+    import Sofa
 
     args = getParserArgs()
 
@@ -28,6 +29,7 @@ def createScene(rootnode):
                 centerPartType=args.centerPartType,
                 extended=True)
     if not emio.isValid():
+        Sofa.msg_error(simulation, "Emio is not valid, could not add it to the scene graph.")
         return
 
     simulation.addChild(emio)

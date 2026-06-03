@@ -124,6 +124,7 @@ def createScene(rootnode):
                 centerPartClass=CenterPart if not GRIPPER or not DEFORMABLE else Gripper,
                 extended=extended)
     if not emio.isValid():
+        Sofa.msg_error(simulation, "Emio is not valid, could not add it to the scene graph.")
         return
 
     simulation.addChild(emio)
