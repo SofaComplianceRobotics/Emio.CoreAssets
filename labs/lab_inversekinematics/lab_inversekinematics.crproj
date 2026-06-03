@@ -1,0 +1,72 @@
+[Window.Simulation Mode.Input/Output]
+open = false
+
+
+[Window.Simulation Mode.Program]
+open = false
+
+
+[Window.Program]
+dockId = 6
+
+
+[Window.Simulation Mode.My Robot]
+open = false
+
+
+[Window.Simulation Mode.Move]
+open = true
+
+
+[Window.Move]
+dockId = 3
+
+
+[Window.Simulation Mode.Plotting]
+open = true
+
+
+[Window.Plotting]
+dockId = 6
+
+
+[Window.Simulation Mode.Viewport]
+open = true
+
+
+[Window.Viewport]
+dockId = 5
+cameraButtonsCollapsed = false
+orientationGizmoEnabled = true
+
+
+[Window.Simulation Mode.Scene Graph]
+open = false
+
+
+[Window.Scene Graph]
+dockId = 3
+
+
+[Window.Simulation Mode.Components]
+open = false
+
+
+[Window.Simulation Mode.Log]
+open = false
+
+
+[Window.Log]
+dockId = 6
+
+
+[Window.Simulation Mode.Profiler]
+open = false
+
+
+[Window.Profiler]
+dockId = 6
+
+
+[Workbench]
+type = 2
