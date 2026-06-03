@@ -165,6 +165,7 @@ def createScene(rootnode):
                 centerPartType="rigid",
                 extended=True)
     if not emio.isValid():
+        Sofa.msg_error(simulation, "Emio is not valid, could not add it to the scene graph.")
         return
 
     simulation.addChild(emio)
