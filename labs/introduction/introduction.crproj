@@ -1,0 +1,166 @@
+[Window.Viewport]
+cameraButtonsCollapsed = false
+orientationGizmoEnabled = true
+dockId = 5
+
+
+[Window.Live Control.Input/Output]
+open = false
+
+
+[Window.Live Control.Program]
+open = true
+
+
+[Window.Program]
+dockId = 6
+
+
+[Window.Live Control.My Robot]
+open = true
+
+
+[Window.My Robot]
+dockId = 4
+
+
+[Window.Live Control.Move]
+open = true
+
+
+[Window.Move]
+dockId = 3
+
+
+[Window.Live Control.Plotting]
+open = false
+
+
+[Window.Live Control.Viewport]
+open = true
+
+
+[Window.Live Control.Scene Graph]
+open = false
+
+
+[Window.Scene Graph]
+dockId = 3
+
+
+[Window.Live Control.Components]
+open = false
+
+
+[Window.Live Control.Log]
+open = false
+
+
+[Window.Log]
+dockId = 6
+
+
+[Window.Live Control.Profiler]
+open = false
+
+
+[Window.Profiler]
+dockId = 6
+
+
+[Window.2Live Control]
+width = 1228.000000
+height = 1966.000000
+
+
+[Window.4Live Control]
+width = 1228.000000
+height = 932.000000
+
+
+[Window.3Live Control]
+width = 1228.000000
+height = 1029.000000
+
+
+[Window.6Live Control]
+width = 2587.000000
+height = 619.000000
+
+
+[Window.5Live Control]
+width = 2587.000000
+height = 1342.000000
+
+
+[Workbench]
+type = 4
+
+
+[Window.Simulation Mode.Input/Output]
+open = false
+
+
+[Window.Simulation Mode.Program]
+open = true
+
+
+[Window.Simulation Mode.My Robot]
+open = false
+
+
+[Window.Simulation Mode.Move]
+open = true
+
+
+[Window.Simulation Mode.Plotting]
+open = false
+
+
+[Window.Simulation Mode.Viewport]
+open = true
+
+
+[Window.Simulation Mode.Scene Graph]
+open = true
+
+
+[Window.Simulation Mode.Components]
+open = false
+
+
+[Window.Components]
+dockId = 4
+
+
+[Window.Simulation Mode.Log]
+open = true
+
+
+[Window.Simulation Mode.Profiler]
+open = true
+
+
+[Window.2Simulation Mode]
+width = 1228.000000
+height = 1966.000000
+
+
+[Window.4Simulation Mode]
+width = 1228.000000
+height = 968.000000
+
+
+[Window.3Simulation Mode]
+width = 1228.000000
+height = 1966.000000
+
+
+[Window.6Simulation Mode]
+width = 2587.000000
+height = 688.000000
+
+
+[Window.5Simulation Mode]
+width = 2587.000000
+height = 1273.000000
