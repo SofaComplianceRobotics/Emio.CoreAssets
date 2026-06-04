@@ -109,22 +109,23 @@ class MyQPInverseProblemSolver(Sofa.SoftRobotsInverse.QPInverseProblemSolver):
         iE = [4, 5, 6]
         iA = [0, 1, 2, 3]
 
-        q_a=[self.emio.motors[i].JointActuator.angle.value for i in range(4)]
-        dq_free = np.copy(dfree)
-        # We remove the motor displacement from the free motion vector to let the student implement this part
+        Hdq_free = np.copy(dfree)
+        # We remove the displacement from the free motion vector to let the student implement this part
         # based on the course content
-        dq_free[iA] -= q_a
+        q_a=[self.emio.motors[i].JointActuator.angle.value for i in range(4)]
+        Hdq_free[iA] -= q_a
+        # q_e - q_t is also removed, but directly from the PositionEffector component
 
         if self.assembly.done:
             try:
                 torques[iA] = self.getTorques(W=W, 
-                                               dq_free=dq_free,
-                                               iE=iE, 
-                                               iA=iA,
-                                               q_s=self.sensor.position.value[0][0:3],
-                                               q_t=self.target.position.value[0][0:3],
-                                               q_e=self.effector.position.value[0][0:3],
-                                               q_a=q_a)
+                                              Hdq_free=Hdq_free,
+                                              iE=iE, 
+                                              iA=iA,
+                                              q_s=self.sensor.position.value[0][0:3],
+                                              q_t=self.target.position.value[0][0:3],
+                                              q_e=self.effector.position.value[0][0:3],
+                                              q_a=q_a)
             except:
                 torques[iA] = np.copy(self.lastTorques)
                 return True
