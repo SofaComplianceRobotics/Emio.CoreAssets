@@ -1,35 +1,37 @@
 :::: collapse Emio
 ## Emio
 
-Emio is a parallel deformable robot developed by [Compliance Robotics](https://compliance-robotics.com/). It features a structure composed of four servo motor-actuated deformable 
-legs connected together. The robot includes various sets of legs and connectors, conveniently stored in a drawer,
-as well as a depth camera. 
-
-|                                      ![](assets/data/images/emio-drawer-camera.png)                                      |                                           ![](assets/data/images/emio-motors.png)                                            | 
-|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------:| 
-| **(1) The drawer in which you will find Emio's accessories. (2) The depth camera that can be oriented up or down.** | **The four motors with their corresponding identification number (n°0, n°1, n°2, n°3), which we'll use in the following labs.** |
+Emio is a parallel deformable robot developed by [Compliance Robotics](https://compliance-robotics.com/). It features a structure composed of four servo motor-actuated deformable legs connected together. 
+The robot includes a depth camera and **accessories** stored in its base:
+- Various sets of legs and connectors of different shapes and colors
+- Four blue elevators (to level up the platform)  
+- A soft gripper
+- A tray and a cube (to set up a pick & place task)
+- Green markers (for camera detection) 
 
 | ![](assets/data/images/accessories.jpg){width="75%"} | 
 |:----------------------------------------------------:|
 |                   **Accessories**                    |
 
-
-As depicted in the images above, the robot features two distinct configurations. In the first, or _extended_
+As shown in the images below, the robot features two distinct configurations. In the first, or _**extended**_
 configuration, Emio's legs point downward, enabling it to perform pick-and-place tasks. 
-The second configuration is _compact_, with the legs pointing upward, making it easier to interact with the robot.
+The second configuration is _**compact**_, with the legs pointing upward, making it easier to interact with the robot.
 
-Emio comes with a software to pilot and program the robot. You will find a USB cable in the drawer to connect the robot 
-to your computer. The robot also has a power supply and a switch. 
+|                                      ![](assets/data/images/emio-drawer-camera.png)                                      |                                           ![](assets/data/images/emio-motors.png)                                            | 
+|:-------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------:| 
+| **(1) The base of the robot in which you will find Emio's accessories. (2) The depth camera that can be oriented up or down.** | **The four motors with their corresponding identification number (n°0, n°1, n°2, n°3), which we'll use in the following labs.** |
+
+Emio comes with a software to pilot and program the robot. You will find a **USB cable** in the base to connect the robot 
+to your computer. The robot also has a **power supply** and a **switch**. 
 
 |          ![](assets/data/images/emio-connections.png){width="50%"}           | 
 |:----------------------------------------------------------------------------:| 
 | **(1) USB connection. (2) Power connection. (3) Switch to power the robot.** | 
 
-
-Each motor is equipped with a drum and a cap for connecting a leg. 
-You can take a leg from the drawer and attach it to a motor. 
+Each motor is equipped with a **_drum_** and a **_cap_** for connecting a leg. 
+You can take a leg from the base and attach it to a motor. 
 Simply rotate the cap until you can set the leg into the desired orientation (as shown in the images). 
-The zero position of the motor is indicated by the orange marker pointing upward.
+The **zero position** of the motor is indicated by the orange marker pointing upward.
 
 |            ![](assets/data/images/motor-cap1.png)             |        ![](assets/data/images/motor-cap2.png)        |              ![](assets/data/images/motor-cap3.png)               |         ![](assets/data/images/motor-cap4.png)         | 
 |:-------------------------------------------------------------:|:----------------------------------------------------:|:-----------------------------------------------------------------:|:------------------------------------------------------:|
