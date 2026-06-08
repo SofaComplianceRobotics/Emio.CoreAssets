@@ -17,7 +17,7 @@ On the GUI, click the *Play* button (center top) to start the simulation.
 |:------------------------------------------------------------------------:|
 |                 **Play / Pause, Step, and Reload buttons**                        |
 
-Once you're ready, select the *Live Control* workbench and toggle the *Simulation / Robot* button, which is above the *Play* button, to connect and send 
+Once you're ready, check that you are in the *Live Control* workbench and toggle the *Simulation / Robot* button, which is above the *Play* button, to connect and send 
 the command to the robot.
 
 **3. Pilot the robot:**
