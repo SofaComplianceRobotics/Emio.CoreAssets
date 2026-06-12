@@ -1,0 +1,97 @@
+[Window.Program]
+programDirPath = /home/eulalie/Softs/SOFA/projects/EmioLabs/assets/labs/sandbox
+programFilename = mypickandplace.crprog
+open = true
+dockId = 6
+
+
+[Window.Input/Output]
+open = true
+dockId = 3
+
+
+[Window.My Robot]
+open = true
+dockId = 4
+
+
+[Window.Move]
+open = true
+dockId = 3
+
+
+[Window.Plotting]
+open = true
+dockId = 6
+
+
+[Window.Viewport]
+open = true
+dockId = 5
+cameraButtonsCollapsed = false
+orientationGizmoEnabled = true
+
+
+[Window.Scene Graph]
+open = true
+dockId = 3
+
+
+[Window.Components]
+open = true
+dockId = 4
+
+
+[Window.Log]
+open = true
+dockId = 6
+
+
+[Window.Profiler]
+open = true
+dockId = 6
+
+
+[Workbench]
+type = 4
+
+
+[Window.Live Control.Input/Output]
+open = false
+
+
+[Window.Live Control.Program]
+open = false
+
+
+[Window.Live Control.My Robot]
+open = true
+
+
+[Window.Live Control.Move]
+open = true
+
+
+[Window.Live Control.Plotting]
+open = false
+
+
+[Window.Live Control.Viewport]
+open = true
+
+
+[Window.Live Control.Scene Graph]
+open = false
+
+
+[Window.Live Control.Components]
+open = false
+
+
+[Window.Live Control.Log]
+open = false
+
+
+[Window.Live Control.Profiler]
+open = false
+

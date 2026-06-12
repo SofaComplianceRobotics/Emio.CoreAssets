@@ -37,7 +37,9 @@ requires bringing these values back through a recurrence from the end of the rod
 
 ## Parameters
 
-[Young's modulus](https://en.wikipedia.org/wiki/Young%27s_modulus) (unit of pressure Pa), also called the modulus of elasticity, is a mechanical property of solid materials that 
+**Geometric parameters**: the width and thickness of the rod are parameters of the simulation (in mm). They directly influence the deformation of the rod.
+
+[Young's modulus](https://en.wikipedia.org/wiki/Young%27s_modulus) (unit of pressure, kPa in the simulation), also called the modulus of elasticity, is a mechanical property of solid materials that 
 quantifies their tensile or compressive stiffness when subjected to lengthwise force. It represents the modulus of 
 elasticity for tension or axial compression. Young's modulus is defined as the ratio of the applied stress (force per unit area) 
 to the resulting axial strain (displacement or deformation) within the material's linear elastic region.

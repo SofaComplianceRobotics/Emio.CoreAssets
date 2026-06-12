@@ -4,7 +4,13 @@ from emioapi.emiomotors import EmioMotors
 from emioapi import EmioAPI
 import threading
 import time
-from splib3.interface import serialport
+
+# When reloading the scene in SOFA, the modules are first unloaded and then reloaded. 
+# This allows to update the python code without restarting the entire application.
+# However, cv2 causes issues when being reloaded, so we exclude it from the process.
+import SofaRuntime
+if not "cv2" in SofaRuntime.__SofaPythonEnvironment_modulesExcludedFromReload:
+    SofaRuntime.__SofaPythonEnvironment_modulesExcludedFromReload.append("cv2")
     
 
 def connectRobot(emiomotors: EmioMotors, stopevent: threading.Event):
@@ -50,6 +56,7 @@ class MotorController(Sofa.Core.Controller):
     
     def __init__(self, jointActuators, *args, **kwargs):
         Sofa.Core.Controller.__init__(self, *args, **kwargs)
+
         self.name = "MotorController"
         self.jointActuators = jointActuators
         self.emiomotors = EmioMotors()
