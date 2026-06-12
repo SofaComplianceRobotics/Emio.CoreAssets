@@ -12,14 +12,14 @@ from numpy import linalg as la
 from math import pi
 
 
-def getTorques(W, dq_free, iE, iA, q_s, q_t, q_e, q_a):
+def getTorques(W, Hdq_free, iE, iA, q_s, q_t, q_e, q_a):
     """
 
     Args:
         W: compliance matrix (size of 7 by 7)
-        dq_free: free motion vector (size of 7)
-        iE: indices of the effector in the system (W and dq_free)
-        iA: indices of the actuators in the system (W and dq_free)
+        Hdq_free: free motion vector (size of 7)
+        iE: indices of the effector in the system (W and Hdq_free)
+        iA: indices of the actuators in the system (W and Hdq_free)
         q_s: position (x,y,z) of the sensor (real marker)
         q_t: position (x,y,z) of the target
         q_e: position (x,y,z) of the effector in the simulation (simulation marker)
@@ -39,14 +39,15 @@ def getTorques(W, dq_free, iE, iA, q_s, q_t, q_e, q_a):
     # Note that:
     #      1. You can access a block Wii of the matrix W by doing:
     #         Wii = W[indices, :][:, indices]
-    #      2. W and dfree are numpy matrices, so the you can use the @ operator
-    #         for the matrices product, ex: W @ dfree
+    #      2. W and Hdq_free are numpy matrices, so the you can use the @ operator
+    #         for the matrices product, ex: W @ Hdq_free
     #      3. W.T gives you the transpose of the matrix W
     # todo: Step1, build the inverse system matrices
     P = None
     q = None
 
     # todo: Step2, add a constraint to block the motor n°0 in displacement (angle = -0.5)
+    # Note that: A and b should be a numpy arrays
     A = None
     b = None
 
@@ -60,6 +61,7 @@ def getTorques(W, dq_free, iE, iA, q_s, q_t, q_e, q_a):
 
     # Add a constraint on the motors' displacement
     # todo: Step4, add a constraint to prevent the end effector for going downward after the setup animation
+    # Note that: G, h, lb, and ub should be numpy arrays
     G = None
     h = None
     lb = None

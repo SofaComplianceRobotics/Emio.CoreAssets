@@ -32,14 +32,16 @@ class MyQPInverseProblemSolver(Sofa.SoftRobotsInverse.QPInverseProblemSolver):
 
         iE = [4, 5, 6]
         iA = [0, 1, 2, 3]
-        dq_free = np.copy(dfree)
+        Hdq_free = np.copy(dfree)
 
         if self.assembly.done:
             try:
-                torques[iA] = myQP.getTorques(W, dq_free, iE, iA,
-                                              self.sensor.position.value[0][0:3],
-                                              self.target.position.value[0][0:3],
-                                              self.effector.position.value[0][0:3])
+                torques[iA] = myQP.getTorques(W=W, 
+                                              Hdq_free=Hdq_free, 
+                                              iE=iE, iA=iA,
+                                              q_s=self.sensor.position.value[0][0:3],
+                                              q_t=self.target.position.value[0][0:3],
+                                              q_e=self.effector.position.value[0][0:3])
             except Exception as e:
                 Sofa.msg_error(os.path.basename(__file__), str(e))
 

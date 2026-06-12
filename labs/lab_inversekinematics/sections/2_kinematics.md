@@ -76,7 +76,7 @@ $$
 $$
 \textcolor{darkgreen}{\mathbf{y}_{e}} =
 \underbrace{
-\boldsymbol{\delta}_{\mathrm{e}}(\mathbf{q}^{i-1}) + \mathbf{H}_{\mathrm{e}} d\mathbf{q}^{\mathrm{free}}}_{\boldsymbol{\delta}_{\mathrm{a}}^{\mathrm{free}}} +
+\boldsymbol{\delta}_{\mathrm{e}}(\mathbf{q}^{i-1}) + \mathbf{H}_{\mathrm{e}} d\mathbf{q}^{\mathrm{free}}}_{\boldsymbol{\delta}_{\mathrm{e}}^{\mathrm{free}}} +
 \underbrace{\mathbf{H}_{\mathrm{e}}\mathbf{A}^{-1}\mathbf{H}_{\mathrm{a}}^T}_{\mathbf{W}_{\mathrm{ea}}} \boldsymbol{\lambda}_{\mathrm{a}}
 $$
 
