@@ -24,10 +24,6 @@ class LabGUI(Sofa.Core.Controller):
         self.leg = leg
         self.markers = markers
 
-        # Simulation State Tab
-        MyGui.SimulationState.addData("Motor torque (N.mm)", "M0", motor.JointConstraint.force)
-        MyGui.SimulationState.addData("Motor angle (rad)", "M0", motor.JointConstraint.displacement)
-
         # Move Tab
         MyGui.MoveWindow.setActuators([motor.JointConstraint.value], [0], "displacement")
         MyGui.MoveWindow.setActuatorsLimits(-pi, pi)
