@@ -15,13 +15,13 @@ On the GUI, click the *Play* button (center top) to start the simulation.
 
 |![](assets/data/images/play-pause-buttons.png){width="30%" class="center"}|
 |:------------------------------------------------------------------------:|
-|                 **Play / Pause and Step buttons**                        |
+|                 **Play / Pause, Step, and Reload buttons**                        |
 
-Once you're ready, toggle the *Simulation* button, which is above the *Play* button, to send 
+Once you're ready, check that you are in the *Live Control* workbench and toggle the *Simulation / Robot* button, which is above the *Play* button, to connect and send 
 the command to the robot.
 
 **3. Pilot the robot:**
-Navigate to the *Move* tab, and use the sliders to move the effector's target.
+Navigate to the *Move* window, and use the sliders to move the effector's target.
 
 #runsofa-button(file="assets/labs/introduction/introduction.py", pyargs=["-ln", "blueleg", "-lm", "beam", "-lp", "counterclockwisedown", "clockwisedown", "counterclockwisedown", "clockwisedown", "-cn", "bluepart"])
 
