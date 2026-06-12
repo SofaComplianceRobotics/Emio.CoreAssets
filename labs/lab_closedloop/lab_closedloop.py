@@ -33,11 +33,6 @@ class MyQPInverseProblemSolver(Sofa.SoftRobotsInverse.QPInverseProblemSolver):
         iE = [4, 5, 6]
         iA = [0, 1, 2, 3]
         Hdq_free = np.copy(dfree)
-        # We remove the displacement from the free motion vector to let the student implement this part
-        # based on the course content
-        q_e=self.effector.position.value[0][0:3]
-        q_t=self.target.position.value[0][0:3]
-        Hdq_free[iE] -= (q_e - q_t)
 
         if self.assembly.done:
             try:
