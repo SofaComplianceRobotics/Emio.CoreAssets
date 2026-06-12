@@ -40,8 +40,8 @@ class MyQPInverseProblemSolver(Sofa.SoftRobotsInverse.QPInverseProblemSolver):
                                               Hdq_free=Hdq_free, 
                                               iE=iE, iA=iA,
                                               q_s=self.sensor.position.value[0][0:3],
-                                              q_t=q_t,
-                                              q_e=q_e)
+                                              q_t=self.target.position.value[0][0:3],
+                                              q_e=self.effector.position.value[0][0:3])
             except Exception as e:
                 Sofa.msg_error(os.path.basename(__file__), str(e))
 
