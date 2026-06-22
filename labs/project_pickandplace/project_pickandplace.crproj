@@ -1,0 +1,73 @@
+[Window.Program]
+programFilename = mypickandplace.crprog
+dockId = 6
+
+
+[Window.Viewport]
+cameraButtonsCollapsed = false
+orientationGizmoEnabled = true
+dockId = 5
+
+
+[Window.Live Control.Input/Output]
+open = false
+
+
+[Window.Live Control.Program]
+open = true
+
+
+[Window.Live Control.My Robot]
+open = true
+
+
+[Window.My Robot]
+dockId = 4
+
+
+[Window.Live Control.Move]
+open = true
+
+
+[Window.Move]
+dockId = 3
+
+
+[Window.Live Control.Plotting]
+open = false
+
+
+[Window.Live Control.Viewport]
+open = true
+
+
+[Window.Live Control.Scene Graph]
+open = false
+
+
+[Window.Scene Graph]
+dockId = 3
+
+
+[Window.Live Control.Components]
+open = false
+
+
+[Window.Live Control.Log]
+open = false
+
+
+[Window.Log]
+dockId = 6
+
+
+[Window.Live Control.Profiler]
+open = false
+
+
+[Window.Profiler]
+dockId = 6
+
+
+[Workbench]
+type = 4
