@@ -47,7 +47,7 @@ As a couple design parameters, we propose you to modify the ring's thickness and
 - What is the optimal value of ring thickness ? 
 - How does the ring's flexibility alter the robot workspace?
 
-#open-button(file="assets/data/meshes/labs/lab_design/centerparts/my-gripper-cad.FCStd")
+#open-button(file="assets/labs/lab_design/data/meshes/centerparts/my-gripper-cad.FCStd")
 
 #runsofa-button(file="assets/labs/lab_design/lab_design.py", pyargs=["deformable"])
 ::::
