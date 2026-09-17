@@ -154,11 +154,11 @@ class CenterPart(Sofa.Prefab):
         part.addObject("MeshTopology", src=part.MeshVTKLoader.linkpath)
         part.addObject('MechanicalObject')
         mass = part.addChild("ComputeMass")
-        mass.addObject('VolumeFromTetrahedrons',
+        mass.addObject('VolumeFromVolumetricElements',
                        position=part.MeshVTKLoader.position.value,
                        tetras=part.MeshVTKLoader.tetras.value)
-        mass.VolumeFromTetrahedrons.init()
-        part.addObject('UniformMass', totalMass=mass.VolumeFromTetrahedrons.volume.value * self.massDensity.value)
+        mass.VolumeFromVolumetricElements.init()
+        part.addObject('UniformMass', totalMass=mass.VolumeFromVolumetricElements.volume.value * self.massDensity.value)
         part.addObject("TetrahedronFEMForceField", youngModulus=self.youngModulus.value, poissonRatio=self.poissonRatio.value)
         self.part = part
 
