@@ -37,7 +37,7 @@ jobs:
           urlSuffix="SOFA-Robotics-main-unstable_Linux.zip"
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             urlSuffix="SOFA-Robotics-main-unstable_MacOS.zip"
-          else if [[ "$RUNNER_OS" == "Windows" ]]; then
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
             urlSuffix="SOFA-Robotics-main-unstable_Win64.zip"
           fi
           url="$urlPrefix/$urlSuffix"
