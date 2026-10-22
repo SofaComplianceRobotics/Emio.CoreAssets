@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p "${{ runner.temp }}/sofa_tmp/zip" "${{ runner.temp }}/sofa_tmp/binaries" "$SOFA_ROOT"
-          urlPrefix="https://github.com/SofaComplianceRobotics/SofaRobotics.CI/releases/download/release-main/"
+          urlPrefix="https://github.com/SofaComplianceRobotics/SofaRobotics.CI/releases/download/release-main"
           urlSuffix="SOFA-Robotics-main-unstable_Linux.zip"
           if [[ "$RUNNER_OS" == "macOS" ]]; then
             urlSuffix="SOFA-Robotics-main-unstable_MacOS.zip"
@@ -44,8 +44,8 @@ jobs:
           echo "Getting SOFA from $url"
           curl --http1.0 --output "${{ runner.temp }}/sofa_tmp/${{ runner.os }}.zip" -L $url
           unzip -qq "${{ runner.temp }}"/sofa_tmp/${{ runner.os }}.zip -d "${{ runner.temp }}/sofa_tmp/zip"
-          unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
-          $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA*/* "$SOFA_ROOT"
+          unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA-*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
+          $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA-*/* "$SOFA_ROOT"
 
       - name: Additional Install 
         shell: bash
