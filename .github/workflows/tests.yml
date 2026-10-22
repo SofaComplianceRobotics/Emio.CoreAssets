@@ -42,9 +42,8 @@ jobs:
           fi
           url="$urlPrefix/$urlSuffix"
           echo "Getting SOFA from $url"
-          curl --http1.0 --output "${{ runner.temp }}/sofa_tmp/${{ runner.os }}.zip" -L $url
-          unzip -qq "${{ runner.temp }}"/sofa_tmp/${{ runner.os }}.zip -d "${{ runner.temp }}/sofa_tmp/zip"
-          unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}/SOFA-*.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
+          curl --http1.0 --output "${{ runner.temp }}/sofa_tmp/zip/${{ runner.os }}.zip" -L $url
+          unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
           $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA-*/* "$SOFA_ROOT"
 
       - name: Additional Install 
