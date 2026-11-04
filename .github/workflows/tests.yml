@@ -73,11 +73,13 @@ jobs:
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
             WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
+            echo "PATH=$PATH:$SOFA_ROOT/bin/python" | tee -a $GITHUB_ENV
             echo "$(cd $WIN_SOFA_ROOT/bin && pwd -W)" >> $GITHUB_PATH
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             echo "LD_LIBRARY_PATH=$WIN_SOFA_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
           else
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
+            echo "PATH=$PATH:$SOFA_ROOT/bin/python/bin/python" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
             if [[ "$RUNNER_OS" == "macOS" ]]; then
               echo "DYLD_FALLBACK_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
