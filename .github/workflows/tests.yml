@@ -72,34 +72,33 @@ jobs:
       - name: Set env vars
         shell: bash
         env:
-          SOFTROBOTS_ROOT: $SOFA_ROOT/plugins/SoftRobots
-          SOFTROBOTSINVERSE_ROOT: $SOFA_ROOT/plugins/SoftRobots.Inverse
-          SOFAGLFW_ROOT: $SOFA_ROOT/plugins/SofaGLFW
+          SOFTROBOTS_ROOT: ${{ env.SOFA_ROOT }}/plugins/SoftRobots
+          SOFTROBOTSINVERSE_ROOT: ${{ env.SOFA_ROOT }}/plugins/SoftRobots.Inverse
+          SOFAGLFW_ROOT: ${{ env.SOFA_ROOT }}/plugins/SofaGLFW
         run: |
           echo "PATH=$PATH:$PYTHON_BIN_DIR" | tee -a $GITHUB_ENV
           if [[ "$RUNNER_OS" == "Windows" ]]; then
-            export WIN_SOFA_ROOT=$( echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
-            WIN_WORKSPACE=$( echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
-            echo "$(cd $WIN_SOFA_ROOT/bin && pwd -W)" | tee -a $GITHUB_PATH
-            echo "$(cd $WIN_SOFA_ROOT/lib && pwd -W)" | tee -a $GITHUB_PATH
+            WIN_SOFA_ROOT=$(echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
+            WIN_WORKSPACE=$(echo "/$GITHUB_WORKSPACE" | sed -e 's/\\/\//g' -e 's/://' )
+            echo "$(cd "$WIN_SOFA_ROOT/bin" && pwd -W)" | tee -a $GITHUB_PATH
+            echo "$(cd "$WIN_SOFA_ROOT/lib" && pwd -W)" | tee -a $GITHUB_PATH
             echo "PYTHONPATH=$WIN_SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$WIN_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
           else
             echo "PATH=$PATH:$SOFA_ROOT/bin" | tee -a $GITHUB_ENV
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
+
+            # Construct var with libs from plugins
+            LIB_PATH="$SOFA_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+            for libdir in "$SOFA_ROOT"/plugins/*/lib; do
+              if [[ -d "$libdir" ]]; then
+                LIB_PATH="$libdir:$LIB_PATH"
+              fi
+            done
+            
             if [[ "$RUNNER_OS" == "macOS" ]]; then
-              echo "DYLD_FALLBACK_LIBRARY_PATH=$SOFA_ROOT/lib:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
-              for libdir in "$SOFA_ROOT"/plugins/*/lib; do
-                  if [[ -d "$libdir" ]]; then
-                      echo "DYLD_FALLBACK_LIBRARY_PATH=$libdir:$DYLD_FALLBACK_LIBRARY_PATH" | tee -a $GITHUB_ENV
-                  fi
-              done
+              echo "DYLD_FALLBACK_LIBRARY_PATH=$LIB_PATH${DYLD_FALLBACK_LIBRARY_PATH:+:$DYLD_FALLBACK_LIBRARY_PATH}" | tee -a "$GITHUB_ENV"
             else
-              echo "LD_LIBRARY_PATH=$SOFA_ROOT/lib:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
-              for libdir in "$SOFA_ROOT"/plugins/*/lib; do
-                  if [[ -d "$libdir" ]]; then
-                      echo "LD_LIBRARY_PATH=$libdir:$LD_LIBRARY_PATH" | tee -a $GITHUB_ENV
-                  fi
-              done
+              echo "LD_LIBRARY_PATH=$LIB_PATH" | tee -a "$GITHUB_ENV"
             fi
           fi
 
