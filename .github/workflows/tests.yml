@@ -105,6 +105,17 @@ jobs:
       - name: Run tests
         shell: bash
         run: |
+          ### DEBUG
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            otool -L $PYTHON_BIN_DIR/python3.14
+            otool -L $SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages/Sofa/Helper.cpython-314-darwin.so
+            echo "otool end"
+            DYLD_PRINT_LIBRARIES=1 \
+            DYLD_FALLBACK_LIBRARY_PATH="$SOFA_ROOT/bin/python/lib" \
+            $SOFA_ROOT/bin/python/bin/python3.14 -c "import Sofa"
+          fi
+          ### DEBUGEND
+          
           cd  ${GITHUB_WORKSPACE}
           $PYTHON_BIN_DIR/python -m pytest tests/
 
