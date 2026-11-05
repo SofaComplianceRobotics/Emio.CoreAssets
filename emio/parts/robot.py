@@ -48,7 +48,7 @@ class EmioGUI(Sofa.Core.Controller):
         - Plotting: Visualizes torque and angle data for each motor.
     """
 
-    def __init__(self, emio, plotTorquesAngles=True):
+    def __init__(self, emio, plotTorquesAngles=False):
         import Sofa.ImGui as MyGui
         Sofa.Core.Controller.__init__(self)
         self.name = "EmioGUI"
