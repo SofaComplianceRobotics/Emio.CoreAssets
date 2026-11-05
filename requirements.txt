@@ -4,7 +4,7 @@ pyserial
 gmsh
 svg.path
 dynamixel-sdk
-qpsolvers[clarabel,proxqp]
+qpsolvers[clarabel]
 opencv-python
 --find-links https://github.com/cansik/pyrealsense2-macosx/releases; 
 pyrealsense2; platform_system == "Windows" or platform_system == "Linux"
