@@ -1,6 +1,3 @@
-import os
-import os.path
-
 
 def createScene(rootnode):
     from emio.utils.header import addHeader, addSolvers
@@ -9,6 +6,7 @@ def createScene(rootnode):
     from emio import Emio, getParserArgs
     import Sofa
     import Sofa.ImGui as MyGui
+    import os
 
     args = getParserArgs()
 
@@ -49,7 +47,7 @@ def createScene(rootnode):
 
     # Target
     effectorTarget = modelling.addChild('Target')
-    effectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+    effectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
     effectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     effectorTarget.addObject('MechanicalObject', template='Rigid3',
                              position=[0, -150, 0, 0, 0, 0, 1],

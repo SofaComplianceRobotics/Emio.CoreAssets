@@ -180,7 +180,7 @@ def createScene(rootnode):
 
     # Target
     QPEffectorTarget = modelling.addChild('Target')
-    QPEffectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+    QPEffectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
     QPEffectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     QPEffectorTargetMo = QPEffectorTarget.addObject('MechanicalObject', template='Rigid3',
                                                     position=[0, -140, 00, 0, 0, 0, 1],
@@ -188,7 +188,7 @@ def createScene(rootnode):
 
     # User Target
     UserEffectorTarget = modelling.addChild('UserTarget')
-    UserEffectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+    UserEffectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
     UserEffectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     UserEffectorTarget.addObject('MechanicalObject', template='Rigid3',
                                               position=[0, -140, 00, 0, 0, 0, 1],

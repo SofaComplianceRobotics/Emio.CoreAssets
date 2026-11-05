@@ -23,6 +23,8 @@ import emio.parameters as parameters
 
 import Sofa.Core
 import Sofa.SofaConstraintSolver
+import Sofa.SoftRobots
+import Sofa.SoftRobotsInverse
 
 
 class EmioGUI(Sofa.Core.Controller):
@@ -46,46 +48,53 @@ class EmioGUI(Sofa.Core.Controller):
         - Plotting: Visualizes torque and angle data for each motor.
     """
 
-    def __init__(self, emio, plotTorquesAngles=False):
+    def __init__(self, emio, plotTorquesAngles=True):
         import Sofa.ImGui as MyGui
         Sofa.Core.Controller.__init__(self)
         self.name = "EmioGUI"
         root = emio.getRoot()
         self.guiActuators = [0, 0, 0, 0]
 
-        MyGui.setIPController(root.Modelling.Target, emio.effector, root.ConstraintSolver)
+        MyGui.setInverseProblemSolver(solver=root.ConstraintSolver)
+        MyGui.addTCP(label="TCP", 
+                     constraint=emio.effector.EffectorCoord, 
+                     min=-40, max=40,
+                     group="", help="",
+                     minRotation=emio.motors[0].JointActuator.minAngle.value, 
+                     maxRotation=emio.motors[0].JointActuator.maxAngle.value)
 
-        # Simulation State Tab
-        MyGui.SimulationState.addData("TCP", "Frame", emio.effector.getMechanicalState().position)
-        for i in range(emio.nbLegs.value):
-            MyGui.SimulationState.addData("Torques", "M" + str(i), emio.motors[i].JointActuator.effort)
-        for i in range(emio.nbLegs.value):
-            MyGui.SimulationState.addData("Angles", "M" + str(i), emio.motors[i].JointActuator.angle)
-
+        for i in range(len(emio.motors)):
+            MyGui.addActuator(label="M"+str(i), 
+                              constraint=emio.motors[i].JointActuator, 
+                              min=emio.motors[i].JointActuator.minAngle.value, 
+                              max=emio.motors[i].JointActuator.maxAngle.value)
+            
         # My Robot Tab
-        MyGui.MyRobotWindow.addSetting("Max TCP speed (mm/s)", emio.effector.EffectorCoord.maxSpeed, 0, 2000)
+        MyGui.MyRobotWindow.Settings.addData(label="Max TCP speed (mm/s)", 
+                                             data=emio.effector.EffectorCoord.maxSpeed, 
+                                             min=0, 
+                                             max=2000)
         for i, leg in enumerate(emio.legs):
             if (leg is not None):
                 group = "M" + str(i)
-                MyGui.MyRobotWindow.addSettingInGroup("Min angle (rad)", emio.motors[i].JointActuator.minAngle, -pi, 0, group)
-                MyGui.MyRobotWindow.addSettingInGroup("Max angle (rad)", emio.motors[i].JointActuator.maxAngle, 0, pi, group)
-
-        # Move Tab
-        MyGui.MoveWindow.setTCPLimits(-40, 40,
-                                      emio.motors[0].JointActuator.minAngle.value,
-                                      emio.motors[0].JointActuator.maxAngle.value)
-        MyGui.MoveWindow.setActuatorsDescription("Motors Position (rad)")
-        MyGui.MoveWindow.setActuators([emio.motors[i].JointActuator.angle for i in range(len(emio.motors))],
-                                      [0, 1, 2, 3], "displacement")
-        for i in range(len(emio.motors)):
-            MyGui.MoveWindow.setActuatorLimits(i, emio.motors[i].JointActuator.minAngle.value,
-                                               emio.motors[i].JointActuator.maxAngle.value)
+                MyGui.MyRobotWindow.Settings.addData(label="Min angle (rad)", 
+                                                     data=emio.motors[i].JointActuator.minAngle, 
+                                                     min=-pi, 
+                                                     max=0, 
+                                                     group=group)
+                MyGui.MyRobotWindow.Settings.addData(label="Max angle (rad)", 
+                                                     data=emio.motors[i].JointActuator.maxAngle, 
+                                                     min=0, 
+                                                     max=pi, 
+                                                     group=group)
 
         # Plotting Tab
         if plotTorquesAngles:
             for i in range(len(emio.motors)):
-                MyGui.PlottingWindow.addData(" torque M" + str(i) + " 1e-3Nmm ", emio.motors[i].JointActuator.effort)
-                MyGui.PlottingWindow.addData(" angle M" + str(i) + " (rad) ", emio.motors[i].JointActuator.angle)
+                MyGui.PlottingWindow.addData(label=" torque M" + str(i) + " 1e-3Nmm ", 
+                                             data=emio.motors[i].JointActuator.effort)
+                MyGui.PlottingWindow.addData(label=" angle M" + str(i) + " (rad) ", 
+                                             data=emio.motors[i].JointActuator.angle)
 
 
 class Emio(Sofa.Prefab):
@@ -332,18 +341,12 @@ class Emio(Sofa.Prefab):
         if positionWeight > 0.:
             self.effector.addObject('PositionEffector' if not barycentric else "BarycentricCenterEffector",
                                     template='Rigid3', indices=[0],
-                                    useDirections=[1, 1, 1, 0, 0, 0],
-                                    weight=positionWeight,
+                                    useDirections=[1, 1, 1, 1, 1, 1] if orientationWeight > 0. else [1, 1, 1, 0, 0, 0],
+                                    weight=[positionWeight]*3 + [orientationWeight]*3,
                                     maxSpeed=1000,
                                     limitShiftToTarget=True,
                                     maxShiftToTarget=20,  # mm
                                     effectorGoal=targetMechaLink, name="EffectorCoord")
-        if orientationWeight > 0.:
-            self.effector.addObject('PositionEffector' if not barycentric else "BarycentricCenterEffector",
-                                    template='Rigid3', indices=[0],
-                                    useDirections=[0, 0, 0, 1, 1, 1],
-                                    weight=orientationWeight,
-                                    effectorGoal=targetMechaLink, name="EffectorOrientation")
 
         if self._centerPartClass == Gripper:
             self.centerpart.addGripperEffector()
@@ -475,7 +478,7 @@ def createScene(rootnode):
     emio.effector.addObject("RigidMapping", index=0)
 
     effectorTarget = modelling.addChild('Target')
-    effectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+    effectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
     effectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     effectorTarget.addObject('MechanicalObject', template='Rigid3',
                              position=[0, -130, 0, 0, 0, 0, 1] if extended else [0, 130, 0, 0, 0, 0, 1],

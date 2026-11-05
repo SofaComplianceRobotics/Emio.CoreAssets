@@ -28,12 +28,12 @@ def connectRobot(emiomotors: EmioMotors, stopevent: threading.Event):
                 index = emiomotors.findAndOpen(device_name=MyGui.MyRobotWindow.getSelectedPort())
                 if index == -1:
                     Sofa.msg_error("MotorController", "Could not find or connect Emio robots. Please check the connection.")
-                    MyGui.MyRobotWindow.updateAvailablePorts()
+                    MyGui.MyRobotWindow.Connection.updateAvailablePorts()
                 MyGui.setRobotConnectionToggle(index >= 0 ) # GUI toggle with the current connection status
             except Exception as e:
                 Sofa.msg_error("MotorController", str(e))
                 MyGui.setRobotConnectionToggle(False)
-                MyGui.MyRobotWindow.updateAvailablePorts()
+                MyGui.MyRobotWindow.Connection.updateAvailablePorts()
                 emiomotors.close()
         elif not MyGui.getRobotConnectionToggle() and emioConnected:
             emiomotors.close()
@@ -60,10 +60,10 @@ class MotorController(Sofa.Core.Controller):
         self.name = "MotorController"
         self.jointActuators = jointActuators
         self.emiomotors = EmioMotors()
-        MyGui.MyRobotWindow.listAvailablePortsCallback(self, "listAvailablePortsCallback")
+        MyGui.MyRobotWindow.Connection.registerAvailablePortsCallback(self, "listAvailablePortsCallback")
 
         # Connection thread
-        MyGui.MyRobotWindow.updateAvailablePorts() # Initial population of available ports
+        MyGui.MyRobotWindow.Connection.updateAvailablePorts() # Initial population of available ports
         if isConnectionThreadAlive(): # stop the thread before continuing
             self.stopConnectionThread()
 

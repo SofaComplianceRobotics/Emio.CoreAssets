@@ -112,7 +112,7 @@ class MyQPInverseProblemSolver(Sofa.SoftRobotsInverse.QPInverseProblemSolver):
         Hdq_free = np.copy(dfree)
         # We remove the displacement from the free motion vector to let the student implement this part
         # based on the course content
-        q_a=[self.emio.motors[i].JointActuator.angle.value for i in range(4)]
+        q_a=[self.emio.motors[i].JointActuator.angle.value[0] for i in range(4)]
         Hdq_free[iA] -= q_a
         # q_e - q_t is also removed, but directly from the PositionEffector component
 
@@ -170,7 +170,7 @@ def createScene(rootnode):
     if not exercise1:
         # Target
         effectorTarget = modelling.addChild('Target')
-        effectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+        effectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
         effectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
         effectorTarget.addObject('MechanicalObject', template='Rigid3',
                                  position=[0, -130 if exercise3 else -170, 0, 0, 0, 0, 1],
