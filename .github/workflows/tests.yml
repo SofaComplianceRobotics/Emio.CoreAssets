@@ -64,6 +64,7 @@ jobs:
               echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python" | tee -a $GITHUB_ENV
             else
               echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python/bin" | tee -a $GITHUB_ENV
+            fi
 
             $PYTHON_BIN_DIR/python -m pip install --only-binary :all: -r requirements.txt
             $PYTHON_BIN_DIR/python -m pip install pytest
@@ -96,7 +97,7 @@ jobs:
         shell: bash
         run: |
           cd  ${GITHUB_WORKSPACE}
-          $SOFA_ROOT/bin/python/bin/python -m pytest tests/
+          $PYTHON_BIN_DIR/python -m pytest tests/
 
           
 
