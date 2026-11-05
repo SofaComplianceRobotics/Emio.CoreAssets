@@ -46,6 +46,12 @@ jobs:
           unzip -qq "${{ runner.temp }}"/sofa_tmp/zip/${{ runner.os }}.zip -d "${{ runner.temp }}/sofa_tmp/binaries"
           $SUDO mv "${{ runner.temp }}"/sofa_tmp/binaries/SOFA-*/* "$SOFA_ROOT"
 
+          if [[ "$RUNNER_OS" == "Windows" ]]; then
+              echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python" | tee -a $GITHUB_ENV
+          else
+              echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python/bin" | tee -a $GITHUB_ENV
+          fi
+
       - name: Additional Install 
         shell: bash
         run: |
@@ -60,12 +66,6 @@ jobs:
       - name: Install python dependencies
         shell: bash
         run: |
-            if [[ "$RUNNER_OS" == "Windows" ]]; then
-              echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python" | tee -a $GITHUB_ENV
-            else
-              echo "PYTHON_BIN_DIR=$SOFA_ROOT/bin/python/bin" | tee -a $GITHUB_ENV
-            fi
-
             $PYTHON_BIN_DIR/python -m pip install --only-binary :all: -r requirements.txt
             $PYTHON_BIN_DIR/python -m pip install pytest
 
