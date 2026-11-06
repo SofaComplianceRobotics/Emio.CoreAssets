@@ -76,8 +76,7 @@ jobs:
           SOFTROBOTSINVERSE_ROOT: ${{ env.SOFA_ROOT }}/plugins/SoftRobots.Inverse
           SOFAGLFW_ROOT: ${{ env.SOFA_ROOT }}/plugins/SofaGLFW
         run: |
-          echo "SOFA_PYTHON_USE_ENVIRONMENT=1"
-          echo "PYTHONPATH=$GITHUB_WORKSPACE"
+          echo "SOFA_PYTHON_USE_ENVIRONMENT=1" | tee -a $GITHUB_ENV
           echo "PATH=$PATH:$PYTHON_BIN_DIR" | tee -a $GITHUB_ENV
           if [[ "$RUNNER_OS" == "Windows" ]]; then
             WIN_SOFA_ROOT=$(echo "/$SOFA_ROOT" | sed -e 's/\\/\//g' -e 's/://' )
