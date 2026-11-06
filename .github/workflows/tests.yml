@@ -89,7 +89,7 @@ jobs:
             echo "PYTHONPATH=$SOFA_ROOT/lib/python3/site-packages:$SOFA_ROOT/plugins/SofaPython3/lib/python3/site-packages:$GITHUB_WORKSPACE:$PYTHONPATH" | tee -a $GITHUB_ENV
 
             # Construct var with libs from plugins
-            LIB_PATH="$SOFA_ROOT/bin/python/lib:$SOFA_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+            LIB_PATH="$SOFA_ROOT/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
             for libdir in "$SOFA_ROOT"/plugins/*/lib; do
               if [[ -d "$libdir" ]]; then
                 LIB_PATH="$libdir:$LIB_PATH"
