@@ -1,7 +1,3 @@
-import os
-import sys
-
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/../../")
 
 
 def createScene(rootnode):
@@ -42,7 +38,7 @@ def createScene(rootnode):
 
     # Target
     effectorTarget = modelling.addChild('Target')
-    effectorTarget.addObject('EulerImplicitSolver', firstOrder=True)
+    effectorTarget.addObject('EulerImplicitIntegrationScheme', firstOrder=True)
     effectorTarget.addObject('CGLinearSolver', iterations=50, tolerance=1e-10, threshold=1e-10)
     effectorTarget.addObject('MechanicalObject', template='Rigid3',
                              position=[0, -150, 0, 0, 0, 0, 1],
