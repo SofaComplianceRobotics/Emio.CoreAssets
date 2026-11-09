@@ -67,15 +67,15 @@ def addSolvers(node, rayleighMass=0., rayleighStiffness=0.01, firstOrder=False,
     settings = node.getRoot().Settings
     if settings.getObject("solvers") is None:
         settings.addObject('RequiredPlugin', name="solvers",
-                           pluginName=['Sofa.Component.ODESolver.Backward',
+                           pluginName=['Sofa.Component.IntegrationScheme.Backward',
                                        'Sofa.Component.LinearSolver.Direct',
                                        'Sofa.Component.Constraint.Lagrangian.Correction',
                                        'Sofa.Component.LinearSolver.Iterative'
                                        ])
 
     # Solvers
-    node.addObject('EulerImplicitSolver', firstOrder=firstOrder, rayleighStiffness=rayleighStiffness,
-                   rayleighMass=rayleighMass, printLog=False)
+    node.addObject('EulerImplicitIntegrationScheme', firstOrder=firstOrder, rayleighStiffness=rayleighStiffness,
+                   rayleighMass=rayleighMass, printLog=False, impulseBased=False)
     if multithreading:
         node.addObject('RequiredPlugin', name='SofaCUDASolvers')
         node.addObject('CudaSparseLDLSolver', name='solver', template='AsyncCompressedRowSparseMatrixMat3x3f',
